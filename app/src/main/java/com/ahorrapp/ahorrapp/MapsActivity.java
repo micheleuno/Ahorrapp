@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -31,6 +32,17 @@ public class MapsActivity extends FragmentActivity {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
+                if (googleMap != null) {
+                    // El objeto GoogleMap ha sido referenciado correctamente
+                    //ahora podemos manipular sus propiedades
+
+                    //Seteamos el tipo de mapa
+                    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+                    //Activamos la capa o layer MyLocation
+                    googleMap.setMyLocationEnabled(true);
+                }
+
                 /**
                  * If the map is still null after attempted initialisation,
                  * show an error to the user
@@ -43,7 +55,10 @@ public class MapsActivity extends FragmentActivity {
         } catch (NullPointerException exception){
             Log.e("mapApp", exception.toString());
         }
+
+
     }
+
 
 
 
@@ -54,10 +69,11 @@ public class MapsActivity extends FragmentActivity {
      */
     private void addMarker(){
 
+
         /** Make sure that the map has been initialised **/
         if(null != googleMap){
             googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(0, 0))
+                            .position(new LatLng(0,0))
                             .title("Marker")
                             .draggable(true)
             );
