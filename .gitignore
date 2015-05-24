@@ -5,3 +5,7 @@
 .DS_Store
 /build
 .idea/misc.xml
+*.xml
+.idea/compiler.xml
+Ahorrapp.iml
+*.iml
