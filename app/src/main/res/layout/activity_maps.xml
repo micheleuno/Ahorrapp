@@ -38,16 +38,15 @@
                 android:id="@+id/button"
                 android:background="@android:drawable/ic_menu_sort_by_size" />
 
-            <TextView
-                android:layout_width="291dp"
-                android:layout_height="28dp"
-                android:text="New Text"
-                android:id="@+id/textView3" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText"
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="31dp"
-                android:text="New Button"
                 android:id="@+id/buscador" />
 
         </LinearLayout>

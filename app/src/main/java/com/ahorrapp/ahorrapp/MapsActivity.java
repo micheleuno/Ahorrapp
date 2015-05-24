@@ -115,12 +115,8 @@ public class MapsActivity extends FragmentActivity {
 
             @Override
             public boolean onMarkerClick(final Marker marker) {
-                Log.e("TESTING", "on Marker click: " + marker.getTitle());
-                if (!marker.isInfoWindowShown())
-                    marker.showInfoWindow();
-                else
-                    marker.hideInfoWindow();
-
+                Intent nuevoform =new Intent(MapsActivity.this,MapsActivity.class);
+                startActivity(nuevoform);
                 return true;
             }
         });

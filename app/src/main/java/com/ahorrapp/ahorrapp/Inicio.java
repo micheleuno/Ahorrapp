@@ -2,7 +2,9 @@ package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,10 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/**
- * Created by Diego on 22-05-2015.
- */
-public class Inicio extends ActionBarActivity {
+
+public class Inicio extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,8 @@ public class Inicio extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String usuario =((EditText)findViewById(R.id.txtusuario)).getText().toString();
-                String password =((EditText)findViewById(R.id.txtpassword)).getText().toString();
-                if (usuario.equals("admin")&& password.equals("admin")){
+                String password =((EditText)findViewById(R.id.txtusuario)).getText().toString();
+                if (usuario.equals("admin") && password.equals("admin")){
 
                     Intent nuevoform =new Intent(Inicio.this,MapsActivity.class);
                     startActivity(nuevoform);
