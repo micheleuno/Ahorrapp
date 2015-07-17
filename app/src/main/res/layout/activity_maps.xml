@@ -1,6 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    >
+
+
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -35,17 +38,26 @@
 
             <Button
                 android:layout_width="37dp"
-                android:layout_height="34dp"
-                android:id="@+id/button"
+                android:layout_height="match_parent"
+                android:id="@+id/btnopciones"
                 android:background="@android:drawable/ic_menu_sort_by_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Menu"
+                android:id="@+id/textView18"
+                android:layout_weight="0.13" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/txtProducto"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_weight="1.02" />
+                android:layout_weight="0.88"
+                android:hint="Buscar..."/>
 
             <Button
                 android:layout_width="53dp"
