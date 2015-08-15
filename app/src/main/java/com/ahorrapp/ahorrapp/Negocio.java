@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class Negocio extends Activity {
     ArrayList<HashMap<String,String>> productos;
     ArrayList<HashMap<String,String>> unidades;
     ArrayList<Combobox> datos;
-    ArrayList<Lista_entrada> produc;
+    ArrayList<Lista_productos> produc;
     // Clase JSONParser
     SessionManager session;
     Spinner lista;
@@ -49,6 +50,7 @@ public class Negocio extends Activity {
     private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
+    private ProgressDialog pDialog;
     JSONArray unidad ;
     JSONArray productsp ;
     //agregar producto
@@ -61,7 +63,7 @@ public class Negocio extends Activity {
         unidades = new  ArrayList<HashMap<String, String>>();
         productos = new  ArrayList<HashMap<String, String>>();
         datos = new ArrayList<Combobox>();
-        produc = new ArrayList<Lista_entrada>();
+        produc = new ArrayList<Lista_productos>();
         name = (EditText) findViewById(R.id.editnombre);
         precio = (EditText) findViewById(R.id.editprecio);
         lista = (Spinner) findViewById(R.id.Unidades);
@@ -195,6 +197,14 @@ public class Negocio extends Activity {
 
 
     class AttemptProducto extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Negocio.this);
+            pDialog.setMessage("Cargando");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
 
         protected String doInBackground(String... args) {
             List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
@@ -222,6 +232,7 @@ public class Negocio extends Activity {
                         // Storing each json item in variable
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
+                        String Unidad =p.getString(TAG_UNIDAD);
 
                         // creating new HashMap
                         HashMap<String, String> pro = new HashMap<String, String>();
@@ -230,6 +241,7 @@ public class Negocio extends Activity {
                         // adding each child node to HashMap key => value
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
+                        pro.put(TAG_UNIDAD, Unidad);
                         productos.add(pro);
                     }
                 }
@@ -252,21 +264,24 @@ public class Negocio extends Activity {
                     while(cont<productos.size()){
 
                         pro=productos.get(cont);
-                        produc.add(new Lista_entrada(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO)));
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO),pro.get(TAG_UNIDAD)));
 
                         cont++;
                     }
                     productos.clear();
 
                     ListView lista = (ListView) findViewById(R.id.listProductos);
-                    lista.setAdapter(new Lista_adaptador(Negocio.this, R.layout.entrada, produc) {
+                    lista.setAdapter(new Lista_adaptador(Negocio.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            TextView texto_superior_entrada = (TextView) view.findViewById(R.id.textView_superior);
-                            texto_superior_entrada.setText(((Lista_entrada) entrada).get_textoEncima());
+                            TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
+                            texto_nombre.setText(((Lista_productos) entrada).get_nombre());
 
-                            TextView texto_inferior_entrada = (TextView) view.findViewById(R.id.textView_inferior);
-                            texto_inferior_entrada.setText(((Lista_entrada) entrada).get_textoDebajo());
+                            TextView texto_precio = (TextView) view.findViewById(R.id.Precio);
+                            texto_precio.setText(((Lista_productos) entrada).get_precio());
+
+                            TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
+                            texto_unidad.setText(((Lista_productos) entrada).get_unidad());
 
                         }
                     });
@@ -276,7 +291,7 @@ public class Negocio extends Activity {
 
 
             });
-
+            pDialog.dismiss();
         }
 
     }

@@ -32,7 +32,7 @@ public class Local extends FragmentActivity {
     String Id;
     ArrayList<HashMap<String,String>> establedes;
     ArrayList<HashMap<String,String>> productos;
-    ArrayList<Lista_entrada> datos;
+    ArrayList<Lista_productos> produc;
     ListView lista;
     JSONParser jsonParser = new JSONParser();
     JSONParser jsonParserp = new JSONParser();
@@ -44,6 +44,7 @@ public class Local extends FragmentActivity {
     private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
+    private static final String TAG_UNIDAD = "Unidad";
     private ProgressDialog pDialog;
     JSONArray products ;
     JSONArray productsp ;
@@ -131,11 +132,13 @@ public class Local extends FragmentActivity {
                         // Storing each json item in variable
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
+                        String Unidad = p.getString(TAG_UNIDAD);
                         // creating new HashMap
                         HashMap<String, String> pro = new HashMap<String, String>();
                         // adding each child node to HashMap key => value
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
+                        pro.put(TAG_UNIDAD, Unidad);
                         productos.add(pro);
                     }
                 }
@@ -147,35 +150,42 @@ public class Local extends FragmentActivity {
 
         protected void onPostExecute(String result)
         {
-            pDialog.dismiss();
-           runOnUiThread(new Runnable() {
+
+            runOnUiThread(new Runnable() {
                 public void run() {
-                int cont=0;
-                HashMap<String, String> pro;
-                while(cont<productos.size()){
-                    pro=productos.get(cont);
-                    datos.add(new Lista_entrada(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO)));
-                    cont++;
-                }
-                productos.clear();
 
-                ListView lista = (ListView) findViewById(R.id.productos);
-                lista.setAdapter(new Lista_adaptador(Local.this, R.layout.entrada, datos) {
-                    @Override
-                    public void onEntrada(Object entrada, View view) {
-                        TextView texto_superior_entrada = (TextView) view.findViewById(R.id.textView_superior);
-                        texto_superior_entrada.setText(((Lista_entrada) entrada).get_textoEncima());
+                    int cont = 0;
 
-                        TextView texto_inferior_entrada = (TextView) view.findViewById(R.id.textView_inferior);
-                        texto_inferior_entrada.setText(((Lista_entrada) entrada).get_textoDebajo());
+                    HashMap<String, String> pro;
+                    while (cont < productos.size()) {
 
+                        pro = productos.get(cont);
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD)));
+                        cont++;
                     }
-                });
-                }
+                    productos.clear();
 
+                    ListView lista = (ListView) findViewById(R.id.productos);
+                    lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
+                        @Override
+                        public void onEntrada(Object entrada, View view) {
+                            TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
+                            texto_nombre.setText(((Lista_productos) entrada).get_nombre());
+
+                            TextView texto_precio = (TextView) view.findViewById(R.id.Precio);
+                            texto_precio.setText(((Lista_productos) entrada).get_precio());
+
+                            TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
+                            texto_unidad.setText(((Lista_productos) entrada).get_unidad());
+
+                        }
+                    });
+
+                }
 
 
             });
+            pDialog.dismiss();
         }
     }
 
@@ -187,7 +197,7 @@ public class Local extends FragmentActivity {
         Nombre = bundle.getString("nombre");
         establedes = new  ArrayList<HashMap<String, String>>();
         productos = new  ArrayList<HashMap<String, String>>();
-        datos = new ArrayList<Lista_entrada>();
+        produc = new ArrayList<Lista_productos>();
         Mostrar_locales();
         final Button perfil = (Button) findViewById(R.id.btnComentarios);
         perfil.setOnClickListener(new View.OnClickListener() {
