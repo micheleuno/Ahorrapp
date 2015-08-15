@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/perfil"
+    android:background="@mipmap/menu">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"></FrameLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Bienvenido, "
+            android:layout_marginTop="20dp"
+            android:textSize="30dp"
+            android:id="@+id/textView16"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.27" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nombre_ usuario"
+            android:textSize="30dp"
+            android:id="@+id/txtNombrePersona"
+            android:layout_weight="0.69" />
+
+    </TableRow>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ard">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Mis Datos"
+            android:id="@+id/textView17"
+            android:layout_column="0"
+            android:layout_row="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="RUT"
+            android:id="@+id/textView"
+            android:layout_column="0"
+            android:layout_row="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Direccion"
+            android:id="@+id/textView2"
+            android:layout_column="0"
+            android:layout_row="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Direccion"
+            android:id="@+id/txtDireccionPersona"
+            android:layout_column="3"
+            android:layout_row="3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Rut"
+            android:id="@+id/txtRut"
+            android:layout_column="3"
+            android:layout_row="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Nombre"
+            android:id="@+id/textView4"
+            android:layout_column="0"
+            android:layout_row="4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="nombre_pila"
+            android:id="@+id/txtEmail"
+            android:layout_column="3"
+            android:layout_row="4" />
+    </GridLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesion"
+        android:id="@+id/btncerrar"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Solicitar"
+        android:id="@+id/btnSolicitar"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Negocio"
+        android:id="@+id/btnNegocio"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

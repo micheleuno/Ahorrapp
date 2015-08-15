@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/Menu"
+    android:background="@mipmap/menu">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="67dp"></FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtUsuario"
+            android:hint="Nombre usuario" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="52dp" >
+
+        <EditText
+            android:layout_width="366dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/txtPass"
+            android:layout_gravity="center_horizontal"
+            android:hint="Contraseña" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:id="@+id/btnIniciarSesion"
+        android:layout_marginTop="20dp"
+        android:onClick="onClickbtnIniciarSesion"
+        android:clickable="true"
+        android:background="@drawable/iniciar" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/btnRegistrarse"
+        android:layout_marginTop="20dp"
+        android:onClick="onClickbtnRegistrarse"
+        android:background="@drawable/registrar" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/btnOlvidarPass"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/contrasena" />
+
+</LinearLayout>
