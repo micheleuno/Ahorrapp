@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent">
 
 
 
@@ -31,10 +30,12 @@
         android:id="@+id/frameLayout">
 
         <LinearLayout
+
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:background="#ffece7de">
 
             <Button
                 android:layout_width="37dp"
@@ -57,7 +58,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_weight="0.88"
-                android:hint="Buscar..."/>
+                android:hint="Buscar..."
+                android:maxLines="1"
+                android:singleLine="false"
+                android:autoText="false"
+                android:visibility="visible" />
 
             <Button
                 android:layout_width="53dp"

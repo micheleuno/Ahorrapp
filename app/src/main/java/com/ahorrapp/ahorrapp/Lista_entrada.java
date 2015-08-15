@@ -13,7 +13,6 @@ public class Lista_entrada {
     public String get_textoEncima() {
         return textoEncima;
     }
-
     public String get_textoDebajo() {
         return textoDebajo;
     }

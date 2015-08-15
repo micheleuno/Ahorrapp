@@ -30,17 +30,13 @@ public class JSONParser {
 
     // constructor
     public JSONParser() {
-
     }
 
     // function get json from url
     // by making HTTP POST or GET mehtod
-    public JSONObject makeHttpRequest(String url, String method,
-                                      List params) {
-
+    public JSONObject makeHttpRequest(String url, String method,List params) {
 
         try {
-
             // check for request method
             if(method == "POST"){
                 // request method is POST
@@ -59,7 +55,6 @@ public class JSONParser {
                 String paramString = URLEncodedUtils.format(params, "utf-8");
                 url += "?" + paramString;
                 HttpGet httpGet = new HttpGet(url);
-
                 HttpResponse httpResponse = httpClient.execute(httpGet);
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();

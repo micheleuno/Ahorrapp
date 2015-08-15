@@ -32,8 +32,10 @@ public class SessionManager {
     public static final String TAG_NOMBRE = "Nombre_usuario";
     // username address (make variable public to access from outside)
     public static final String TAG_N_USUARIO = "Username";
-    // Rut address (make variable public to access from outside)
+    // Rut  (make variable public to access from outside)
     public static final String TAG_RUT = "Rut_usuario";
+    // Id local  (make variable public to access from outside) 0 si no es dueno de ninguno
+    public static final String TAG_LOCAL = "Id_local";
 
     // Constructor
     public SessionManager(Context context){
@@ -45,7 +47,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String username, String Rut){
+    public void createLoginSession(String name, String username, String Rut,String Id){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -56,6 +58,9 @@ public class SessionManager {
         editor.putString(TAG_N_USUARIO, username);
         // Storing Rut in pref
         editor.putString(TAG_RUT, Rut);
+
+        // Storing Rut in pref
+        editor.putString(TAG_LOCAL, Id);
 
         // commit changes
         editor.commit();
@@ -82,7 +87,27 @@ public class SessionManager {
         }
 
     }
+    /**
+     * Check login method wil check user login status
+     * If false it will redirect user to login page
+     * Else won't do anything
+     * */
+    public void checkComent(){
+        // Check login status
+        if(!this.isLoggedIn()){
+            // user is not logged in redirect him to Login Activity
+            Intent i = new Intent(_context, Comentarios.class);
+            // Closing all the Activities
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+            // Add new Flag to start new Activity
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Staring Login Activity
+            _context.startActivity(i);
+        }
+
+    }
 
 
     /**
@@ -93,10 +118,12 @@ public class SessionManager {
         // user name
         user.put(TAG_NOMBRE, pref.getString(TAG_NOMBRE, null));
 
-        // user usuario id
+        // user usuario
         user.put(TAG_N_USUARIO, pref.getString(TAG_N_USUARIO, null));
         // user Rut id
         user.put(TAG_RUT, pref.getString(TAG_RUT, null));
+        // user  id
+        user.put(TAG_LOCAL, pref.getString(TAG_LOCAL, null));
 
         // return user
         return user;

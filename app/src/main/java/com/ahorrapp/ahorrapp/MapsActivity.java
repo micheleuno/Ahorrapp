@@ -137,6 +137,7 @@ public class MapsActivity extends FragmentActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         // DbHelper helper = new DbHelper(this);
         // SQLiteDatabase db = helper.getWritableDatabase();
         super.onCreate(savedInstanceState);
@@ -154,6 +155,7 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onClick(View v) {
                 Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu.class);
+
                 startActivity(nuevoform);
 
 
@@ -183,12 +185,31 @@ public class MapsActivity extends FragmentActivity{
 
             }
         });
+       /* googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+                Intent nuevoform = new Intent(MapsActivity.this, Local.class);
+                nuevoform.putExtra("nombre", "La superba");
+                startActivity(nuevoform);
+            }
+
+
+
+
+        });*/
+
 
 
     }
 
 
 
+    @Override
+    public void onBackPressed() {
+        MapsActivity.this.finish();
+
+    }
 
 
     /**
@@ -272,7 +293,6 @@ public class MapsActivity extends FragmentActivity{
 
 
     }
-
 
 
 

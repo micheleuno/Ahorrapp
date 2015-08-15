@@ -51,6 +51,7 @@ public class Menu extends Activity {
     private static final String TAG_NOMBRE = "Nombre_usuario";//diego flores
     private static final String TAG_N_USUARIO = "Username";//daigosk
     private static final String TAG_RUT = "Rut_usuario";
+    private static final String TAG_ID = "Id_establecimiento";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +59,10 @@ public class Menu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
         session = new SessionManager(getApplicationContext());
-
         session.checkLogin();
-
         // setup input fields
         user = (EditText) findViewById(R.id.txtUsuario);
         pass = (EditText) findViewById(R.id.txtPass);
-
         final Button iniciar = (Button) findViewById(R.id.btnIniciarSesion);
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +73,23 @@ public class Menu extends Activity {
             }
         });
 
-
-
+        final Button registrar = (Button) findViewById(R.id.btnRegistrarse);
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nuevoform = new Intent(Menu.this, Registro.class);
+                finish();
+                startActivity(nuevoform);
+            }
+        });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Menu.this, MapsActivity.class);
+        finish();
+        startActivity(nuevoform);
+    }
 
     class AttemptLogin extends AsyncTask<String, String, String> {
 
@@ -87,7 +97,7 @@ public class Menu extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(Menu.this);
-            pDialog.setMessage("Attempting login...");
+            pDialog.setMessage("Intentando ingresar");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -104,58 +114,49 @@ public class Menu extends Activity {
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
 
-                Log.d("request!", "starting");
+
                 // getting product details by making HTTP request
                 JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",params);
 
                 // check your log for json response
-                Log.d("Login attempt", json.toString());
+
 
                 // json success tag
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    Log.d("Login Successful!", json.toString());
 
                         products = json.getJSONArray(TAG_USUARIO);
-                        Log.e("Usuario", json.toString());
                         JSONObject c = products.getJSONObject(0);
-
                         // Storing each json item in variable
+                        session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID));
+                        // save user data
+                       // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Menu.this);
+                       // SharedPreferences.Editor edit = sp.edit();
+                        //edit.putString("username", c.getString(TAG_N_USUARIO));
+                        //edit.putString("nombre", c.getString(TAG_NOMBRE));
+                        //edit.putString("rut", c.getString(TAG_RUT));
+                        //edit.commit();
 
-
-                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT));
-
-                    // save user data
-                   // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Menu.this);
-                   // SharedPreferences.Editor edit = sp.edit();
-                    //edit.putString("username", c.getString(TAG_N_USUARIO));
-                    //edit.putString("nombre", c.getString(TAG_NOMBRE));
-                    //edit.putString("rut", c.getString(TAG_RUT));
-                    //edit.commit();
-                    //Log.e("MIchele weco", sp.getString("username",null));
-
-                    Intent i = new Intent(Menu.this, Perfil.class);
-                    startActivity(i);
-                    finish();
-                    return json.getString(TAG_MESSAGE);
+                        Intent i = new Intent(Menu.this, Perfil.class);
+                        startActivity(i);
+                        finish();
+                        return json.getString(TAG_MESSAGE);
                 } else {
-                    Log.d("Login Failure!", json.getString(TAG_MESSAGE));
+                    Log.d("Datos incorrectos", json.getString(TAG_MESSAGE));
                     return json.getString(TAG_MESSAGE);
                 }
-            } catch (JSONException e) {
+            }catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return null;
-
         }
 
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
             if (file_url != null) {
                 Toast.makeText(Menu.this, file_url, Toast.LENGTH_LONG).show();
             }
+            pDialog.dismiss();
         }
     }
 }
