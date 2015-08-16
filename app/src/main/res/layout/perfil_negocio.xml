@@ -12,7 +12,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="204dp"
+        android:layout_height="212dp"
         android:id="@+id/fondo">
 
         <EditText
@@ -35,21 +35,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Unidades"
-            android:clickable="false" />
+            android:clickable="True" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar"
             android:id="@+id/btnagregar"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/agregar" />
 
     </LinearLayout>
 
     <ListView
+        android:isScrollContainer="False"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listProductos"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:clickable="True" />
 
 </LinearLayout>

@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"></FrameLayout>
+        android:layout_height="57dp"></FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,37 +18,31 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="63dp"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txtNombreLocal"
         android:layout_gravity="center_horizontal"
         android:textSize="40dp" />
 
-    <TableRow
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/starCalificacion" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Comentarios"
-            android:id="@+id/btnComentarios" />
-    </TableRow>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.07">
+        android:layout_gravity="center_horizontal">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.07">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/txtdescripcion"
+                android:textAlignment="center" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -70,7 +64,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
 
                 android:id="@+id/txtDireccionLocal"
-                android:layout_gravity="right"
                 android:layout_weight="0.07" />
         </TableRow>
 
@@ -85,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Contacto"
-                android:id="@+id/textView9"
+                android:id="@+id/textcontacto"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.07" />
 
@@ -98,32 +91,42 @@
                 android:layout_weight="0.07" />
         </TableRow>
 
+
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="253dp"
+        android:layout_height="303dp"
         android:layout_gravity="center_horizontal"
         android:weightSum="1"
-        android:layout_weight="0.74">
+        android:layout_weight="4.71">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnComentarios"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/comentarios" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Productos "
-            android:id="@+id/textView10"
-            android:layout_marginTop="40dp"
+            android:id="@+id/textproducto"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.07" />
+            android:layout_weight="0.07"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="0dp" />
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/productos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.85"
-            android:clickable="true">
+            android:layout_height="176dp"
+            android:clickable="true"
+            android:layout_marginBottom="0dp">
         </ListView>
 
     </LinearLayout>

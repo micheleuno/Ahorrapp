@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Registro extends Activity{
@@ -43,11 +45,18 @@ public class Registro extends Activity{
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
-
+        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         user = (EditText)findViewById(R.id.txtusername);
+        user.setTypeface(typeFace);
+
         pass = (EditText)findViewById(R.id.txtPass);
+        pass.setTypeface(typeFace);
         email = (EditText)findViewById(R.id.txtEmail);
+        email.setTypeface(typeFace);
         nombre = (EditText)findViewById(R.id.txtNombrePersona);
+        nombre.setTypeface(typeFace);
+        TextView text1 =(TextView) findViewById(R.id.txtregistro);
+        text1.setTypeface(typeFace);
 
         final Button  mRegister = (Button)findViewById(R.id.btnGuardar);
         mRegister.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -36,12 +38,33 @@ public class Perfil extends Activity {
         String rut = user.get(SessionManager.TAG_RUT);
         // Id
         String id = user.get(SessionManager.TAG_LOCAL);
+
+        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+
+
+
         TextView nombre =(TextView) findViewById(R.id.txtNombrePersona);
+        nombre.setTypeface(typeFace);
         nombre.setText(name);
         TextView Rut =(TextView) findViewById(R.id.txtRut);
+        Rut.setTypeface(typeFace);
         Rut.setText(rut);
         TextView username =(TextView) findViewById(R.id.txtEmail);
+        username.setTypeface(typeFace);
         username.setText(nombre_pila);
+        TextView text1 =(TextView) findViewById(R.id.textbienvenido);
+        text1.setTypeface(typeFace);
+        TextView text2 =(TextView) findViewById(R.id.textdatos);
+        text2.setTypeface(typeFace);
+        TextView text3 =(TextView) findViewById(R.id.textrut);
+        text3.setTypeface(typeFace);
+        TextView text4 =(TextView) findViewById(R.id.textdireccion);
+        text4.setTypeface(typeFace);
+        TextView text5 =(TextView) findViewById(R.id.txtDireccionPersona);
+        text5.setTypeface(typeFace);
+        TextView text6 =(TextView) findViewById(R.id.textnombre);
+        text6.setTypeface(typeFace);
+
 
 
         final Button cerrar = (Button) findViewById(R.id.btncerrar);

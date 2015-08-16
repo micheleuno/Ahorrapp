@@ -164,7 +164,7 @@ public class Comentarios extends FragmentActivity{
 
                 Comentario.setText("");
                 session = new SessionManager(getApplicationContext());
-                if(session.isLoggedIn()) {  //si el usuario inició sesion
+                if(session.isLoggedIn()) {  //si el usuario inicio sesion
                     if (!Coment.equals("")) { //si el comentario no es vacio
                         new AttemptComentario().execute();
                         new AttemptCargar().execute();

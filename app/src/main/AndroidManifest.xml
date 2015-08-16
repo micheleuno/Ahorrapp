@@ -69,7 +69,10 @@
             android:name=".Negocio"
             android:id="@+id/negocio">
         </activity>
-
+        <activity
+            android:name=".Opciones_producto"
+            android:id="@+id/editar_producto">
+        </activity>
     </application>
 
 </manifest>

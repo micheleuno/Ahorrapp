@@ -1,9 +1,12 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,10 +34,11 @@ public class Negocio extends Activity {
     ArrayList<HashMap<String,String>> productos;
     ArrayList<HashMap<String,String>> unidades;
     ArrayList<Combobox> datos;
-    ArrayList<Lista_entrada> produc;
+    ArrayList<Lista_productos> produc;
     // Clase JSONParser
     SessionManager session;
     Spinner lista;
+    ListView lista_p;
     JSONParser jsonParserp = new JSONParser();
     JSONParser jsonParser = new JSONParser();
 
@@ -49,6 +53,7 @@ public class Negocio extends Activity {
     private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
+    private ProgressDialog pDialog;
     JSONArray unidad ;
     JSONArray productsp ;
     //agregar producto
@@ -58,13 +63,18 @@ public class Negocio extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_negocio);
+        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+
         unidades = new  ArrayList<HashMap<String, String>>();
         productos = new  ArrayList<HashMap<String, String>>();
         datos = new ArrayList<Combobox>();
-        produc = new ArrayList<Lista_entrada>();
+        produc = new ArrayList<Lista_productos>();
         name = (EditText) findViewById(R.id.editnombre);
+        name.setTypeface(typeFace);
         precio = (EditText) findViewById(R.id.editprecio);
+        precio.setTypeface(typeFace);
         lista = (Spinner) findViewById(R.id.Unidades);
+        lista_p = (ListView)findViewById(R.id.listProductos);
         new AttemptUnidad().execute();
         new AttemptProducto().execute();
 
@@ -74,7 +84,7 @@ public class Negocio extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 Combobox hola = (Combobox) lista.getItemAtPosition(position);
-                String unidad_id = hola.get_id();
+                unidad_id = hola.get_id();
 
 
             }
@@ -85,6 +95,21 @@ public class Negocio extends Activity {
             }
 
         });
+
+        lista_p.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long id) {
+
+                Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
+                Intent nuevoform = new Intent(Negocio.this, Opciones_producto.class);
+                nuevoform.putExtra("nombre", productos.get_nombre());
+                nuevoform.putExtra("precio", productos.get_precio());
+                nuevoform.putExtra("unidad", productos.get_unidad());
+                startActivity(nuevoform);
+            }
+        });
+
 
         final Button agregar = (Button) findViewById(R.id.btnagregar);
         agregar.setOnClickListener(new View.OnClickListener() {
@@ -175,10 +200,13 @@ public class Negocio extends Activity {
                     lista.setAdapter(new Lista_adaptador(Negocio.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
+                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
+                            texto.setTypeface(typeFace);
                             texto.setText(((Combobox) entrada).get_texto());
 
                             TextView texto_id = (TextView) view.findViewById(R.id.id_unidad);
+                            texto_id.setTypeface(typeFace);
                             texto_id.setText(((Combobox) entrada).get_id());
 
                         }
@@ -195,6 +223,14 @@ public class Negocio extends Activity {
 
 
     class AttemptProducto extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(Negocio.this);
+            pDialog.setMessage("Cargando");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
 
         protected String doInBackground(String... args) {
             List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
@@ -222,6 +258,7 @@ public class Negocio extends Activity {
                         // Storing each json item in variable
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
+                        String Unidad =p.getString(TAG_UNIDAD);
 
                         // creating new HashMap
                         HashMap<String, String> pro = new HashMap<String, String>();
@@ -230,6 +267,7 @@ public class Negocio extends Activity {
                         // adding each child node to HashMap key => value
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
+                        pro.put(TAG_UNIDAD, Unidad);
                         productos.add(pro);
                     }
                 }
@@ -252,22 +290,28 @@ public class Negocio extends Activity {
                     while(cont<productos.size()){
 
                         pro=productos.get(cont);
-                        produc.add(new Lista_entrada(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO)));
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO),pro.get(TAG_UNIDAD)));
 
                         cont++;
                     }
                     productos.clear();
 
-                    ListView lista = (ListView) findViewById(R.id.listProductos);
-                    lista.setAdapter(new Lista_adaptador(Negocio.this, R.layout.entrada, produc) {
+
+                    lista_p.setAdapter(new Lista_adaptador(Negocio.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            TextView texto_superior_entrada = (TextView) view.findViewById(R.id.textView_superior);
-                            texto_superior_entrada.setText(((Lista_entrada) entrada).get_textoEncima());
+                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+                            TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
+                            texto_nombre.setTypeface(typeFace);
+                            texto_nombre.setText(((Lista_productos) entrada).get_nombre());
 
-                            TextView texto_inferior_entrada = (TextView) view.findViewById(R.id.textView_inferior);
-                            texto_inferior_entrada.setText(((Lista_entrada) entrada).get_textoDebajo());
+                            TextView texto_precio = (TextView) view.findViewById(R.id.Precio);
+                            texto_precio.setTypeface(typeFace);
+                            texto_precio.setText(((Lista_productos) entrada).get_precio());
 
+                            TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
+                            texto_unidad.setTypeface(typeFace);
+                            texto_unidad.setText(((Lista_productos) entrada).get_unidad());
                         }
                     });
 
@@ -276,7 +320,7 @@ public class Negocio extends Activity {
 
 
             });
-
+            pDialog.dismiss();
         }
 
     }
