@@ -78,6 +78,8 @@ public class Opciones_producto extends Activity {
         name.setTypeface(typeFace);
         precio.setText(bundle.getString("precio"));
         precio.setTypeface(typeFace);
+
+
         TextView text1 =(TextView) findViewById(R.id.textnombreproducto);
         text1.setTypeface(typeFace);
         TextView text2 =(TextView) findViewById(R.id.textprecio);
@@ -112,9 +114,9 @@ public class Opciones_producto extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Opciones_producto.this);
-                builder.setMessage("¿Esta seguro de que quiere eliminar el producto?")
+                builder.setMessage("Â¿Esta seguro de que quiere eliminar el producto?")
                         .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 new AttemptEliminar().execute();
                                 Alertas.mensaje_error(Opciones_producto.this, "Se ha eliminado el producto");
@@ -232,6 +234,18 @@ public class Opciones_producto extends Activity {
 
 
     }
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            Combobox hola = (Combobox) lista.getItemAtPosition(i);
+            if ( hola.get_texto().equals(myString)){
+                index = i;
+            }
+        }
+        return index;
+    }
 
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
@@ -276,8 +290,7 @@ public class Opciones_producto extends Activity {
             return null;
         }
 
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result) {
 
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -298,7 +311,7 @@ public class Opciones_producto extends Activity {
                     lista.setAdapter(new Lista_adaptador(Opciones_producto.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
                             texto.setTypeface(typeFace);
                             texto.setText(((Combobox) entrada).get_texto());
@@ -307,15 +320,23 @@ public class Opciones_producto extends Activity {
                             texto_id.setTypeface(typeFace);
                             texto_id.setText(((Combobox) entrada).get_id());
 
-                        }
-                    });
 
+
+
+                        }
+
+                    });
+                    Bundle bundle = getIntent().getExtras();
+                    int i= ( getIndex(lista, bundle.getString("unidad")));
+                    Log.e("asd", String.valueOf(i) + bundle.getString("unidad"));
+                    lista.setSelection(i);
                 }
 
 
             });
 
         }
+
 
     }
     private void hideKeyboard() {

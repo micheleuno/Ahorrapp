@@ -327,11 +327,7 @@ public class Negocio extends Activity {
 
                         }
                     });
-
                 }
-
-
-
             });
             pDialog.dismiss();
         }
