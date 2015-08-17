@@ -10,6 +10,7 @@ import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class Negocio extends Activity {
     private static final String TAG_UNIDADES = "Unidades";
     private static final String TAG_UNIDAD = "Unidad";
     private static final String TAG_ID_UNIDAD = "Id";
-
+    private static final String TAG_IDPRODUCTO ="idUbicacion";
     //JSON Node names producto
     private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
@@ -106,6 +107,8 @@ public class Negocio extends Activity {
                 nuevoform.putExtra("nombre", productos.get_nombre());
                 nuevoform.putExtra("precio", productos.get_precio());
                 nuevoform.putExtra("unidad", productos.get_unidad());
+                nuevoform.putExtra("id_producto", productos.get_id());
+
                 startActivity(nuevoform);
             }
         });
@@ -117,7 +120,16 @@ public class Negocio extends Activity {
             public void onClick(View v) {
                 names = name.getText().toString();
                 precios = precio.getText().toString();
-                new AttemptAgregar().execute();
+                if(!names.equals("")||!precios.equals("")){
+                    name.setText("");
+                    precio.setText("");
+                    new AttemptAgregar().execute();
+                    new AttemptProducto().execute();
+                    hideKeyboard();
+                    Alertas.mensaje_error(Negocio.this, "Se ha agregado un producto");
+                }else{
+                    Alertas.mensaje_error(Negocio.this, "Debe llenar todos los campos");
+                }
 
             }
         });
@@ -128,12 +140,7 @@ public class Negocio extends Activity {
 
 }
 
-    @Override
-    public void onBackPressed() {
-        Intent nuevoform = new Intent(Negocio.this, MapsActivity.class);
-        finish();
-        startActivity(nuevoform);
-    }
+
 
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
@@ -259,7 +266,7 @@ public class Negocio extends Activity {
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
                         String Unidad =p.getString(TAG_UNIDAD);
-
+                        String id_producto=p.getString(TAG_IDPRODUCTO);
                         // creating new HashMap
                         HashMap<String, String> pro = new HashMap<String, String>();
 
@@ -268,6 +275,7 @@ public class Negocio extends Activity {
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
                         pro.put(TAG_UNIDAD, Unidad);
+                        pro.put(TAG_IDPRODUCTO,id_producto);
                         productos.add(pro);
                     }
                 }
@@ -290,7 +298,7 @@ public class Negocio extends Activity {
                     while(cont<productos.size()){
 
                         pro=productos.get(cont);
-                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO),pro.get(TAG_UNIDAD)));
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD), pro.get(TAG_IDPRODUCTO)));
 
                         cont++;
                     }
@@ -312,6 +320,11 @@ public class Negocio extends Activity {
                             TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
                             texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_unidad());
+
+                            TextView idproducto = (TextView) view.findViewById(R.id.idproducto);
+                            idproducto.setTypeface(typeFace);
+                            idproducto.setText(((Lista_productos) entrada).get_id());
+
                         }
                     });
 
@@ -357,5 +370,12 @@ public class Negocio extends Activity {
 
 
     }
-
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Comentarios.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 }

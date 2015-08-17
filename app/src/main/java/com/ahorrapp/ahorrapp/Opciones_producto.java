@@ -2,12 +2,16 @@ package com.ahorrapp.ahorrapp;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +30,7 @@ import java.util.List;
 
 public class Opciones_producto extends Activity {
 
-    private EditText name,precio;
+    private EditText name,precio,id_producto;
     String Unidad;
     ArrayList<HashMap<String,String>> unidades;
     ArrayList<Combobox> datos;
@@ -43,7 +47,7 @@ public class Opciones_producto extends Activity {
     private static final String TAG_UNIDADES = "Unidades";
     private static final String TAG_UNIDAD = "Unidad";
     private static final String TAG_ID_UNIDAD = "Id";
-
+    String unidad_id,names,precios;
     //JSON Node names producto
     private static final String TAG_NOMBREP = "Nombre_producto";
     private static final String TAG_PRECIO = "Precio";
@@ -66,7 +70,10 @@ public class Opciones_producto extends Activity {
 
         name = (EditText) findViewById(R.id.Nombre);
         precio = (EditText) findViewById(R.id.Precio);
+        id_producto = (EditText) findViewById(R.id.idproducto);
         Bundle bundle = getIntent().getExtras();
+        id_producto.setText(bundle.getString("id_producto"));
+        id_producto.setTypeface(typeFace);
         name.setText(bundle.getString("nombre"));
         name.setTypeface(typeFace);
         precio.setText(bundle.getString("precio"));
@@ -80,7 +87,6 @@ public class Opciones_producto extends Activity {
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
         new AttemptUnidad().execute();
-
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -105,7 +111,24 @@ public class Opciones_producto extends Activity {
         Eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Opciones_producto.this);
+                builder.setMessage("¿Esta seguro de que quiere eliminar el producto?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                new AttemptEliminar().execute();
+                                Alertas.mensaje_error(Opciones_producto.this, "Se ha eliminado el producto");
 
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // some code if you want
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
                 new AttemptEliminar().execute();
 
             }
@@ -115,8 +138,16 @@ public class Opciones_producto extends Activity {
         Modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                names = name.getText().toString();
+                precios = precio.getText().toString();
+                if(!names.equals("")&&!precios.equals("")){
+                    new AttemptModificar().execute();
+                    hideKeyboard();
+                    Alertas.mensaje_error(Opciones_producto.this, "Se ha modificado un producto");
+                }else{
+                    Alertas.mensaje_error(Opciones_producto.this, "Debe llenar todos los campos");
+                }
 
-                new AttemptModificar().execute();
 
             }
         });
@@ -126,8 +157,12 @@ public class Opciones_producto extends Activity {
 
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
+        finish();
+        startActivity(nuevoform);
+    }
     class AttemptModificar extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
@@ -138,11 +173,10 @@ public class Opciones_producto extends Activity {
             HashMap<String, String> user = session.getUserDetails();
 
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair(TAG_Id_establecimiento, user.get(SessionManager.TAG_LOCAL)));
+            params.add(new BasicNameValuePair(TAG_Id_establecimiento, id_producto.getText().toString()));
             params.add(new BasicNameValuePair(TAG_NOMBREP, name.getText().toString()));
             params.add(new BasicNameValuePair(TAG_PRECIO, precio.getText().toString()));
             params.add(new BasicNameValuePair(TAG_UNIDAD, Unidad));
-
 
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/modificar_producto.php", "POST", params);
@@ -176,7 +210,7 @@ public class Opciones_producto extends Activity {
             HashMap<String, String> user = session.getUserDetails();
 
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("id", user.get(SessionManager.TAG_LOCAL)));
+            params.add(new BasicNameValuePair("id", id_producto.getText().toString()));
             params.add(new BasicNameValuePair("nombre", name.getText().toString()));
 
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/eliminar_producto.php", "POST", params);
@@ -284,7 +318,14 @@ public class Opciones_producto extends Activity {
         }
 
     }
-
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Comentarios.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
 
 }

@@ -177,7 +177,7 @@ public class Local extends FragmentActivity {
                     while (cont < productos.size()) {
 
                         pro = productos.get(cont);
-                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD)));
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD), pro.get(TAG_UNIDAD)));
                         cont++;
                     }
                     productos.clear();
@@ -198,6 +198,10 @@ public class Local extends FragmentActivity {
                             TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
                             texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_unidad());
+
+                            TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
+                            texto_unidad.setTypeface(typeFace);
+                            texto_unidad.setText(((Lista_productos) entrada).get_id());
 
                         }
                     });
