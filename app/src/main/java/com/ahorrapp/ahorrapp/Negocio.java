@@ -80,11 +80,8 @@ public class Negocio extends Activity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 Combobox hola = (Combobox) lista.getItemAtPosition(position);
                 unidad_id = hola.get_id();
-
-
             }
 
             @Override
@@ -98,18 +95,15 @@ public class Negocio extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long id) {
-
                 Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
                 Intent nuevoform = new Intent(Negocio.this, Opciones_producto.class);
                 nuevoform.putExtra("nombre", productos.get_nombre());
                 nuevoform.putExtra("precio", productos.get_precio());
                 nuevoform.putExtra("unidad", productos.get_unidad());
                 nuevoform.putExtra("id_producto", productos.get_id());
-
                 startActivity(nuevoform);
             }
         });
-
 
         final Button agregar = (Button) findViewById(R.id.btnagregar);
         agregar.setOnClickListener(new View.OnClickListener() {
@@ -117,25 +111,19 @@ public class Negocio extends Activity {
             public void onClick(View v) {
                 names = name.getText().toString();
                 precios = precio.getText().toString();
-                if(!names.equals("")||!precios.equals("")){
+                if(!names.equals("")&&!precios.equals("")) {
                     name.setText("");
                     precio.setText("");
                     new AttemptAgregar().execute();
                     new AttemptProducto().execute();
                     hideKeyboard();
                     Alertas.mensaje_error(Negocio.this, "Se ha agregado un producto");
-                }else{
+                }else {
                     Alertas.mensaje_error(Negocio.this, "Debe llenar todos los campos");
                 }
-
             }
         });
-
-
-
-
-
-}
+    }
 
 
 
