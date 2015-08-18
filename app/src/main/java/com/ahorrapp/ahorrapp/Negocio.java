@@ -117,7 +117,7 @@ public class Negocio extends Activity {
                     new AttemptAgregar().execute();
                     new AttemptProducto().execute();
                     hideKeyboard();
-                    Alertas.mensaje_error(Negocio.this, "Se ha agregado un producto");
+                    Alertas.mensaje_error(Negocio.this, "Se ha agregado un ");
                 }else {
                     Alertas.mensaje_error(Negocio.this, "Debe llenar todos los campos");
                 }
