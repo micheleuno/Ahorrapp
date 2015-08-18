@@ -1,30 +1,30 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.*;
-import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.os.AsyncTask;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity{
@@ -32,15 +32,11 @@ public class MapsActivity extends FragmentActivity{
 
     // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     private GoogleMap googleMap;  // Might be null if Google Play services APK is not available.
-    private Button mSubmit;
     ArrayList<HashMap<Double,Double>> establepos;
     ArrayList<HashMap<String,String>> establedes;
     EditText Producto;
     // Clase JSONParser
     JSONParser jsonParser = new JSONParser();
-
-    SharedPreferences.Editor editor;
-
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -49,6 +45,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_LONGITUD = "Longitud";
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
+    private  String producto;
 
     JSONArray products ;
 
@@ -57,12 +54,15 @@ public class MapsActivity extends FragmentActivity{
 
     class AttemptLogin extends AsyncTask<String, String, String> {
 
+        protected void onPreExecute() {
+             producto = Producto.getText().toString();
+        }
 
 
         protected String doInBackground(String... args) {
             // Building Parameters
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("Nombre", Producto.getText().toString()));
+            params.add(new BasicNameValuePair("Nombre",producto ));
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 

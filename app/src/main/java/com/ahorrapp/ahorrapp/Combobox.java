@@ -6,7 +6,6 @@ public class Combobox {
     private String id;
 
     public Combobox (String texto,String id) {
-
         this.texto = texto;
         this.id = id;
     }

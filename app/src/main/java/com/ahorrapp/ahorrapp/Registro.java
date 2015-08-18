@@ -1,24 +1,23 @@
 package com.ahorrapp.ahorrapp;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Registro extends Activity{
     private EditText user, pass,email,nombre;
@@ -39,10 +38,11 @@ public class Registro extends Activity{
     //ids
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+    private  String username,password,nombre_usuario,email_usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
@@ -78,21 +78,23 @@ public class Registro extends Activity{
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(Registro.this);
-            pDialog.setMessage("Creating User...");
+            pDialog.setMessage("Creando Usuario...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+            username = user.getText().toString();
+            password = pass.getText().toString();
+            nombre_usuario = nombre.getText().toString();
+            email_usuario = email.getText().toString();
+
         }
 
         @Override
         protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
+
             // Check for success tag
             int success;
-            String username = user.getText().toString();
-            String password = pass.getText().toString();
-            String nombre_usuario = nombre.getText().toString();
-            String email_usuario = email.getText().toString();
+
             try {
                 // Building Parameters
                 List params = new ArrayList();

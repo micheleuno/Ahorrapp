@@ -1,11 +1,9 @@
 package com.ahorrapp.ahorrapp;
 
-
 import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -35,7 +33,6 @@ public class JSONParser {
     // function get json from url
     // by making HTTP POST or GET mehtod
     public JSONObject makeHttpRequest(String url, String method,List params) {
-
         try {
             // check for request method
             if(method == "POST"){
@@ -91,6 +88,5 @@ public class JSONParser {
 
         // return JSON String
         return jObj;
-
     }
 }

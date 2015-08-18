@@ -1,13 +1,11 @@
 package com.ahorrapp.ahorrapp;
 
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.view.*;
-import android.view.Menu;
+
+import java.util.HashMap;
 
 public class SessionManager {
     // Shared Preferences

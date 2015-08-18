@@ -1,43 +1,28 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.ActionBar;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-
-import com.google.android.gms.common.server.converter.StringToIntConverter;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Local extends FragmentActivity {
 
-
-    String Nombre;
-    String Id;
-    ArrayList<HashMap<String,String>> establedes;
-    ArrayList<HashMap<String,String>> productos;
-    ArrayList<Lista_productos> produc;
-    ListView lista;
-    JSONParser jsonParser = new JSONParser();
-    JSONParser jsonParserp = new JSONParser();
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_DIRECCION = "Direccion";
@@ -50,8 +35,15 @@ public class Local extends FragmentActivity {
     private static final String TAG_PRODUCTO = "Producto";
     private static final String TAG_UNIDAD = "Unidad";
     private ProgressDialog pDialog;
+    JSONParser jsonParser = new JSONParser();
+    JSONParser jsonParserp = new JSONParser();
     JSONArray products ;
     JSONArray productsp ;
+    ArrayList<HashMap<String,String>> establedes;
+    ArrayList<HashMap<String,String>> productos;
+    ArrayList<Lista_productos> produc;
+    String Nombre;
+    String Id;
 
     class AttemptLocal extends AsyncTask<String, String, String> {
 
@@ -61,7 +53,6 @@ public class Local extends FragmentActivity {
             params.add(new BasicNameValuePair("Nombre", Nombre));
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_datos_establecimiento.php", "POST", params);
-
             try {
                 // Checking for SUCCESS TAG
                 int success = json.getInt(TAG_SUCCESS);
@@ -102,7 +93,7 @@ public class Local extends FragmentActivity {
             HashMap<String, String> dir;
             while(cont<establedes.size()){
                 dir=establedes.get(cont);
-                Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+                Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf"); //Cargar tipo de letra
                 TextView nombre =(TextView) findViewById(R.id.txtNombreLocal);
                 nombre.setTypeface(typeFace);
                 nombre.setText(Nombre);
@@ -165,14 +156,11 @@ public class Local extends FragmentActivity {
             return null;
         }
 
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result){
 
             runOnUiThread(new Runnable() {
                 public void run() {
-
                     int cont = 0;
-
                     HashMap<String, String> pro;
                     while (cont < productos.size()) {
 
@@ -181,7 +169,6 @@ public class Local extends FragmentActivity {
                         cont++;
                     }
                     productos.clear();
-
                     ListView lista = (ListView) findViewById(R.id.productos);
                     lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
                         @Override
@@ -202,10 +189,8 @@ public class Local extends FragmentActivity {
                             TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
                             texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_id());
-
                         }
                     });
-
                 }
 
 
@@ -236,15 +221,14 @@ public class Local extends FragmentActivity {
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevoform = new Intent(Local.this, Comentarios.class);
-                nuevoform.putExtra("id",Id);
-                startActivity(nuevoform);
+            Intent nuevoform = new Intent(Local.this, Comentarios.class);
+            nuevoform.putExtra("id",Id);
+            startActivity(nuevoform);
             }
         });
     }
 
     private void Mostrar_locales() {
-
         new AttemptLocal().execute();
         new AttemptProducto().execute();
        // Log.e("MIchele", Integer.toString(datos.size()));

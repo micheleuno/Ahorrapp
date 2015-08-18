@@ -1,15 +1,12 @@
 package com.ahorrapp.ahorrapp;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -47,13 +44,12 @@ public class Opciones_producto extends Activity {
     private static final String TAG_UNIDADES = "Unidades";
     private static final String TAG_UNIDAD = "Unidad";
     private static final String TAG_ID_UNIDAD = "Id";
-    String unidad_id,names,precios;
+    String names,precios;
     //JSON Node names producto
     private static final String TAG_NOMBREP = "Nombre_producto";
     private static final String TAG_PRECIO = "Precio";
-    private static final String TAG_PRODUCTO = "Producto";
-    private ProgressDialog pDialog;
     private static final String TAG_Id_establecimiento = "Establecimiento_idEstablecimiento";
+    private  String id_prod,nombre,valor;
     JSONArray unidad ;
 
 
@@ -166,18 +162,21 @@ public class Opciones_producto extends Activity {
         startActivity(nuevoform);
     }
     class AttemptModificar extends AsyncTask<String, String, String> {
+        protected void onPreExecute() {
+           id_prod = id_producto.getText().toString();
+            nombre = name.getText().toString();
+            valor = precio.getText().toString();
+        }
 
         protected String doInBackground(String... args) {
 
 
-            session = new SessionManager(getApplicationContext());
             // get user data from session
-            HashMap<String, String> user = session.getUserDetails();
 
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair(TAG_Id_establecimiento, id_producto.getText().toString()));
-            params.add(new BasicNameValuePair(TAG_NOMBREP, name.getText().toString()));
-            params.add(new BasicNameValuePair(TAG_PRECIO, precio.getText().toString()));
+            params.add(new BasicNameValuePair(TAG_Id_establecimiento, id_prod));
+            params.add(new BasicNameValuePair(TAG_NOMBREP, nombre));
+            params.add(new BasicNameValuePair(TAG_PRECIO,valor));
             params.add(new BasicNameValuePair(TAG_UNIDAD, Unidad));
 
             // getting JSON string from URL
@@ -203,17 +202,21 @@ public class Opciones_producto extends Activity {
 
     class AttemptEliminar extends AsyncTask<String, String, String> {
 
+        protected void onPreExecute() {
+            id_prod = id_producto.getText().toString();
+            nombre = name.getText().toString();
+        }
+
         protected String doInBackground(String... args) {
 
 
 
             session = new SessionManager(getApplicationContext());
             // get user data from session
-            HashMap<String, String> user = session.getUserDetails();
 
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("id", id_producto.getText().toString()));
-            params.add(new BasicNameValuePair("nombre", name.getText().toString()));
+            params.add(new BasicNameValuePair("id", id_prod));
+            params.add(new BasicNameValuePair("nombre", nombre));
 
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/eliminar_producto.php", "POST", params);
 
@@ -249,7 +252,7 @@ public class Opciones_producto extends Activity {
 
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
-            protected String doInBackground(String... args) {
+        protected String doInBackground(String... args) {
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
             params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
@@ -328,7 +331,6 @@ public class Opciones_producto extends Activity {
                     });
                     Bundle bundle = getIntent().getExtras();
                     int i= ( getIndex(lista, bundle.getString("unidad")));
-                    Log.e("asd", String.valueOf(i) + bundle.getString("unidad"));
                     lista.setSelection(i);
                 }
 

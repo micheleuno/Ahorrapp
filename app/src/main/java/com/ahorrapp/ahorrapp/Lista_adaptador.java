@@ -35,14 +35,11 @@ public abstract class Lista_adaptador extends BaseAdapter {
     }
     @Override
     public Object getItem(int posicion) {
-
         return entradas.get(posicion);
     }
     @Override
     public long getItemId(int posicion) {
-
         return posicion;
     }
     public abstract void onEntrada (Object entrada, View view);
-
 }

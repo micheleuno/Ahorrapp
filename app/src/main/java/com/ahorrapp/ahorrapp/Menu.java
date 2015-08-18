@@ -3,12 +3,8 @@ package com.ahorrapp.ahorrapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,15 +17,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
 public class Menu extends Activity {
 
     private EditText user, pass;
-    private Button mSubmit, mRegister;
-
     private ProgressDialog pDialog;
     SessionManager session;
     // Clase JSONParser
@@ -52,6 +45,7 @@ public class Menu extends Activity {
     private static final String TAG_N_USUARIO = "Username";//daigosk
     private static final String TAG_RUT = "Rut_usuario";
     private static final String TAG_ID = "Id_establecimiento";
+    private  String username,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +95,13 @@ public class Menu extends Activity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+            username = user.getText().toString();
+            password = pass.getText().toString();
         }
 
         @Override
         protected String doInBackground(String... args) {
             int success;
-            String username = user.getText().toString();
-            String password = pass.getText().toString();
             try {
                 // Building Parameters
                 List params = new ArrayList();
