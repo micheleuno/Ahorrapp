@@ -222,6 +222,7 @@ public class Negocio extends Activity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
+
         }
 
         protected String doInBackground(String... args) {
@@ -240,7 +241,10 @@ public class Negocio extends Activity {
 
                     // products found
                     // Getting Array of Products
+                    productsp = new JSONArray(new ArrayList<String>());
                     productsp = jsonp.getJSONArray(TAG_PRODUCTO);
+                    produc.clear();
+                    productos.clear();
 
                     // looping through All Products
                     //Log.i("ramiro", "produtos.length" + products.length());
