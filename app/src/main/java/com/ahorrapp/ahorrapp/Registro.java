@@ -2,6 +2,7 @@ package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -125,5 +126,13 @@ public class Registro extends Activity{
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
+        finish();
+        startActivity(nuevoform);
+    }
+
 }
 

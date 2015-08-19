@@ -26,4 +26,7 @@ dependencies {
     compile files('C:/Ahorrapp/libs/activation.jar')
     compile files('C:/Ahorrapp/libs/additionnal.jar')
     compile files('C:/Ahorrapp/libs/mail.jar')
+    compile files('C:/TDS/Ahorrapp/libs/activation.jar')
+    compile files('C:/TDS/Ahorrapp/libs/additionnal.jar')
+    compile files('C:/TDS/Ahorrapp/libs/mail.jar')
 }
