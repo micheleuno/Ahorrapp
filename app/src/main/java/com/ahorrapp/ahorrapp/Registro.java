@@ -124,6 +124,10 @@ public class Registro extends Activity{
             if (file_url != null){
                 Toast.makeText(Registro.this, file_url, Toast.LENGTH_LONG).show();
             }
+
+            Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
+            finish();
+            startActivity(nuevoform);
         }
     }
 
