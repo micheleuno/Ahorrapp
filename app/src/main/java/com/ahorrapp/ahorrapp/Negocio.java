@@ -364,4 +364,11 @@ public class Negocio extends Activity {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Negocio.this, Perfil.class);
+        finish();
+        startActivity(nuevoform);
+    }
 }
