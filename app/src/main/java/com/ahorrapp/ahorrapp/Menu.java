@@ -22,22 +22,7 @@ import java.util.List;
 
 public class Menu extends Activity {
 
-    private EditText user, pass;
-    private ProgressDialog pDialog;
-    SessionManager session;
-    // Clase JSONParser
-    JSONParser jsonParser = new JSONParser();
-    JSONArray products ;
-
-    // si trabajan de manera local "localhost" :
-    // En windows tienen que ir, run CMD > ipconfig
-    // buscar su IP
-    // y poner de la siguiente manera
-    // "http://xxx.xxx.x.x:1234/cas/login.php";
-
     private static final String LOGIN_URL = "http://ahorrapp.hol.es/BD/login.php";
-
-    // La respuesta del JSON es
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private static final String TAG_USUARIO = "Usuario";
@@ -46,7 +31,11 @@ public class Menu extends Activity {
     private static final String TAG_RUT = "Rut_usuario";
     private static final String TAG_ID = "Id_establecimiento";
     private  String username,password;
-
+    private EditText user, pass;
+    private ProgressDialog pDialog;
+    SessionManager session;
+    JSONParser jsonParser = new JSONParser();
+    JSONArray products ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -54,7 +43,6 @@ public class Menu extends Activity {
         setContentView(R.layout.menu);
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
-        // setup input fields
         user = (EditText) findViewById(R.id.txtUsuario);
         pass = (EditText) findViewById(R.id.txtPass);
         final Button iniciar = (Button) findViewById(R.id.btnIniciarSesion);
@@ -62,8 +50,6 @@ public class Menu extends Activity {
             @Override
             public void onClick(View v) {
                 new AttemptLogin().execute();
-
-
             }
         });
 
@@ -107,34 +93,19 @@ public class Menu extends Activity {
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
-
-
                 // getting product details by making HTTP request
                 JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",params);
-
                 // check your log for json response
-
-
-                // json success tag
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-
-                        products = json.getJSONArray(TAG_USUARIO);
-                        JSONObject c = products.getJSONObject(0);
-                        // Storing each json item in variable
-                        session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID));
-                        // save user data
-                       // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Menu.this);
-                       // SharedPreferences.Editor edit = sp.edit();
-                        //edit.putString("username", c.getString(TAG_N_USUARIO));
-                        //edit.putString("nombre", c.getString(TAG_NOMBRE));
-                        //edit.putString("rut", c.getString(TAG_RUT));
-                        //edit.commit();
-
-                        Intent i = new Intent(Menu.this, Perfil.class);
-                        startActivity(i);
-                        finish();
-                        return json.getString(TAG_MESSAGE);
+                    products = json.getJSONArray(TAG_USUARIO);
+                    JSONObject c = products.getJSONObject(0);
+                    // Storing each json item in variable
+                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID));
+                    Intent i = new Intent(Menu.this, Perfil.class);
+                    startActivity(i);
+                    finish();
+                    return json.getString(TAG_MESSAGE);
                 } else {
                     Log.d("Datos incorrectos", json.getString(TAG_MESSAGE));
                     return json.getString(TAG_MESSAGE);
@@ -144,7 +115,6 @@ public class Menu extends Activity {
             }
             return null;
         }
-
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product deleted
             if (file_url != null) {

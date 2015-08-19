@@ -21,34 +21,20 @@ import java.util.List;
 
 public class Registro extends Activity{
     private EditText user, pass,email,nombre;
-
-
-    // Progress Dialog
     private ProgressDialog pDialog;
-
-    // JSON parser class
     JSONParser jsonParser = new JSONParser();
-
-    //si lo trabajan de manera local en xxx.xxx.x.x va su ip local
-    // private static final String REGISTER_URL = "http://xxx.xxx.x.x:1234/cas/register.php";
-
-    //testing on Emulator:
     private static final String REGISTER_URL = "http://ahorrapp.hol.es/BD/agregar_usuario.php";
-
-    //ids
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private  String username,password,nombre_usuario,email_usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         user = (EditText)findViewById(R.id.txtusername);
         user.setTypeface(typeFace);
-
         pass = (EditText)findViewById(R.id.txtPass);
         pass.setTypeface(typeFace);
         email = (EditText)findViewById(R.id.txtEmail);
@@ -57,23 +43,15 @@ public class Registro extends Activity{
         nombre.setTypeface(typeFace);
         TextView text1 =(TextView) findViewById(R.id.txtregistro);
         text1.setTypeface(typeFace);
-
         final Button  mRegister = (Button)findViewById(R.id.btnGuardar);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new CreateUser().execute();
-
-
             }
         });
-
     }
-
-
     class CreateUser extends AsyncTask<String, String, String> {
-
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -86,31 +64,20 @@ public class Registro extends Activity{
             password = pass.getText().toString();
             nombre_usuario = nombre.getText().toString();
             email_usuario = email.getText().toString();
-
         }
-
         @Override
         protected String doInBackground(String... args) {
 
-            // Check for success tag
             int success;
-
             try {
-                // Building Parameters
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
                 params.add(new BasicNameValuePair("Nombre_usuario", nombre_usuario));
                 params.add(new BasicNameValuePair("Email_usuario", email_usuario));
                 Log.d("request!", "starting");
-
-                //Posting user data to script
                 JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST", params);
-
-                // full json response
                 Log.d("Registering attempt", json.toString());
-
-                // json success element
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     Log.d("User Created!", json.toString());
@@ -119,16 +86,12 @@ public class Registro extends Activity{
                 }else{
                     Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
                     return json.getString(TAG_MESSAGE);
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             return null;
-
         }
-
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product deleted
             pDialog.dismiss();
@@ -137,8 +100,5 @@ public class Registro extends Activity{
             }
         }
     }
-
-
-
 }
 
