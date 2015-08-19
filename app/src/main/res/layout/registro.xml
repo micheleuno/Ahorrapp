@@ -36,15 +36,15 @@
         android:ems="10"
         android:id="@+id/txtNombrePersona"
         android:layout_gravity="center_horizontal"
-        android:hint="Nombre" />
+        android:hint="Nombre completo" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtusername"
-        android:hint="Username" />
+        android:hint="Nombre de usuario Ahorrapp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -65,6 +65,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/txtPass"
         android:layout_gravity="center_horizontal"
@@ -75,6 +76,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/txtPass2"
+        android:inputType="textPassword"
         android:layout_gravity="center_horizontal"
         android:hint="Repetir Contraseña" />
 

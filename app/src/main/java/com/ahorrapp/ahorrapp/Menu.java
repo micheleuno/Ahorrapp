@@ -30,6 +30,8 @@ public class Menu extends Activity {
     private static final String TAG_N_USUARIO = "Username";//daigosk
     private static final String TAG_RUT = "Rut_usuario";
     private static final String TAG_ID = "Id_establecimiento";
+    private static final String TAG_EMAIL = "Email_usuario";
+    private static final String TAG_DIRECCION = "Direccion_usuario";
     private  String username,password;
     private EditText user, pass;
     private ProgressDialog pDialog;
@@ -101,7 +103,7 @@ public class Menu extends Activity {
                     products = json.getJSONArray(TAG_USUARIO);
                     JSONObject c = products.getJSONObject(0);
                     // Storing each json item in variable
-                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID));
+                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID),c.getString(TAG_EMAIL),c.getString(TAG_DIRECCION));
                     Intent i = new Intent(Menu.this, Perfil.class);
                     startActivity(i);
                     finish();

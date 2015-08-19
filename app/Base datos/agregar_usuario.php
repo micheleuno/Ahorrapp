@@ -1,8 +1,4 @@
 <?php
-
-/*
-siempre tener en cuenta "config.inc.php" 
-*/
 require("config.inc.php");
 
 //if posted data is not empty
@@ -49,25 +45,21 @@ if (!empty($_POST)) {
         //die("This username is already in use");
         
         $response["success"] = 0;
-        $response["message"] = "Lo siento el usuario ya existe";
+        $response["message"] = "Lo sentimos el usuario ya existe";
         die(json_encode($response));
     }
     
     //Si llegamos a este punto, es porque el usuario no existe
     //y lo insertamos (agregamos)
     //$query = "INSERT INTO users ( username, password ) VALUES ( :user, :pass ) ";
-     $query = "INSERT INTO Usuario ( username, password,Email_usuario,Nombre_usuario ) VALUES ( :user, :pass,:Email,:Nombre) ";
+     $query = "INSERT INTO Usuario ( username, password,Email_usuario,Nombre_usuario,Direccion_usuario ) VALUES ( :user, :pass,:Email,:Nombre,:Direccion) ";
     //actualizamos los token
     $query_params = array(
-        ':user' => $_POST['username'],
-        ':pass' => $_POST['password'],
+        ':user' => $_POST['Username'],
+        ':pass' => $_POST['Password'],
         ':Email' => $_POST['Email_usuario'],
         ':Nombre' => $_POST['Nombre_usuario'],
-
-
-
-
-
+        ':Direccion' => $_POST['Direccion'],
     );
     
     //ejecutamos la query y creamos el usuario
@@ -100,16 +92,19 @@ if (!empty($_POST)) {
  <h1>Agregar Usuario</h1> 
  <form action="agregar_usuario.php" method="post"> 
      Username:<br /> 
-     <input type="text" name="username" value="" /> 
+     <input type="text" name="Username" value="" /> 
      <br /><br /> 
      Password:<br /> 
-     <input type="password" name="password" value="" /> 
+     <input type="password" name="Password" value="" /> 
      <br /><br /> 
      Email:<br /> 
      <input type="text" name="Email_usuario" value="" /> 
      <br /><br /> 
      Nombre completo:<br /> 
      <input type="text" name="Nombre_usuario" value="" /> 
+     <br /><br /> 
+      Direccion:<br /> 
+     <input type="text" name="Direccion" value="" /> 
      <br /><br /> 
      <input type="submit" value="Agregar nuevo usuario" /> 
  </form>

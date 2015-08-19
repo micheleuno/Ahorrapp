@@ -12,7 +12,9 @@ if (!empty($_POST)) {
                 password,
                 Nombre_usuario,
                 Rut_usuario,
-                Id_establecimiento
+                Id_establecimiento,
+                Email_usuario,
+                Direccion_usuario
             FROM Usuario 
             WHERE 
                 username = :username 
@@ -66,6 +68,8 @@ if (!empty($_POST)) {
         $usuario["Username"] = $row['username'];
         $usuario["Rut_usuario"] = $row['Rut_usuario'];
         $usuario["Id_establecimiento"] = $row['Id_establecimiento'];
+        $usuario["Email_usuario"] = $row['Email_usuario'];
+        $usuario["Direccion_usuario"] = $row['Direccion_usuario'];
          array_push($response["Usuario"], $usuario);
         die(json_encode($response));
     } else {

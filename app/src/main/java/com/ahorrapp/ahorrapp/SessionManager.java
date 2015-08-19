@@ -28,6 +28,8 @@ public class SessionManager {
     public static final String TAG_RUT = "Rut_usuario";
     // Id local  (make variable public to access from outside) 0 si no es dueno de ninguno
     public static final String TAG_LOCAL = "Id_local";
+    public static final String TAG_EMAIL = "Email";
+    public static final String TAG_DIRECCION = "Direccion";
 
     // Constructor
     public SessionManager(Context context){
@@ -39,7 +41,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String username, String Rut,String Id){
+    public void createLoginSession(String name, String username, String Rut,String Id,String email, String direccion){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -53,6 +55,8 @@ public class SessionManager {
 
         // Storing Rut in pref
         editor.putString(TAG_LOCAL, Id);
+        editor.putString(TAG_EMAIL, email);
+        editor.putString(TAG_DIRECCION, direccion);
 
         // commit changes
         editor.commit();
@@ -113,6 +117,8 @@ public class SessionManager {
         // user  id
         user.put(TAG_LOCAL, pref.getString(TAG_LOCAL, null));
         // return user
+        user.put(TAG_EMAIL, pref.getString(TAG_EMAIL, null));
+        user.put(TAG_DIRECCION, pref.getString(TAG_DIRECCION, null));
         return user;
     }
     /**

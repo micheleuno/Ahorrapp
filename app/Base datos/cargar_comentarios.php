@@ -23,8 +23,8 @@
 			$response["Comentario"] = array();
 			$comentario = array();
 				$comentario["Comentario"] = "Aquí no hay comentarios";
-				array_push($response["Comentario"], $comentario);
-				$comentario["Nombre_usuario"] = "";
+				$comentario["Nombre_usuario"] = " ";
+				array_push($response["Comentario"], $comentario);				
 				$response["success"] = 1;
 				echo json_encode($response);
 		}		
