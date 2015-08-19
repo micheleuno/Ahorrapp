@@ -107,7 +107,6 @@ public class Registro extends Activity{
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     Log.d("User Created!", json.toString());
-                    finish();
                     return json.getString(TAG_MESSAGE);
                 }else{
                     Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
