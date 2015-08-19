@@ -220,7 +220,6 @@ public class Local extends FragmentActivity {
         text2.setTypeface(typeFace);
         TextView text3 =(TextView) findViewById(R.id.textproducto);
         text3.setTypeface(typeFace);
-
         final Button perfil = (Button) findViewById(R.id.btnComentarios);
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override

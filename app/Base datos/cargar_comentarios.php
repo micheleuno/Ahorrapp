@@ -36,7 +36,7 @@
 			     Id Establecimiento:<br /> 
 			     <input type="text" name="idEstablecimiento" value="" /> 
 			     <br /><br /> 
-			     
+			     <input type="submit" value="Buscar" /> 
 			 </form>
 			 <?php
 	}
