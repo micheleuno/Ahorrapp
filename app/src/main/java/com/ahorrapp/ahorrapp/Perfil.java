@@ -60,6 +60,7 @@ public class Perfil extends Activity {
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 session.logoutUser();
             }
         });

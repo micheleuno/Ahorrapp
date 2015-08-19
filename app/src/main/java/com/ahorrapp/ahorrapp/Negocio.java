@@ -101,6 +101,7 @@ public class Negocio extends Activity {
                 nuevoform.putExtra("precio", productos.get_precio());
                 nuevoform.putExtra("unidad", productos.get_unidad());
                 nuevoform.putExtra("id_producto", productos.get_id());
+                finish();
                 startActivity(nuevoform);
             }
         });

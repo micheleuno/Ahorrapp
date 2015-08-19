@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -180,7 +181,14 @@ public class Opciones_producto extends Activity {
             }
         return null;
         }
+        protected void onPostExecute(String file_url) {
+            Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
+            finish();
+            startActivity(nuevoform);
+        }
+
     }
+
     private int getIndex(Spinner spinner, String myString){
 
         int index = 0;

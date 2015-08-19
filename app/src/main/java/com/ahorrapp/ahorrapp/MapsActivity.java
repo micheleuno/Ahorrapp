@@ -158,7 +158,7 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onClick(View v) {
                 Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu.class);
-
+                finish();
                 startActivity(nuevoform);
 
 

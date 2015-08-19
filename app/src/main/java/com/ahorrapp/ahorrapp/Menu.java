@@ -103,10 +103,10 @@ public class Menu extends Activity {
                     products = json.getJSONArray(TAG_USUARIO);
                     JSONObject c = products.getJSONObject(0);
                     // Storing each json item in variable
-                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT),c.getString(TAG_ID),c.getString(TAG_EMAIL),c.getString(TAG_DIRECCION));
+                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT), c.getString(TAG_ID), c.getString(TAG_EMAIL), c.getString(TAG_DIRECCION));
                     Intent i = new Intent(Menu.this, Perfil.class);
-                    startActivity(i);
                     finish();
+                    startActivity(i);
                     return json.getString(TAG_MESSAGE);
                 } else {
                     Log.d("Datos incorrectos", json.getString(TAG_MESSAGE));
