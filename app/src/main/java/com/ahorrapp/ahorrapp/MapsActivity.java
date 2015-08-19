@@ -122,7 +122,6 @@ public class MapsActivity extends FragmentActivity{
                 pos=establepos.get(cont);
                 dir=establedes.get(cont);
                 addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
-
                 cont++;
 
             }
@@ -186,8 +185,8 @@ public class MapsActivity extends FragmentActivity{
                 Intent nuevoform = new Intent(MapsActivity.this, Local.class);
                 Double latitud = marker.getPosition().latitude;
                 Double longitud = marker.getPosition().longitude;
-                nuevoform.putExtra("latitude", latitud);
-                nuevoform.putExtra("longitude", longitud);
+                nuevoform.putExtra("latitude", Double.toString(latitud));
+                nuevoform.putExtra("longitude",  Double.toString(longitud));
                 nuevoform.putExtra("nombre", marker.getTitle());
                 startActivity(nuevoform);
 
