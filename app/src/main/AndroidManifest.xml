@@ -73,6 +73,10 @@
             android:name=".Opciones_producto"
             android:id="@+id/editar_producto">
         </activity>
+        <activity
+            android:name=".Enviar_email"
+            android:id="@+id/Enviar_email">
+        </activity>
     </application>
 
 </manifest>

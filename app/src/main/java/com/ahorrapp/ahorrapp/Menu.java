@@ -64,6 +64,16 @@ public class Menu extends Activity {
                 startActivity(nuevoform);
             }
         });
+
+        final Button Olvidar_contrasena = (Button) findViewById(R.id.btnOlvidarPass);
+        Olvidar_contrasena.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nuevoform = new Intent(Menu.this, Enviar_email.class);
+                finish();
+                startActivity(nuevoform);
+            }
+        });
     }
 
     @Override

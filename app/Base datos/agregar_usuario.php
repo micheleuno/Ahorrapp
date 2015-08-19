@@ -5,12 +5,10 @@ require("config.inc.php");
 if (!empty($_POST)) {
     //preguntamos si el ussuario y la contraseña esta vacia
     //sino muere
-    if (empty($_POST['username']) || empty($_POST['password'])) {
-        
+    if (empty($_POST['Username']) || empty($_POST['Password'])) {        
         // creamos el JSON
         $response["success"] = 0;
-        $response["message"] = "Por favor entre el usuairo y el password";
-        
+        $response["message"] = "Por favor entre el usuairo y el password";        
         die(json_encode($response));
     }
     
@@ -48,6 +46,43 @@ if (!empty($_POST)) {
         $response["message"] = "Lo sentimos el usuario ya existe";
         die(json_encode($response));
     }
+
+
+    //si no hemos muerto (die), nos fijamos si exist en la base de datos -----------------------
+    $query        = " SELECT 1 FROM Usuario WHERE Email_usuario = :email";
+    
+    //acutalizamos el :user
+    $query_params = array(
+        ':email' => $_POST['Email_usuario']
+    );
+    
+    //ejecutamos la consulta
+    try {
+        // estas son las dos consultas que se van a hacer en la bse de datos
+        $stmt   = $db->prepare($query);
+        $result = $stmt->execute($query_params);
+    }
+    catch (PDOException $ex) {
+        // solo para testing
+        //die("Failed to run query: " . $ex->getMessage());
+        
+        $response["success"] = 0;
+        $response["message"] = "Database Error1. Please Try Again!";
+        die(json_encode($response));
+    }
+    
+    //buscamos la información
+    //como sabemos que el usuario ya existe lo matamos
+    $row = $stmt->fetch();
+    if ($row) {
+        // Solo para testing
+        //die("This username is already in use");
+        
+        $response["success"] = 0;
+        $response["message"] = "Lo sentimos esa direccion de correo esta en uso";
+        die(json_encode($response));
+    }
+
     
     //Si llegamos a este punto, es porque el usuario no existe
     //y lo insertamos (agregamos)
