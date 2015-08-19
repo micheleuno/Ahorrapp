@@ -212,12 +212,13 @@ public class MapsActivity extends FragmentActivity{
     }
 
 
+        @Override
+        public void onBackPressed() {
+            Intent nuevoform = new Intent(MapsActivity.this, MapsActivity.class);
+            finish();
+            startActivity(nuevoform);
+        }
 
-    @Override
-    public void onBackPressed() {
-        MapsActivity.this.finish();
-
-    }
 
 
     /**
