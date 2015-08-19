@@ -45,6 +45,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_LONGITUD = "Longitud";
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
+    private static final String TAG_ID = "idEstablecimiento";
     private  String producto;
 
     JSONArray products ;
@@ -85,9 +86,11 @@ public class MapsActivity extends FragmentActivity{
                         Double longitud = Double.parseDouble(c.getString(TAG_LONGITUD));
                         String direccion = c.getString(TAG_DIRECCION);
                         String nombre = c.getString(TAG_NOMBRE);
+                        String id = c.getString(TAG_ID);
 
                         // creating new HashMap
                         HashMap map = new HashMap();
+
                         HashMap<String, String> dir = new HashMap<String, String>();
 
                         // adding each child node to HashMap key => value
@@ -95,6 +98,7 @@ public class MapsActivity extends FragmentActivity{
                         map.put(TAG_LONGITUD, longitud);
                         dir.put(TAG_DIRECCION, direccion);
                         dir.put(TAG_NOMBRE, nombre);
+                        dir.put(TAG_ID, id);
 
                         establepos.add(i,map);
                         establedes.add(i,dir);
@@ -117,7 +121,7 @@ public class MapsActivity extends FragmentActivity{
             while(cont<establedes.size()){
                 pos=establepos.get(cont);
                 dir=establedes.get(cont);
-                addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION));
+                addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
 
                 cont++;
 
@@ -180,8 +184,13 @@ public class MapsActivity extends FragmentActivity{
             public void onInfoWindowClick(Marker marker) {
 
                 Intent nuevoform = new Intent(MapsActivity.this, Local.class);
+                Double latitud = marker.getPosition().latitude;
+                Double longitud = marker.getPosition().longitude;
+                nuevoform.putExtra("latitude", latitud);
+                nuevoform.putExtra("longitude", longitud);
                 nuevoform.putExtra("nombre", marker.getTitle());
                 startActivity(nuevoform);
+
 
             }
         });
@@ -259,7 +268,7 @@ public class MapsActivity extends FragmentActivity{
     /*
       Adds a marker to the map
 **/
-    private void addMarker(Double Lat, Double Long, String Nombre,String Direccion){
+    private void addMarker(Double Lat, Double Long, String Nombre,String Direccion, String Id){
 
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < (Nombre.length()-Direccion.length()); i++) {
@@ -275,10 +284,10 @@ public class MapsActivity extends FragmentActivity{
 
         if(null != googleMap){
             googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat,Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet));
+                    .position(new LatLng(Lat, Long))
+                    .title(Nombre)
+                    .draggable(false)
+                    .snippet(snippet));
 
 
         }

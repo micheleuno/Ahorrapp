@@ -42,7 +42,7 @@ public class Local extends FragmentActivity {
     ArrayList<HashMap<String,String>> establedes;
     ArrayList<HashMap<String,String>> productos;
     ArrayList<Lista_productos> produc;
-    String Nombre;
+    String Latitud,Longitud,Nombre;
     String Id;
 
     class AttemptLocal extends AsyncTask<String, String, String> {
@@ -50,7 +50,8 @@ public class Local extends FragmentActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("Nombre", Nombre));
+            params.add(new BasicNameValuePair("Latitud", Latitud));
+            params.add(new BasicNameValuePair("Longitud", Longitud));
             // getting JSON string from URL
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_datos_establecimiento.php", "POST", params);
             try {
@@ -204,6 +205,8 @@ public class Local extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
         Bundle bundle = getIntent().getExtras();
+        Latitud = bundle.getString("latitude");
+        Longitud = bundle.getString("longitude");
         Nombre = bundle.getString("nombre");
         establedes = new  ArrayList<HashMap<String, String>>();
         productos = new  ArrayList<HashMap<String, String>>();
