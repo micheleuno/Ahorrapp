@@ -28,6 +28,7 @@ public class Registro extends Activity{
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private  String username,password,nombre_usuario,email_usuario,direccion_usuario,password2;
+    private int success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,7 @@ public class Registro extends Activity{
         @Override
         protected String doInBackground(String... args) {
 
-            int success;
+
             try {
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("Username", username));
@@ -118,15 +119,18 @@ public class Registro extends Activity{
             return null;
         }
         protected void onPostExecute(String file_url) {
+
             // dismiss the dialog once product deleted
             pDialog.dismiss();
             if (file_url != null){
                 Toast.makeText(Registro.this, file_url, Toast.LENGTH_LONG).show();
             }
 
-            Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
-            finish();
-            startActivity(nuevoform);
+            if(success == 1) {
+                Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
+                finish();
+                startActivity(nuevoform);
+            }
         }
     }
 

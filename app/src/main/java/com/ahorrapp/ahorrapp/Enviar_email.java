@@ -3,6 +3,7 @@ package com.ahorrapp.ahorrapp;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -134,5 +135,10 @@ public class Enviar_email extends Activity implements OnClickListener{
                 Alertas.mensaje_error(Enviar_email.this, "Ese correo no esta asociado a ninguna cuenta");
             }
         }
+    }
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu.class);
+        finish();
+        startActivity(nuevoform);
     }
 }

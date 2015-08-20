@@ -107,7 +107,6 @@ public class Opciones_producto extends Activity {
                         });
                 AlertDialog alert = builder.create();
                 alert.show();
-                new AttemptEliminar().execute();
             }
         });
 
