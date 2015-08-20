@@ -17,7 +17,7 @@ if (!empty($_POST)) {
     
     //acutalizamos el :user
     $query_params = array(
-        ':user' => $_POST['username']
+        ':user' => $_POST['Username']
     );
     
     //ejecutamos la consulta
