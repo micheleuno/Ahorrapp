@@ -30,15 +30,15 @@
 
 
         <activity
-        android:name=".MapsActivity"
+            android:name=".MapsActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
-        android:label="@string/title_activity_maps" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:label="@string/title_activity_maps" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <activity
@@ -76,6 +76,10 @@
         <activity
             android:name=".Enviar_email"
             android:id="@+id/Enviar_email">
+        </activity>
+        <activity
+            android:name=".Solicitar"
+            android:id="@+id/solicitar_layout">
         </activity>
     </application>
 

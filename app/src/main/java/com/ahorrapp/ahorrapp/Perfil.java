@@ -40,7 +40,7 @@ public class Perfil extends Activity {
         email.setText(email_usuario);
 
 
-       TextView username =(TextView) findViewById(R.id.txtEmail);
+        TextView username =(TextView) findViewById(R.id.txtEmail);
         username.setTypeface(typeFace);
         username.setText(nombre_pila);
         TextView text1 =(TextView) findViewById(R.id.textbienvenido);
@@ -62,6 +62,15 @@ public class Perfil extends Activity {
             public void onClick(View v) {
                 finish();
                 session.logoutUser();
+            }
+        });
+
+        final Button Solicitar = (Button) findViewById(R.id.btnsolicitar);
+        Solicitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nuevoform = new Intent(Perfil.this, Solicitar.class);
+                startActivity(nuevoform);
             }
         });
 
