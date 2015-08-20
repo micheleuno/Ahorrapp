@@ -60,8 +60,12 @@ public class Enviar_email extends Activity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        new Attemptusuario().execute();
-
+        contrasena = "";
+        if(!reciep.getText().toString().equals("")){
+            new Attemptusuario().execute();
+        }else{
+            Alertas.mensaje_error(Enviar_email.this,"Debe ingresar un email");
+        }
     }
 
     class RetreiveFeedTask extends AsyncTask<String, Void, String> {

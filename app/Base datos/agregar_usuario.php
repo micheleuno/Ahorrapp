@@ -93,8 +93,8 @@ if (!empty($_POST)) {
         ':user' => $_POST['Username'],
         ':pass' => $_POST['Password'],
         ':Email' => $_POST['Email_usuario'],
-        ':Nombre' => $_POST['Nombre_usuario'],
-        ':Direccion' => $_POST['Direccion'],
+        ':Nombre' => utf8_encode($_POST['Nombre_usuario']),
+        ':Direccion' => utf8_encode($_POST['Direccion']),
     );
     
     //ejecutamos la query y creamos el usuario

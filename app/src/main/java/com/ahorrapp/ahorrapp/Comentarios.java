@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -89,10 +88,8 @@ public class Comentarios extends FragmentActivity {
             try {
                 int success = jsonp.getInt(Comentarios.TAG_SUCCESS);
                 if (success == 1) {
-
                     Comentarios.this.productsp = jsonp.getJSONArray(Comentarios.TAG_COMENTARIO);
                     // Recorriendo todos los comentario
-
                     for (int j = 0; j < Comentarios.this.productsp.length(); j++) {
                         JSONObject p = Comentarios.this.productsp.getJSONObject(j);
                         // Guardando cada comentario

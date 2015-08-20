@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Registro extends Activity{
-    private EditText user, pass,email,nombre,pass2,txtDireccionPersona,direccion;
+    private EditText user, pass,email,nombre,pass2,direccion;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     private static final String REGISTER_URL = "http://ahorrapp.hol.es/BD/agregar_usuario.php";
@@ -89,12 +89,9 @@ public class Registro extends Activity{
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-
         }
         @Override
         protected String doInBackground(String... args) {
-
-
             try {
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("Username", username));
@@ -102,21 +99,21 @@ public class Registro extends Activity{
                 params.add(new BasicNameValuePair("Nombre_usuario", nombre_usuario));
                 params.add(new BasicNameValuePair("Email_usuario", email_usuario));
                 params.add(new BasicNameValuePair("Direccion", direccion_usuario));
-                Log.d("request!", "starting");
+                Log.d("Iniciando!", "Peticion");
                 JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST", params);
-                Log.d("Registering attempt", json.toString());
+                Log.d("Intentando registrar", json.toString());
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    Log.d("User Created!", json.toString());
+                    Log.d("Usuario creado!", json.toString());
                     return json.getString(TAG_MESSAGE);
                 }else{
-                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                    Log.d("Registro Fallido!", json.getString(TAG_MESSAGE));
                     return json.getString(TAG_MESSAGE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return null;
+        return null;
         }
         protected void onPostExecute(String file_url) {
 
@@ -125,7 +122,6 @@ public class Registro extends Activity{
             if (file_url != null){
                 Toast.makeText(Registro.this, file_url, Toast.LENGTH_LONG).show();
             }
-
             if(success == 1) {
                 Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
                 finish();
