@@ -2,6 +2,7 @@ package com.ahorrapp.ahorrapp;
 
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.melnykov.fab.FloatingActionButton;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
@@ -172,10 +175,12 @@ public class Local extends FragmentActivity {
                     }
                     productos.clear();
                     ListView lista = (ListView) findViewById(R.id.productos);
+                    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                    fab.attachToListView(lista);
                     lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
                             texto_nombre.setTypeface(typeFace);
                             texto_nombre.setText(((Lista_productos) entrada).get_nombre());
@@ -192,7 +197,16 @@ public class Local extends FragmentActivity {
                             texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_id());
                         }
+
                     });
+                    fab.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.e("asdasasdasdd", "clikeado()");
+                        }
+                    });
+
+
                 }
 
 
@@ -224,11 +238,19 @@ public class Local extends FragmentActivity {
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent nuevoform = new Intent(Local.this, Comentarios.class);
-            nuevoform.putExtra("id",Id);
-            startActivity(nuevoform);
+                Intent nuevoform = new Intent(Local.this, Comentarios.class);
+                nuevoform.putExtra("id", Id);
+                startActivity(nuevoform);
             }
         });
+      /*  ImageView imageView = new ImageView(this);
+        imageView.setImageResource(R.drawable.unnamed);
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(imageView)
+                .build();*/
+
+
+
     }
 
     private void Mostrar_locales() {
