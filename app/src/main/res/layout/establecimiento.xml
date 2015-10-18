@@ -139,9 +139,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/unnamed"
-            fab:fab_colorNormal="@color/primary"
+            android:src="@drawable/ic_add_white_24dp"
+            fab:fab_colorNormal="@color/accent"
             fab:fab_colorPressed="@color/accent_pressed"
+            fab:fab_colorRipple="@color/ripple"/>
             />
 
     </FrameLayout>

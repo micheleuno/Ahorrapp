@@ -81,6 +81,10 @@
             android:name=".Solicitar"
             android:id="@+id/solicitar_layout">
         </activity>
+        <activity
+            android:name=".Agregar_producto"
+            android:id="@+id/agregar_productos_layout">
+        </activity>
     </application>
 
 </manifest>

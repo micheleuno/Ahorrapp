@@ -202,7 +202,9 @@ public class Local extends FragmentActivity {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.e("asdasasdasdd", "clikeado()");
+                            Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
+                            nuevoform.putExtra("id", Id);
+                            startActivity(nuevoform);
                         }
                     });
 

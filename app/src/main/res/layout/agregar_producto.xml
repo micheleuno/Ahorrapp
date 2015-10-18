@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editnombre"
+            android:id="@+id/editnombre_prod"
             android:hint="Nombre" />
 
         <EditText
@@ -28,30 +28,22 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editprecio"
+            android:id="@+id/editprecio_prod"
             android:hint="Precio" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Unidades"
+            android:id="@+id/Unidades_prod"
             android:clickable="True" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnagregar"
+            android:id="@+id/btnagregar_prod"
             android:layout_gravity="center_horizontal"
             android:background="@mipmap/agregar" />
 
     </LinearLayout>
-
-    <ListView
-        android:isScrollContainer="False"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listProductos"
-        android:layout_gravity="center_horizontal"
-        android:clickable="True" />
 
 </LinearLayout>
