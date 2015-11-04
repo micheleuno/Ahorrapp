@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity{
              producto = Producto.getText().toString();
             super.onPreExecute();
             MapsActivity.this.pDialog = new ProgressDialog(MapsActivity.this);
-            MapsActivity.this.pDialog.setMessage("Cargando Comentarios");
+            MapsActivity.this.pDialog.setMessage("Buscando");
             MapsActivity.this.pDialog.setIndeterminate(false);
             MapsActivity.this.pDialog.setCancelable(true);
             MapsActivity.this.pDialog.show();
