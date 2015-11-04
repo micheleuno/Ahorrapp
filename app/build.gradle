@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.ahorrapp.ahorrapp"
-        minSdkVersion 11
-        targetSdkVersion 21
+        minSdkVersion 15
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -29,4 +29,6 @@ dependencies {
     compile files('C:/TDS/Ahorrapp/libs/activation.jar')
     compile files('C:/TDS/Ahorrapp/libs/additionnal.jar')
     compile files('C:/TDS/Ahorrapp/libs/mail.jar')
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
+
 }
