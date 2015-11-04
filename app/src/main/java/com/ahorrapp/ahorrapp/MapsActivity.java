@@ -42,6 +42,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
     private  String producto;
+    private int success;
     JSONArray products ;
 
     class AttemptLogin extends AsyncTask<String, String, String> {
@@ -56,10 +57,12 @@ public class MapsActivity extends FragmentActivity{
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                    products = json.getJSONArray(TAG_PRODUCTS);
+                        products = json.getJSONArray(TAG_PRODUCTS);
+
                     //Log.i("Testing", "produtos.length" + products.length());
+
                     for (int i = 0; i < products.length(); i++) {
                         JSONObject c = products.getJSONObject(i);
                         Double latitud = Double.parseDouble(c.getString(TAG_LATITUD));
@@ -86,7 +89,9 @@ public class MapsActivity extends FragmentActivity{
         }
 
         protected void onPostExecute(String result){
-
+            if(success==0)
+                Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto");
+            else{
             int cont=0;
             HashMap<Double, Double> pos;
             HashMap<String, String> dir;
@@ -98,8 +103,8 @@ public class MapsActivity extends FragmentActivity{
             }
             establedes.clear();
             establepos.clear();
-            Producto.setText("");
-        }
+
+        }}
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

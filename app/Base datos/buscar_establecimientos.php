@@ -30,6 +30,13 @@
 			$response["success"] = 1;
 			echo json_encode($response);
 		}
+		else{
+
+			
+			$response["success"] = 0;
+			echo json_encode($response);
+
+		}
 	}
 	else {
 		?>

@@ -261,10 +261,5 @@ public class Local extends FragmentActivity {
        // Log.e("MIchele", Integer.toString(datos.size()));
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent nuevoform = new Intent(Local.this, MapsActivity.class);
-        finish();
-        startActivity(nuevoform);
-    }
+
 }

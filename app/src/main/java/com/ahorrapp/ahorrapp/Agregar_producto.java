@@ -1,5 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -187,6 +188,7 @@ public class Agregar_producto extends FragmentActivity {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
 
 
 }
