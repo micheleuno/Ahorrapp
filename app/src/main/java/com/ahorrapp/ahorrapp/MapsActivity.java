@@ -143,7 +143,10 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onMapLongClick(LatLng latLng) {
 
-                addMarker(latLng.latitude, latLng.longitude, "hola", "hola", "99");
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latLng.latitude, latLng.longitude))
+                        .draggable(true)
+                        .snippet("Presionar para crear establecimiento"));
             }
 
         });
