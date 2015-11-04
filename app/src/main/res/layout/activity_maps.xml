@@ -3,16 +3,6 @@
     android:layout_height="fill_parent">
 
 
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:id="@+id/frameLayout2"
-        >
-
-    </FrameLayout>
-
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
@@ -40,13 +30,13 @@
 
             <Button
                 android:layout_width="94dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/btnopciones"
                 android:background="@mipmap/menulogo" />
 
             <EditText
                 android:layout_width="212dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:id="@+id/txtProducto"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -58,8 +48,8 @@
                 android:background="@mipmap/fondomenubuscar" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:id="@+id/buscador"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
