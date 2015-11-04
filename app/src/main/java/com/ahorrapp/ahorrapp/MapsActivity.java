@@ -127,6 +127,8 @@ public class MapsActivity extends FragmentActivity{
             }
         });
 
+
+
         final Button Productos = (Button) findViewById(R.id.buscador);
         Productos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +137,17 @@ public class MapsActivity extends FragmentActivity{
                 Mostrar_locales();
             }
         });
+
+        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+
+                addMarker(latLng.latitude, latLng.longitude, "hola", "hola", "99");
+            }
+
+        });
+
 
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -149,6 +162,8 @@ public class MapsActivity extends FragmentActivity{
             }
         });
     }
+
+
 
         @Override
         public void onBackPressed() {
