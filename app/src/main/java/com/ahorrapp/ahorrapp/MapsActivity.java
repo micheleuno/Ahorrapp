@@ -1,5 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
+    private ProgressDialog pDialog;
     private  String producto;
     private int success;
     JSONArray products ;
@@ -49,11 +51,17 @@ public class MapsActivity extends FragmentActivity{
 
         protected void onPreExecute() {
              producto = Producto.getText().toString();
+            super.onPreExecute();
+            MapsActivity.this.pDialog = new ProgressDialog(MapsActivity.this);
+            MapsActivity.this.pDialog.setMessage("Cargando Comentarios");
+            MapsActivity.this.pDialog.setIndeterminate(false);
+            MapsActivity.this.pDialog.setCancelable(true);
+            MapsActivity.this.pDialog.show();
         }
 
         protected String doInBackground(String... args) {
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("Nombre",producto ));
+            params.add(new BasicNameValuePair("Nombre", producto));
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
             try {
@@ -103,6 +111,7 @@ public class MapsActivity extends FragmentActivity{
             }
             establedes.clear();
             establepos.clear();
+                MapsActivity.this.pDialog.dismiss();
 
         }}
     }
@@ -146,6 +155,7 @@ public class MapsActivity extends FragmentActivity{
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(latLng.latitude, latLng.longitude))
                         .draggable(true)
+                        .title("Nuevo Establecimiento")
                         .snippet("Presionar para crear establecimiento"));
             }
 
