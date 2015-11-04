@@ -102,7 +102,6 @@ public class Comentarios extends FragmentActivity {
                         pro.put(Comentarios.TAG_USUARIO, usuario);
                         Comentarios.this.productos.add(pro);
                     }
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -152,7 +151,7 @@ public class Comentarios extends FragmentActivity {
                 Comentarios.this.Coment = Comentarios.this.Comentario.getText().toString();
                 Comentarios.this.Comentario.setText("");
                 Comentarios.this.session = new SessionManager(Comentarios.this.getApplicationContext());
-                if(Comentarios.this.session.isLoggedIn()) {  //si el usuario inicio sesion
+                 if(Comentarios.this.session.isLoggedIn()) {  //si el usuario inicio sesion
                     if (!Comentarios.this.Coment.equals("")) { //si el comentario no es vacio
                         new AttemptComentario().execute();
                         new AttemptCargar().execute();

@@ -1,6 +1,5 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,13 +29,9 @@ public class Agregar_producto extends FragmentActivity {
 
     private EditText name,precio;
     String unidad_id,names,precios;
-    ArrayList<HashMap<String,String>> productos;
     ArrayList<HashMap<String,String>> unidades;
     ArrayList<Combobox> datos;
-    ArrayList<Lista_productos> produc;
-    SessionManager session;
     Spinner lista;
-    ListView lista_p;
     JSONParser jsonParserp = new JSONParser();
     JSONParser jsonParser = new JSONParser();
     // JSON Node names establecimiento
@@ -46,16 +40,12 @@ public class Agregar_producto extends FragmentActivity {
     private static final String TAG_UNIDADES = "Unidades";
     private static final String TAG_UNIDAD = "Unidad";
     private static final String TAG_ID_UNIDAD = "Id";
-    private static final String TAG_IDPRODUCTO ="idUbicacion";
     //JSON Node names producto
-    private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
     String Id_establecimiento;
-    private ProgressDialog pDialog;
     JSONArray unidad ;
-    JSONArray productsp ;
-    //agregar producto
+
     private static final String TAG_Id_establecimiento = "Id_establecimiento";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
