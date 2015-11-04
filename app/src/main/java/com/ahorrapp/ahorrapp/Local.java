@@ -38,6 +38,7 @@ public class Local extends FragmentActivity {
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
     private static final String TAG_UNIDAD = "Unidad";
+    SessionManager session;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     JSONParser jsonParserp = new JSONParser();
@@ -175,8 +176,10 @@ public class Local extends FragmentActivity {
                     }
                     productos.clear();
                     ListView lista = (ListView) findViewById(R.id.productos);
+
                     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
                     fab.attachToListView(lista);
+
                     lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
@@ -202,9 +205,14 @@ public class Local extends FragmentActivity {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
-                            nuevoform.putExtra("id", Id);
-                            startActivity(nuevoform);
+                            Local.this.session = new SessionManager(Local.this.getApplicationContext());
+                            if (Local.this.session.isLoggedIn()) {
+                                Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
+                                nuevoform.putExtra("id", Id);
+                                startActivity(nuevoform);
+                            }else{
+                                Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
+                            }
                         }
                     });
 
@@ -245,12 +253,6 @@ public class Local extends FragmentActivity {
                 startActivity(nuevoform);
             }
         });
-      /*  ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.unnamed);
-        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
-                .setContentView(imageView)
-                .build();*/
-
 
 
     }
