@@ -1,5 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
+    private ProgressDialog pDialog;
     private  String producto;
     private int success;
     JSONArray products ;
@@ -48,18 +50,24 @@ public class MapsActivity extends FragmentActivity{
     class AttemptLogin extends AsyncTask<String, String, String> {
 
         protected void onPreExecute() {
-             producto = Producto.getText().toString();
+            producto = Producto.getText().toString();
+            super.onPreExecute();
+            MapsActivity.this.pDialog = new ProgressDialog(MapsActivity.this);
+            MapsActivity.this.pDialog.setMessage("Buscando");
+            MapsActivity.this.pDialog.setIndeterminate(false);
+            MapsActivity.this.pDialog.setCancelable(true);
+            MapsActivity.this.pDialog.show();
         }
 
         protected String doInBackground(String... args) {
             List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("Nombre",producto ));
+            params.add(new BasicNameValuePair("Nombre", producto));
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
             try {
-                 success = json.getInt(TAG_SUCCESS);
+                success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
-                        products = json.getJSONArray(TAG_PRODUCTS);
+                    products = json.getJSONArray(TAG_PRODUCTS);
 
                     //Log.i("Testing", "produtos.length" + products.length());
 
@@ -85,26 +93,27 @@ public class MapsActivity extends FragmentActivity{
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        return null;
+            return null;
         }
 
         protected void onPostExecute(String result){
             if(success==0)
                 Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto");
             else{
-            int cont=0;
-            HashMap<Double, Double> pos;
-            HashMap<String, String> dir;
-            while(cont<establedes.size()){
-                pos=establepos.get(cont);
-                dir=establedes.get(cont);
-                addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
-                cont++;
-            }
-            establedes.clear();
-            establepos.clear();
+                int cont=0;
+                HashMap<Double, Double> pos;
+                HashMap<String, String> dir;
+                while(cont<establedes.size()){
+                    pos=establepos.get(cont);
+                    dir=establedes.get(cont);
+                    addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
+                    cont++;
+                }
+                establedes.clear();
+                establepos.clear();
+                MapsActivity.this.pDialog.dismiss();
 
-        }}
+            }}
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,12 +150,12 @@ public class MapsActivity extends FragmentActivity{
         googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
-            public void onMapLongClick(LatLng latLng)
-
+            public void onMapLongClick(LatLng latLng) {
+                googleMap.clear();
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(latLng.latitude, latLng.longitude))
                         .draggable(true)
-                        .title("Nuevo Establencimiento")
+                        .title("Nuevo Establecimiento")
                         .snippet("Presionar para crear establecimiento"));
             }
 
@@ -156,6 +165,16 @@ public class MapsActivity extends FragmentActivity{
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                if(marker.getTitle().equals("Nuevo Establecimiento")){
+                    Intent nuevoform = new Intent(MapsActivity.this, Registrar_establecimiento.class);
+                    Double latitud = marker.getPosition().latitude;
+                    Double longitud = marker.getPosition().longitude;
+                    nuevoform.putExtra("latitude", Double.toString(latitud));
+                    nuevoform.putExtra("longitude",  Double.toString(longitud));
+                    startActivity(nuevoform);
+
+                }
+                else{
                 Intent nuevoform = new Intent(MapsActivity.this, Local.class);
                 Double latitud = marker.getPosition().latitude;
                 Double longitud = marker.getPosition().longitude;
@@ -163,21 +182,21 @@ public class MapsActivity extends FragmentActivity{
                 nuevoform.putExtra("longitude",  Double.toString(longitud));
                 nuevoform.putExtra("nombre", marker.getTitle());
                 startActivity(nuevoform);
-            }
+            }}
         });
     }
 
 
 
-        @Override
-        public void onBackPressed() {
-            Intent nuevoform = new Intent(MapsActivity.this, MapsActivity.class);
-            finish();
-            startActivity(nuevoform);
-        }
+    @Override
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(MapsActivity.this, MapsActivity.class);
+        finish();
+        startActivity(nuevoform);
+    }
 
     private void createMapView(){
-         final LatLng UPV = new LatLng(-33.044662, -71.612465);
+        final LatLng UPV = new LatLng(-33.044662, -71.612465);
         try {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -192,7 +211,7 @@ public class MapsActivity extends FragmentActivity{
                 }
                 if(null == googleMap) {
                     Toast.makeText(getApplicationContext(),
-                    "Error creating map", Toast.LENGTH_SHORT).show();
+                            "Error creating map", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (NullPointerException exception){
@@ -213,10 +232,10 @@ public class MapsActivity extends FragmentActivity{
         snippet = result.toString();
         if(null != googleMap){
             googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(Lat, Long))
-                .title(Nombre)
-                .draggable(false)
-                .snippet(snippet));
+                    .position(new LatLng(Lat, Long))
+                    .title(Nombre)
+                    .draggable(false)
+                    .snippet(snippet));
         }
     }
     private void Mostrar_locales() {

@@ -85,6 +85,10 @@
             android:name=".Agregar_producto"
             android:id="@+id/agregar_productos_layout">
         </activity>
+        <activity
+            android:name=".Registrar_establecimiento"
+            android:id="@+id/registrar_establecimiento">
+        </activity>
     </application>
 
 </manifest>

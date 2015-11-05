@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/registrar_establecimiento"
+    android:background="@mipmap/menu">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"></FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="278dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="FORMULARIO REGISTRO"
+                android:id="@+id/txtregistro_es"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txtNombreEstablecimiento"
+            android:layout_gravity="center_horizontal"
+            android:hint="Nombre Establecimiento" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/txtDescripcion"
+            android:hint="Descripcion" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/txtContacto"
+        android:hint="Contacto" />
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDireccionEstablecimiento"
+            android:layout_gravity="center_horizontal"
+            android:hint="Direccion" />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGuardar_es"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onClickbtnGuardar"
+            android:background="@mipmap/registro" />
+
+</LinearLayout>
