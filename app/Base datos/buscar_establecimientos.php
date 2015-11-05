@@ -29,14 +29,43 @@
 			}
 			$response["success"] = 1;
 			echo json_encode($response);
+		}else{
+			$query = "  
+				SELECT  
+				Latitud , 
+				Longitud,
+				Nombre,
+				Direccion,
+				idEstablecimiento
+				FROM Establecimiento 
+				
+				where  Nombre = CONCAT  ('%', '".$nombre."' ,'%')   
+		"; 
+
+		}
+		$result2 = mysqli_query($conexion, $query); 
+		if (mysqli_num_rows($result2) > 0 ) {
+			$response["Establecimiento"] = array();
+			while ($row = mysqli_fetch_array($result)) {
+				$product = array();
+				$product["Nombre"] = ($row["Nombre"]);
+				$product["Direccion"] = ($row["Direccion"]);
+				$product["idEstablecimiento"] = $row["idEstablecimiento"];
+					$product["Latitud"] = $row["Latitud"];
+						$product["Longitud"] = $row["Longitud"];
+				array_push($response["Establecimiento"], $product);
+			}
+			$response["success"] = 1;
+			echo json_encode($response);
 		}
 		else{
-
-			
-			$response["success"] = 0;
+$response["success"] = 0;
 			echo json_encode($response);
+		}		
+			
 
-		}
+		
+	
 	}
 	else {
 		?>
