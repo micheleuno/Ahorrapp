@@ -108,7 +108,7 @@ public class SessionManager {
      * Get stored session data
      * */
     public HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String, String>();
+        HashMap<String, String> user = new HashMap<>();
         // user name
         user.put(TAG_NOMBRE, pref.getString(TAG_NOMBRE, null));
         // user usuario

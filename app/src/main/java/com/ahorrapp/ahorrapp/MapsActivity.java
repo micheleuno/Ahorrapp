@@ -42,6 +42,7 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
+    SessionManager session;
     private ProgressDialog pDialog;
     private  String producto;
     private int success;
@@ -60,7 +61,7 @@ public class MapsActivity extends FragmentActivity{
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("Nombre", producto));
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
@@ -78,10 +79,10 @@ public class MapsActivity extends FragmentActivity{
                         String direccion = c.getString(TAG_DIRECCION);
                         String nombre = c.getString(TAG_NOMBRE);
                         String id = c.getString(TAG_ID);
-                        HashMap map = new HashMap();
-                        HashMap<String, String> dir = new HashMap<String, String>();
-                        map.put(TAG_LATITUD, latitud);
-                        map.put(TAG_LONGITUD, longitud);
+                        HashMap<Double,Double> map = new HashMap<>();
+                        HashMap<String, String> dir = new HashMap<>();
+                        map.put(1.0, latitud);
+                        map.put(2.0, longitud);
                         dir.put(TAG_DIRECCION, direccion);
                         dir.put(TAG_NOMBRE, nombre);
                         dir.put(TAG_ID, id);
@@ -106,7 +107,7 @@ public class MapsActivity extends FragmentActivity{
                 while(cont<establedes.size()){
                     pos=establepos.get(cont);
                     dir=establedes.get(cont);
-                    addMarker(pos.get(TAG_LATITUD), pos.get(TAG_LONGITUD), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
+                    addMarker(pos.get(1.0), pos.get(2.0), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
                     cont++;
                 }
                 establedes.clear();
@@ -120,8 +121,9 @@ public class MapsActivity extends FragmentActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        establepos = new  ArrayList<HashMap<Double, Double>>();
-        establedes = new  ArrayList<HashMap<String, String>>();
+        session = new SessionManager(getApplicationContext());
+        establepos = new ArrayList<>();
+        establedes = new ArrayList<>();
         Producto = (EditText) findViewById(R.id.txtProducto);
         Producto.setText("");
         createMapView();
@@ -151,12 +153,16 @@ public class MapsActivity extends FragmentActivity{
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                googleMap.clear();
-                googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(latLng.latitude, latLng.longitude))
-                        .draggable(true)
-                        .title("Nuevo Establecimiento")
-                        .snippet("Presionar para crear establecimiento"));
+                if (MapsActivity.this.session.isLoggedIn()){
+                    googleMap.clear();
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(latLng.latitude, latLng.longitude))
+                            .draggable(true)
+                            .title("Nuevo Establecimiento")
+                            .snippet("Presionar para crear establecimiento"));
+                }else{
+                    Alertas.mensaje_error(MapsActivity.this, "Para agregar Establecimiento debe iniciar sesion");
+                }
             }
 
         });

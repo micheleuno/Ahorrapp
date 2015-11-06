@@ -51,8 +51,8 @@ public class Opciones_producto extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editar_productos);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf"); //elegir fuente del texto
-        unidades = new  ArrayList<HashMap<String, String>>();
-        datos = new ArrayList<Combobox>();
+        unidades = new ArrayList<>();
+        datos = new ArrayList<>();
         name = (EditText) findViewById(R.id.Nombre);
         precio = (EditText) findViewById(R.id.Precio);
         id_producto = (EditText) findViewById(R.id.idproducto);
@@ -141,7 +141,7 @@ public class Opciones_producto extends Activity {
 
         protected String doInBackground(String... args) {
 
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_Id_establecimiento, id_prod));
             params.add(new BasicNameValuePair(TAG_NOMBREP, nombre));
             params.add(new BasicNameValuePair(TAG_PRECIO,valor));
@@ -150,6 +150,7 @@ public class Opciones_producto extends Activity {
             try {
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
+                    return null;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -166,13 +167,14 @@ public class Opciones_producto extends Activity {
         }
         protected String doInBackground(String... args) {
             session = new SessionManager(getApplicationContext());
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("id", id_prod));
             params.add(new BasicNameValuePair("nombre", nombre));
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/eliminar_producto.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
+                    return null;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -202,7 +204,7 @@ public class Opciones_producto extends Activity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
@@ -213,7 +215,7 @@ public class Opciones_producto extends Activity {
                         JSONObject p = unidad.getJSONObject(j);
                         String unidad = p.getString(TAG_UNIDAD);
                         String id = p.getString(TAG_ID_UNIDAD);
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         pro.put(TAG_UNIDAD, unidad);
                         pro.put(TAG_ID_UNIDAD,id);
                         unidades.add(pro);

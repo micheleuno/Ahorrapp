@@ -59,10 +59,10 @@ public class Negocio extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.perfil_negocio);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
-        unidades = new  ArrayList<HashMap<String, String>>();
-        productos = new  ArrayList<HashMap<String, String>>();
-        datos = new ArrayList<Combobox>();
-        produc = new ArrayList<Lista_productos>();
+        unidades = new ArrayList<>();
+        productos = new ArrayList<>();
+        datos = new ArrayList<>();
+        produc = new ArrayList<>();
         name = (EditText) findViewById(R.id.editnombre);
         name.setTypeface(typeFace);
         precio = (EditText) findViewById(R.id.editprecio);
@@ -123,7 +123,7 @@ public class Negocio extends Activity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
@@ -137,7 +137,7 @@ public class Negocio extends Activity {
                         String unidad = p.getString(TAG_UNIDAD);
                         String id = p.getString(TAG_ID_UNIDAD);
                         // creating new HashMap
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         // adding each child node to HashMap key => value
                         pro.put(TAG_UNIDAD, unidad);
                         pro.put(TAG_ID_UNIDAD,id);
@@ -192,7 +192,7 @@ public class Negocio extends Activity {
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> paramsp = new ArrayList<>();
             session = new SessionManager(getApplicationContext());
             // get user data from session
             HashMap<String, String> user = session.getUserDetails();
@@ -213,7 +213,7 @@ public class Negocio extends Activity {
                         String Producto = p.getString(TAG_NOMBREP);
                         String Unidad =p.getString(TAG_UNIDAD);
                         String id_producto=p.getString(TAG_IDPRODUCTO);
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
                         pro.put(TAG_UNIDAD, Unidad);
@@ -272,7 +272,7 @@ public class Negocio extends Activity {
             session = new SessionManager(getApplicationContext());
             // get user data from session
             HashMap<String, String> user = session.getUserDetails();
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_UNIDAD, unidad_id));
             params.add(new BasicNameValuePair(TAG_PRODUCTO, names));
             params.add(new BasicNameValuePair(TAG_Id_establecimiento, user.get(SessionManager.TAG_LOCAL)));
@@ -283,6 +283,7 @@ public class Negocio extends Activity {
                 // Checking for SUCCESS TAG
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
+                    return null;
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

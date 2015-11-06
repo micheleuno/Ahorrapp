@@ -2,13 +2,11 @@ package com.ahorrapp.ahorrapp;
 
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -54,7 +52,7 @@ public class Local extends FragmentActivity {
 
         protected String doInBackground(String... args) {
             // Building Parameters
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair("Latitud", Latitud));
             params.add(new BasicNameValuePair("Longitud", Longitud));
             // getting JSON string from URL
@@ -77,7 +75,7 @@ public class Local extends FragmentActivity {
                         String id = c.getString(TAG_ID);
                         Id=id;
                         // creating new HashMap
-                        HashMap<String, String> dir = new HashMap<String, String>();
+                        HashMap<String, String> dir = new HashMap<>();
                         // adding each child node to HashMap key => value
                         dir.put(TAG_DIRECCION, address);
                         dir.put(TAG_NOMBRE, local);
@@ -131,7 +129,7 @@ public class Local extends FragmentActivity {
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> paramsp = new ArrayList<>();
             paramsp.add(new BasicNameValuePair("idEstablecimiento", Id));
             JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", paramsp);
             try {
@@ -148,7 +146,7 @@ public class Local extends FragmentActivity {
                         String Producto = p.getString(TAG_NOMBREP);
                         String Unidad = p.getString(TAG_UNIDAD);
                         // creating new HashMap
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         // adding each child node to HashMap key => value
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
@@ -197,8 +195,8 @@ public class Local extends FragmentActivity {
                             texto_unidad.setText(((Lista_productos) entrada).get_unidad());
 
                             TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
-                            texto_unidad.setTypeface(typeFace);
-                            texto_unidad.setText(((Lista_productos) entrada).get_id());
+                            id_producto.setTypeface(typeFace);
+                            id_producto.setText(((Lista_productos) entrada).get_id());
                         }
 
                     });
@@ -233,9 +231,9 @@ public class Local extends FragmentActivity {
         Latitud = bundle.getString("latitude");
         Longitud = bundle.getString("longitude");
         Nombre = bundle.getString("nombre");
-        establedes = new  ArrayList<HashMap<String, String>>();
-        productos = new  ArrayList<HashMap<String, String>>();
-        produc = new ArrayList<Lista_productos>();
+        establedes = new ArrayList<>();
+        productos = new ArrayList<>();
+        produc = new ArrayList<>();
         Mostrar_locales();
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         TextView text1 =(TextView) findViewById(R.id.txtdireccion);

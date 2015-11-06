@@ -51,7 +51,7 @@ public class Comentarios extends FragmentActivity {
             HashMap<String, String> user = Comentarios.this.session.getUserDetails();
             String username = user.get(SessionManager.TAG_NOMBRE);
             String rut = user.get(SessionManager.TAG_RUT);
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(Comentarios.TAG_COMENTARIOS, Comentarios.this.Coment));
             params.add(new BasicNameValuePair(Comentarios.TAG_NOMBRE_U, username));
             params.add(new BasicNameValuePair("id", Comentarios.this.Id));
@@ -82,7 +82,7 @@ public class Comentarios extends FragmentActivity {
         protected String doInBackground(String... args) {
             Bundle bundle = Comentarios.this.getIntent().getExtras();
             Comentarios.this.Id = bundle.getString("id");
-            List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> paramsp = new ArrayList<>();
             paramsp.add(new BasicNameValuePair("idEstablecimiento", Comentarios.this.Id));
             JSONObject jsonp = Comentarios.this.jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_comentarios.php", "POST", paramsp);
             try {
@@ -96,7 +96,7 @@ public class Comentarios extends FragmentActivity {
                         String comentario = p.getString(Comentarios.TAG_COMENTARIO);
                         String usuario = p.getString(Comentarios.TAG_USUARIO);
                         // creando un nuevo new HashMap
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         // Agregando a un HashMap HashMap key => value
                         pro.put(Comentarios.TAG_COMENTARIO, comentario);
                         pro.put(Comentarios.TAG_USUARIO, usuario);
@@ -140,8 +140,8 @@ public class Comentarios extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(layout.comentario);
-        this.productos = new  ArrayList<HashMap<String, String>>();
-        this.datos = new ArrayList<Lista_entrada>();
+        this.productos = new ArrayList<>();
+        this.datos = new ArrayList<>();
         new AttemptCargar().execute();
         this.Comentario = (EditText) this.findViewById(id.txtcoment);
         Button comentar = (Button) this.findViewById(id.btncoment);  //al presionar comentar

@@ -49,8 +49,6 @@ public class Perfil extends Activity {
         text2.setTypeface(typeFace);
         TextView text4 =(TextView) findViewById(R.id.textdireccion);
         text4.setTypeface(typeFace);
-        TextView text5 =(TextView) findViewById(R.id.txtDireccionPersona);
-        text5.setTypeface(typeFace);
         TextView text6 =(TextView) findViewById(R.id.textnombre);
         text6.setTypeface(typeFace);
         TextView text7 =(TextView) findViewById(R.id.textemail);

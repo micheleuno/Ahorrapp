@@ -23,16 +23,12 @@ import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- * Created by miche on 19-08-2015.
- */
 public class Enviar_email extends Activity implements OnClickListener{
 
 
@@ -43,7 +39,7 @@ public class Enviar_email extends Activity implements OnClickListener{
     ProgressDialog pdialog = null;
     Context context = null;
     EditText reciep;
-    String rec,contrasena="",user;
+    String rec,contrasena="",user,mail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +58,7 @@ public class Enviar_email extends Activity implements OnClickListener{
     public void onClick(View v) {
         contrasena = "";
         if(!reciep.getText().toString().equals("")){
+            mail=reciep.getText().toString();
             new Attemptusuario().execute();
         }else{
             Alertas.mensaje_error(Enviar_email.this,"Debe ingresar un email");
@@ -80,8 +77,6 @@ public class Enviar_email extends Activity implements OnClickListener{
                 message.setSubject("Recuperación de contraseña");
                 message.setContent("Su contraseña es:  "+contrasena +"Y su usuario es: "+ user, "text/html; charset=utf-8");
                 Transport.send(message);
-            } catch(MessagingException e) {
-                e.printStackTrace();
             } catch(Exception e) {
                 e.printStackTrace();
             }
@@ -99,8 +94,8 @@ public class Enviar_email extends Activity implements OnClickListener{
     class Attemptusuario extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<BasicNameValuePair>();
-            paramsp.add(new BasicNameValuePair("Email_usuario", reciep.getText().toString()));
+            List<BasicNameValuePair> paramsp = new ArrayList<>();
+            paramsp.add(new BasicNameValuePair("Email_usuario",mail ));
             JSONObject jsonp = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_contrasena.php", "POST", paramsp);
             try {
                 int success = jsonp.getInt(TAG_SUCCESS);
@@ -108,8 +103,8 @@ public class Enviar_email extends Activity implements OnClickListener{
                     usuario = jsonp.getJSONArray("usuario");
                     for (int j = 0; j < usuario.length(); j++) {
                         JSONObject p = usuario.getJSONObject(j);
-                         contrasena = p.getString("password");
-                         user = p.getString("username");
+                        contrasena = p.getString("password");
+                        user = p.getString("username");
                     }
                 }
             } catch (JSONException e) {

@@ -1,6 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
-import android.content.Intent;
+import android.content.ContentValues;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by miche on 17-10-2015.
- */
 
 public class Agregar_producto extends FragmentActivity {
 
@@ -53,8 +50,8 @@ public class Agregar_producto extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.agregar_producto);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
-        unidades = new  ArrayList<HashMap<String, String>>();
-        datos = new ArrayList<Combobox>();
+        unidades = new ArrayList<>();
+        datos = new ArrayList<>();
         name = (EditText) findViewById(R.id.editnombre_prod);
         name.setTypeface(typeFace);
         precio = (EditText) findViewById(R.id.editprecio_prod);
@@ -98,8 +95,9 @@ public class Agregar_producto extends FragmentActivity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-            params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
+            List<BasicNameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("IdEstablecimiento", "0"));
+            ContentValues values=new ContentValues();
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -112,7 +110,7 @@ public class Agregar_producto extends FragmentActivity {
                         String unidad = p.getString(TAG_UNIDAD);
                         String id = p.getString(TAG_ID_UNIDAD);
                         // creating new HashMap
-                        HashMap<String, String> pro = new HashMap<String, String>();
+                        HashMap<String, String> pro = new HashMap<>();
                         // adding each child node to HashMap key => value
                         pro.put(TAG_UNIDAD, unidad);
                         pro.put(TAG_ID_UNIDAD,id);
@@ -161,7 +159,7 @@ public class Agregar_producto extends FragmentActivity {
         protected String doInBackground(String... args) {
             Bundle bundle = Agregar_producto.this.getIntent().getExtras();
             Agregar_producto.this.Id_establecimiento = bundle.getString("id");
-            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            List<BasicNameValuePair> params = new ArrayList<>();
             params.add(new BasicNameValuePair(TAG_UNIDAD, unidad_id));
             params.add(new BasicNameValuePair(TAG_PRODUCTO, names));
             params.add(new BasicNameValuePair(TAG_Id_establecimiento, Id_establecimiento));
@@ -172,8 +170,8 @@ public class Agregar_producto extends FragmentActivity {
             try {
                 // Checking for SUCCESS TAG
                 int success = json.getInt(TAG_SUCCESS);
-                if (success == 1) {
-                }
+                if (success == 1)
+                    return null;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -188,7 +186,5 @@ public class Agregar_producto extends FragmentActivity {
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
-
-
 
 }
