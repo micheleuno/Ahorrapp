@@ -15,14 +15,12 @@ import android.widget.TextView;
 import com.ahorrapp.ahorrapp.R.id;
 import com.ahorrapp.ahorrapp.R.layout;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Comentarios extends FragmentActivity {
 
@@ -51,11 +49,13 @@ public class Comentarios extends FragmentActivity {
             HashMap<String, String> user = Comentarios.this.session.getUserDetails();
             String username = user.get(SessionManager.TAG_NOMBRE);
             String rut = user.get(SessionManager.TAG_RUT);
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair(Comentarios.TAG_COMENTARIOS, Comentarios.this.Coment));
-            params.add(new BasicNameValuePair(Comentarios.TAG_NOMBRE_U, username));
-            params.add(new BasicNameValuePair("id", Comentarios.this.Id));
-            params.add(new BasicNameValuePair("rut_usuario", rut));
+
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put(Comentarios.TAG_COMENTARIOS, Comentarios.this.Coment);
+            params.put(Comentarios.TAG_NOMBRE_U, username);
+            params.put("id", Comentarios.this.Id);
+            params.put("rut_usuario", rut);
             // getting JSON string from URL
             JSONObject json = Comentarios.this.jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/agregar_comentario.php", "POST", params);
             try {
@@ -82,8 +82,10 @@ public class Comentarios extends FragmentActivity {
         protected String doInBackground(String... args) {
             Bundle bundle = Comentarios.this.getIntent().getExtras();
             Comentarios.this.Id = bundle.getString("id");
-            List<BasicNameValuePair> paramsp = new ArrayList<>();
-            paramsp.add(new BasicNameValuePair("idEstablecimiento", Comentarios.this.Id));
+
+
+            HashMap<String, String> paramsp = new HashMap<>();
+            paramsp.put("idEstablecimiento", Comentarios.this.Id);
             JSONObject jsonp = Comentarios.this.jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_comentarios.php", "POST", paramsp);
             try {
                 int success = jsonp.getInt(Comentarios.TAG_SUCCESS);
@@ -154,15 +156,16 @@ public class Comentarios extends FragmentActivity {
                  if(Comentarios.this.session.isLoggedIn()) {  //si el usuario inicio sesion
                     if (!Comentarios.this.Coment.equals("")) { //si el comentario no es vacio
                         new AttemptComentario().execute();
-                        new AttemptCargar().execute();
                         Comentarios.this.hideKeyboard();
                         Alertas.mensaje_error(Comentarios.this, "Se ha agregado un comentario");
+                        new AttemptCargar().execute();
                     } else {
                         Alertas.mensaje_error(Comentarios.this,"Debe escribir un comentario primero");
                     }
                 }else{
                     Alertas.mensaje_error(Comentarios.this,"Para comentar debe iniciar sesion");
                 }
+
                 Comentarios.this.Coment =""; //dejar el Gettext de comentarios vacio
             }
         });

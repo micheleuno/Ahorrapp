@@ -16,14 +16,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Opciones_producto extends Activity {
     private static final String TAG_SUCCESS = "success";
@@ -141,11 +139,12 @@ public class Opciones_producto extends Activity {
 
         protected String doInBackground(String... args) {
 
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair(TAG_Id_establecimiento, id_prod));
-            params.add(new BasicNameValuePair(TAG_NOMBREP, nombre));
-            params.add(new BasicNameValuePair(TAG_PRECIO,valor));
-            params.add(new BasicNameValuePair(TAG_UNIDAD, Unidad));
+            HashMap<String, String> params = new HashMap<>();
+            params.put(TAG_Id_establecimiento, id_prod);
+            params.put(TAG_NOMBREP, nombre);
+            params.put(TAG_PRECIO,valor);
+            params.put(TAG_UNIDAD, Unidad);
+
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/modificar_producto.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -167,9 +166,10 @@ public class Opciones_producto extends Activity {
         }
         protected String doInBackground(String... args) {
             session = new SessionManager(getApplicationContext());
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("id", id_prod));
-            params.add(new BasicNameValuePair("nombre", nombre));
+            HashMap<String, String> params = new HashMap<>();
+            params.put("id", id_prod);
+            params.put("nombre", nombre);
+
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/eliminar_producto.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -204,8 +204,10 @@ public class Opciones_producto extends Activity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("IdEstablecimiento", "0");
+
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);

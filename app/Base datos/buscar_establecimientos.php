@@ -12,7 +12,7 @@
 				d.Direccion as Direccion,
 				d.idEstablecimiento
 				FROM Establecimiento d 		 
-				INNER JOIN Ubicacion  ON upper(Ubicacion.Nombre_producto) like CONCAT  ('%', '".$nombre."' ,'%')  
+				INNER JOIN Ubicacion  ON upper(Ubicacion.Nombre_producto) like  ('%".$nombre."%')  
 				where  Ubicacion.Establecimiento_idEstablecimiento = d.idEstablecimiento  
 		"; 
 		$result = mysqli_query($conexion, $query); 
@@ -39,14 +39,14 @@
 				idEstablecimiento
 				FROM Establecimiento 
 				
-				where  Nombre = CONCAT  ('%', '".$nombre."' ,'%')   
+				where  Nombre like ('%".$nombre."%')
 		"; 
 
-		}
+		
 		$result2 = mysqli_query($conexion, $query); 
 		if (mysqli_num_rows($result2) > 0 ) {
 			$response["Establecimiento"] = array();
-			while ($row = mysqli_fetch_array($result)) {
+			while ($row = mysqli_fetch_array($result2)) {
 				$product = array();
 				$product["Nombre"] = ($row["Nombre"]);
 				$product["Direccion"] = ($row["Direccion"]);
@@ -61,7 +61,7 @@
 		else{
 $response["success"] = 0;
 			echo json_encode($response);
-		}		
+		}	}	
 			
 
 		

@@ -15,14 +15,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class Negocio extends Activity {
@@ -123,8 +121,9 @@ public class Negocio extends Activity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("IdEstablecimiento", "0" ));
+                       HashMap<String, String> params = new HashMap<>();
+            params.put("IdEstablecimiento", "0" );
+
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -192,14 +191,21 @@ public class Negocio extends Activity {
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<>();
+
+
+            HashMap<String, String> params = new HashMap<>();
+
+
             session = new SessionManager(getApplicationContext());
             // get user data from session
             HashMap<String, String> user = session.getUserDetails();
-            paramsp.add(new BasicNameValuePair("idEstablecimiento", user.get(SessionManager.TAG_LOCAL)));
-            JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", paramsp);
+
+            params.put("idEstablecimiento", user.get(SessionManager.TAG_LOCAL));
+
+            JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", params);
             try {
                 int success = jsonp.getInt(TAG_SUCCESS);
+
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
@@ -208,6 +214,7 @@ public class Negocio extends Activity {
                     produc.clear();
                     productos.clear();
                     for (int j = 0; j < productsp.length(); j++) {
+
                         JSONObject p = productsp.getJSONObject(j);
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
@@ -237,6 +244,7 @@ public class Negocio extends Activity {
                         pro=productos.get(cont);
                         produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD), pro.get(TAG_IDPRODUCTO)));
                         cont++;
+
                     }
                     productos.clear();
                     lista_p.setAdapter(new Lista_adaptador(Negocio.this, R.layout.productos, produc) {
@@ -272,12 +280,13 @@ public class Negocio extends Activity {
             session = new SessionManager(getApplicationContext());
             // get user data from session
             HashMap<String, String> user = session.getUserDetails();
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair(TAG_UNIDAD, unidad_id));
-            params.add(new BasicNameValuePair(TAG_PRODUCTO, names));
-            params.add(new BasicNameValuePair(TAG_Id_establecimiento, user.get(SessionManager.TAG_LOCAL)));
-            params.add(new BasicNameValuePair(TAG_PRECIO, precios));
+            HashMap<String, String> params = new HashMap<>();
+            params.put(TAG_UNIDAD, unidad_id);
+            params.put(TAG_PRODUCTO, names);
+            params.put(TAG_Id_establecimiento, user.get(SessionManager.TAG_LOCAL));
+            params.put(TAG_PRECIO, precios);
             // getting JSON string from URL
+
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/agregar_producto.php", "POST", params);
             try {
                 // Checking for SUCCESS TAG

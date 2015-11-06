@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 
 public class Registrar_establecimiento extends Activity{
@@ -45,13 +43,14 @@ public class Registrar_establecimiento extends Activity{
         @Override
         protected String doInBackground(String... args) {
             try {
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("Descripcion", descripcion_es));
-                params.add(new BasicNameValuePair("Nombre", nombre_es));
-                params.add(new BasicNameValuePair("Latitud", Latitud));
-                params.add(new BasicNameValuePair("Longitud", Longitud));
-                params.add(new BasicNameValuePair("Contacto", contacto_es));
-                params.add(new BasicNameValuePair("Direccion", direccion_es));
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Descripcion", descripcion_es);
+                params.put("Nombre", nombre_es);
+                params.put("Latitud", Latitud);
+                params.put("Longitud", Longitud);
+                params.put("Contacto", contacto_es);
+                params.put("Direccion", direccion_es);
+
                 Log.d("Iniciando!", "Peticion");
                 JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST", params);
                 Log.d("Intentando registrar", json.toString());

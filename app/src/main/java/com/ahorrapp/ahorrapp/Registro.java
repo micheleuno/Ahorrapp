@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Registro extends Activity{
     private EditText user, pass,email,nombre,pass2,direccion;
@@ -93,12 +91,13 @@ public class Registro extends Activity{
         @Override
         protected String doInBackground(String... args) {
             try {
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("Username", username));
-                params.add(new BasicNameValuePair("Password", password));
-                params.add(new BasicNameValuePair("Nombre_usuario", nombre_usuario));
-                params.add(new BasicNameValuePair("Email_usuario", email_usuario));
-                params.add(new BasicNameValuePair("Direccion", direccion_usuario));
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Username", username);
+                params.put("Password", password);
+                params.put("Nombre_usuario", nombre_usuario);
+                params.put("Email_usuario", email_usuario);
+                params.put("Direccion", direccion_usuario);
+
                 Log.d("Iniciando!", "Peticion");
                 JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST", params);
                 Log.d("Intentando registrar", json.toString());

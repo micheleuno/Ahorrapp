@@ -14,14 +14,12 @@ import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Local extends FragmentActivity {
 
@@ -52,10 +50,12 @@ public class Local extends FragmentActivity {
 
         protected String doInBackground(String... args) {
             // Building Parameters
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("Latitud", Latitud));
-            params.add(new BasicNameValuePair("Longitud", Longitud));
+
             // getting JSON string from URL
+            HashMap<String, String> params = new HashMap<>();
+            params.put("Latitud", Latitud);
+            params.put("Longitud", Longitud);
+
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_datos_establecimiento.php", "POST", params);
             try {
                 // Checking for SUCCESS TAG
@@ -129,9 +129,11 @@ public class Local extends FragmentActivity {
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<>();
-            paramsp.add(new BasicNameValuePair("idEstablecimiento", Id));
-            JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", paramsp);
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("idEstablecimiento", Id);
+
+            JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", params);
             try {
                 int success = jsonp.getInt(TAG_SUCCESS);
                 if (success == 1) {

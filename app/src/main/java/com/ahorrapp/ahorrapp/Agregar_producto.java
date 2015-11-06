@@ -1,6 +1,5 @@
 package com.ahorrapp.ahorrapp;
 
-import android.content.ContentValues;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,14 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class Agregar_producto extends FragmentActivity {
@@ -95,9 +92,11 @@ public class Agregar_producto extends FragmentActivity {
     class AttemptUnidad extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("IdEstablecimiento", "0"));
-            ContentValues values=new ContentValues();
+
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("IdEstablecimiento", "0");
+
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -159,13 +158,13 @@ public class Agregar_producto extends FragmentActivity {
         protected String doInBackground(String... args) {
             Bundle bundle = Agregar_producto.this.getIntent().getExtras();
             Agregar_producto.this.Id_establecimiento = bundle.getString("id");
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair(TAG_UNIDAD, unidad_id));
-            params.add(new BasicNameValuePair(TAG_PRODUCTO, names));
-            params.add(new BasicNameValuePair(TAG_Id_establecimiento, Id_establecimiento));
+            HashMap<String, String> params = new HashMap<>();
+            params.put(TAG_UNIDAD, unidad_id);
+            params.put(TAG_PRODUCTO, names);
+            params.put(TAG_Id_establecimiento, Id_establecimiento);
             //obtenido por sesion
-            params.add(new BasicNameValuePair(TAG_PRECIO, precios));
-            // getting JSON string from URL
+            params.put(TAG_PRECIO, precios);
+
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/agregar_producto.php", "POST", params);
             try {
                 // Checking for SUCCESS TAG

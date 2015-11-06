@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 
 public class Menu extends Activity {
@@ -102,10 +100,13 @@ public class Menu extends Activity {
             int success;
             try {
                 // Building Parameters
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("username", username));
-                params.add(new BasicNameValuePair("password", password));
+
                 // getting product details by making HTTP request
+
+                HashMap<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("password", password);
+
                 JSONObject json = jsonParser.makeHttpRequest(LOGIN_URL, "POST",params);
                 // check your log for json response
                 success = json.getInt(TAG_SUCCESS);

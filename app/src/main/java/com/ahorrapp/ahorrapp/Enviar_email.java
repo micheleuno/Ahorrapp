@@ -12,13 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -94,8 +92,10 @@ public class Enviar_email extends Activity implements OnClickListener{
     class Attemptusuario extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> paramsp = new ArrayList<>();
-            paramsp.add(new BasicNameValuePair("Email_usuario",mail ));
+
+            HashMap<String, String> paramsp = new HashMap<>();
+            paramsp.put("Email_usuario",mail );
+
             JSONObject jsonp = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_contrasena.php", "POST", paramsp);
             try {
                 int success = jsonp.getInt(TAG_SUCCESS);

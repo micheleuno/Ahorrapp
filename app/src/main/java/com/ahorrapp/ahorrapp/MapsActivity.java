@@ -18,14 +18,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity{
@@ -61,16 +59,17 @@ public class MapsActivity extends FragmentActivity{
         }
 
         protected String doInBackground(String... args) {
-            List<BasicNameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("Nombre", producto));
-            JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
             try {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("Nombre", producto);
+            JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
+
+
+
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     products = json.getJSONArray(TAG_PRODUCTS);
-
-                    //Log.i("Testing", "produtos.length" + products.length());
 
                     for (int i = 0; i < products.length(); i++) {
                         JSONObject c = products.getJSONObject(i);
@@ -89,17 +88,21 @@ public class MapsActivity extends FragmentActivity{
                         establepos.add(i,map);
                         establedes.add(i,dir);
                     }
-
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 
         protected void onPostExecute(String result){
-            if(success==0)
+            if(success==0){
+                Producto.setText("");
                 Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto");
+            }
+
             else{
                 int cont=0;
                 HashMap<Double, Double> pos;
@@ -112,9 +115,11 @@ public class MapsActivity extends FragmentActivity{
                 }
                 establedes.clear();
                 establepos.clear();
-                MapsActivity.this.pDialog.dismiss();
 
-            }}
+
+            }
+            MapsActivity.this.pDialog.dismiss();
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +132,7 @@ public class MapsActivity extends FragmentActivity{
         Producto = (EditText) findViewById(R.id.txtProducto);
         Producto.setText("");
         createMapView();
-        Mostrar_locales();
+       Mostrar_locales();
         final Button menu = (Button) findViewById(R.id.btnopciones);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,14 +186,14 @@ public class MapsActivity extends FragmentActivity{
 
                 }
                 else{
-                Intent nuevoform = new Intent(MapsActivity.this, Local.class);
-                Double latitud = marker.getPosition().latitude;
-                Double longitud = marker.getPosition().longitude;
-                nuevoform.putExtra("latitude", Double.toString(latitud));
-                nuevoform.putExtra("longitude",  Double.toString(longitud));
-                nuevoform.putExtra("nombre", marker.getTitle());
-                startActivity(nuevoform);
-            }}
+                    Intent nuevoform = new Intent(MapsActivity.this, Local.class);
+                    Double latitud = marker.getPosition().latitude;
+                    Double longitud = marker.getPosition().longitude;
+                    nuevoform.putExtra("latitude", Double.toString(latitud));
+                    nuevoform.putExtra("longitude",  Double.toString(longitud));
+                    nuevoform.putExtra("nombre", marker.getTitle());
+                    startActivity(nuevoform);
+                }}
         });
     }
 
