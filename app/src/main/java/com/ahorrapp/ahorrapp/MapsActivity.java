@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,8 +69,6 @@ public class MapsActivity extends FragmentActivity{
             params.put("Nombre", producto.trim());
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
-
-
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     products = json.getJSONArray(TAG_PRODUCTS);
@@ -118,8 +117,6 @@ public class MapsActivity extends FragmentActivity{
                 }
                 establedes.clear();
                 establepos.clear();
-
-
             }
             MapsActivity.this.pDialog.dismiss();
         }
@@ -146,8 +143,6 @@ public class MapsActivity extends FragmentActivity{
             }
         });
 
-
-
         final Button Productos = (Button) findViewById(R.id.buscador);
         Productos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +152,22 @@ public class MapsActivity extends FragmentActivity{
             }
         });
 
+        Producto.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            Producto.getText();
+                            Mostrar_locales();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
@@ -205,16 +216,6 @@ public class MapsActivity extends FragmentActivity{
                 }}
         });
     }
-
-
-/*
-    @Override
-    public void onBackPressed() {
-        Intent nuevoform = new Intent(MapsActivity.this, MapsActivity.class);
-        finish();
-        startActivity(nuevoform);
-    }*/
-
     private void createMapView(){
         final LatLng UPV = new LatLng(-33.044662, -71.612465);
         try {
@@ -285,4 +286,5 @@ public class MapsActivity extends FragmentActivity{
             }
         }, 2000);
     }
+
 }

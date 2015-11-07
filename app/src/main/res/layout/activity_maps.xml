@@ -38,12 +38,10 @@
                 android:layout_width="212dp"
                 android:layout_height="fill_parent"
                 android:id="@+id/txtProducto"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:hint="Buscar..."
                 android:maxLines="1"
                 android:singleLine="false"
-                android:autoText="false"
+
                 android:visibility="visible"
                 android:background="@mipmap/fondomenubuscar" />
 

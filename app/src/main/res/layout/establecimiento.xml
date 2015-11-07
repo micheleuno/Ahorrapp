@@ -25,7 +25,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/txtNombreLocal"
         android:layout_gravity="center_horizontal"
-        android:textSize="40dp" />
+        android:textSize="40sp" />
 
     <LinearLayout
         android:orientation="vertical"
