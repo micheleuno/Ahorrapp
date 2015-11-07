@@ -1,5 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -184,6 +185,11 @@ public class Agregar_producto extends FragmentActivity {
             InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Comentarios.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Agregar_producto.this, Local.class);
+        finish();
+        startActivity(nuevoform);
     }
 
 }

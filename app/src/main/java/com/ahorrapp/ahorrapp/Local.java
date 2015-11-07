@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -229,10 +230,30 @@ public class Local extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
-        Bundle bundle = getIntent().getExtras();
-        Latitud = bundle.getString("latitude");
-        Longitud = bundle.getString("longitude");
-        Nombre = bundle.getString("nombre");
+        SessionManager session;
+        session = new SessionManager(getApplicationContext());
+        Bundle bundle;
+        new Bundle();
+        bundle = getIntent().getExtras();
+        if(bundle != null) {
+            Latitud = bundle.getString("latitude");
+            Longitud = bundle.getString("longitude");
+            Nombre = bundle.getString("nombre");
+            Log.e("latitud",Latitud);
+            Log.e("longitud",Longitud);
+            Log.e("nombre",Nombre);
+            session.addDataLocal(Latitud,Longitud,Nombre);
+        }else{
+            Log.e("asd", "paso por session manager");
+            HashMap<String, String> local = session.getDataLocal();
+            Latitud  = local.get(SessionManager.TAG_NOMBRE_ESTA);
+            Nombre  = local.get(SessionManager.TAG_LONGITUD);
+            Longitud = local.get(SessionManager.TAG_LATITUD);
+            Log.e("latitud",Latitud);
+            Log.e("longitud",Longitud);
+            Log.e("nombre",Nombre);
+            //todo estan mal asignados
+        }
         establedes = new ArrayList<>();
         productos = new ArrayList<>();
         produc = new ArrayList<>();
@@ -255,6 +276,12 @@ public class Local extends FragmentActivity {
         });
 
 
+    }
+
+    public void onBackPressed() {
+        Intent nuevoform = new Intent(Local.this, MapsActivity.class);
+        finish();
+        startActivity(nuevoform);
     }
 
     private void Mostrar_locales() {

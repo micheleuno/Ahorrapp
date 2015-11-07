@@ -30,6 +30,9 @@ public class SessionManager {
     public static final String TAG_LOCAL = "Id_local";
     public static final String TAG_EMAIL = "Email";
     public static final String TAG_DIRECCION = "Direccion";
+    public static final String TAG_NOMBRE_ESTA = "Nombre";
+    public static final String TAG_LATITUD = "Latitud";
+    public static final String TAG_LONGITUD = "Longitud";
 
     // Constructor
     public SessionManager(Context context){
@@ -37,7 +40,24 @@ public class SessionManager {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+        public void addDataLocal(String nombre, String latitud, String longitud){
+            editor.putString(TAG_NOMBRE_ESTA, nombre);
+            editor.putString(TAG_LATITUD, latitud);
+            editor.putString(TAG_LONGITUD, longitud);
+            editor.commit();
+        }
+        //todo estan mal asignados
+    public HashMap<String, String> getDataLocal(){
+        HashMap<String, String> local = new HashMap<>();
+        // user name
+        local.put(TAG_NOMBRE_ESTA, pref.getString(TAG_NOMBRE_ESTA, null));
+        // user usuario
+        local.put(TAG_LATITUD, pref.getString(TAG_LATITUD, null));
+        // user Rut TAG_LONGITUD
+        local.put(TAG_LONGITUD, pref.getString(TAG_LONGITUD, null));
 
+        return local;
+    }
     /**
      * Create login session
      * */

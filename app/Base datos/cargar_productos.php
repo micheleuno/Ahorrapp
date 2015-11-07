@@ -25,6 +25,21 @@
 				$response["success"] = 1;
 				echo json_encode($response);
 			}
+			else{
+				$response["Producto"] = array();
+				
+					$producto = array();
+					$producto["Nombre"] = "Aqui no hay productos";
+					$producto["Precio"] = " ";
+					$producto["Unidad"] =" " ;
+					$producto["idUbicacion"] =" " ;
+					
+					array_push($response["Producto"], $producto);
+				
+				$response["id"] = $idEstablecimiento;
+				$response["success"] = 1;
+				echo json_encode($response);
+			}
 		} 
 		else {
 			?>

@@ -12,8 +12,8 @@
 				d.Direccion as Direccion,
 				d.idEstablecimiento
 				FROM Establecimiento d 		 
-				INNER JOIN Ubicacion  ON upper(Ubicacion.Nombre_producto) like  ('%".$nombre."%')  
-				where  Ubicacion.Establecimiento_idEstablecimiento = d.idEstablecimiento  
+				LEFT JOIN Ubicacion  ON upper(Ubicacion.Nombre_producto) like ('%".$nombre."%')  
+				where  Ubicacion.Establecimiento_idEstablecimiento = d.idEstablecimiento  || ('".$nombre."') = ''
 		"; 
 		$result = mysqli_query($conexion, $query); 
 		if (mysqli_num_rows($result) > 0 ) {

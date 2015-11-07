@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -160,10 +161,12 @@ public class MapsActivity extends FragmentActivity{
 
             @Override
             public void onMapLongClick(LatLng latLng) {
+
                 if (MapsActivity.this.session.isLoggedIn()){
                     if(!id_marker.equals("0")){
                         marker.remove();
-                    }
+                    }else
+                        Toast.makeText(MapsActivity.this, "Una vez posicionado, toque el pin para crear el establecimiento", Toast.LENGTH_LONG).show();
 
                     marker = googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(latLng.latitude, latLng.longitude))
@@ -204,13 +207,13 @@ public class MapsActivity extends FragmentActivity{
     }
 
 
-
+/*
     @Override
     public void onBackPressed() {
         Intent nuevoform = new Intent(MapsActivity.this, MapsActivity.class);
         finish();
         startActivity(nuevoform);
-    }
+    }*/
 
     private void createMapView(){
         final LatLng UPV = new LatLng(-33.044662, -71.612465);
@@ -258,5 +261,25 @@ public class MapsActivity extends FragmentActivity{
     private void Mostrar_locales() {
         googleMap.clear();
         new AttemptLogin().execute();
+    }
+    boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Presione atrás de nuevo para salir", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

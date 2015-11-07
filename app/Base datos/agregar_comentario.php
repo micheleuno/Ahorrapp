@@ -8,7 +8,7 @@
 			$rut_usuario = $_POST['rut_usuario'];
 			$query = "INSERT INTO Comentario ( Comentario, Establecimiento_idEstablecimiento,nombre_usuario,rut_usuario ) VALUES ( :Comentario, :id_establecimiento,:nombre,:rut_usuario ) ";
 		 	$query_params = array(
-		    ':Comentario' => utf8_encode($_POST['comentario']),
+		    ':Comentario' => ($_POST['comentario']),
 		    ':id_establecimiento' => $_POST['id'],
 		    ':nombre' => $_POST['nombre'],
 		    ':rut_usuario' => $_POST['rut_usuario']

@@ -7,7 +7,7 @@
 		 	$query_params = array(
 		    ':precio' => $_POST['Precio'],
 		    ':id_establecimiento' => $_POST['Id_establecimiento'],
-		    ':producto' => utf8_encode($_POST['Producto']),
+		    ':producto' => ($_POST['Producto']),
 		    ':Unidad' => $_POST['Unidad']
 		    );	    
 	    //ejecutamos la query y creamos el usuario
