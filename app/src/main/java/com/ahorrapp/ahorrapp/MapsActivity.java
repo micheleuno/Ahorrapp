@@ -33,6 +33,7 @@ public class MapsActivity extends FragmentActivity{
     ArrayList<HashMap<String,String>> establedes;
     EditText Producto;
     JSONParser jsonParser = new JSONParser();
+    Marker marker;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_LATITUD = "Latitud";
@@ -42,9 +43,10 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_ID = "idEstablecimiento";
     SessionManager session;
     private ProgressDialog pDialog;
-    private  String producto;
+    private  String producto,id_marker="0";
     private int success;
     JSONArray products ;
+
 
     class AttemptLogin extends AsyncTask<String, String, String> {
 
@@ -62,7 +64,7 @@ public class MapsActivity extends FragmentActivity{
 
             try {
             HashMap<String, String> params = new HashMap<>();
-            params.put("Nombre", producto);
+            params.put("Nombre", producto.trim());
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
 
@@ -159,12 +161,16 @@ public class MapsActivity extends FragmentActivity{
             @Override
             public void onMapLongClick(LatLng latLng) {
                 if (MapsActivity.this.session.isLoggedIn()){
-                    googleMap.clear();
-                    googleMap.addMarker(new MarkerOptions()
+                    if(!id_marker.equals("0")){
+                        marker.remove();
+                    }
+
+                    marker = googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(latLng.latitude, latLng.longitude))
                             .draggable(true)
                             .title("Nuevo Establecimiento")
                             .snippet("Presionar para crear establecimiento"));
+                    id_marker="1";
                 }else{
                     Alertas.mensaje_error(MapsActivity.this, "Para agregar Establecimiento debe iniciar sesion");
                 }

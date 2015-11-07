@@ -107,7 +107,7 @@ public class JSONParser {
         try {
             //Receive the response from the server
             InputStream in = new BufferedInputStream(conn.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader( in, "iso-8859-1"), 8);
 
             String line;
             result=new StringBuilder();

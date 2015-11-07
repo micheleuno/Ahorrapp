@@ -73,7 +73,7 @@ public class Registro extends Activity{
                         Alertas.mensaje_error(Registro.this, "Las contrasenas deben coincidir");
                     }
                 }else {
-                    Alertas.mensaje_error(Registro.this, "Debe llenar todos los campos");
+                    Alertas.mensaje_error(Registro.this, "Debe introducir todos los campos");
                 }
             }
         });

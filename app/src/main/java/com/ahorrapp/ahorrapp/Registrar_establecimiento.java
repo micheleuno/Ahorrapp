@@ -109,14 +109,16 @@ public class Registrar_establecimiento extends Activity{
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 contacto_es = contacto.getText().toString();
                 nombre_es = nombre.getText().toString();
                 descripcion_es = descripcion.getText().toString();
                 direccion_es = direccion.getText().toString();
-                new CreateEstablecimiento().execute();
+                if (!contacto_es.equals("")&&!nombre_es.equals("")&&!descripcion_es.equals("")&&!direccion_es.equals("")){
 
+                    new CreateEstablecimiento().execute();
+                }else {
+                    Alertas.mensaje_error(Registrar_establecimiento.this, "Debe introducir todos los campos");
+                }
             }
         });
     }
