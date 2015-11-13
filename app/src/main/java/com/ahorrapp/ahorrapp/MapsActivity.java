@@ -130,13 +130,19 @@ public class MapsActivity extends FragmentActivity{
         establepos = new ArrayList<>();
         establedes = new ArrayList<>();
         Producto = (EditText) findViewById(R.id.txtProducto);
+        if(!session.getDataBusqueda().isEmpty()){
+            HashMap<String, String> busqueda = session.getDataBusqueda();
+            Producto.setText(busqueda.get("Busqueda"));
+        }else
         Producto.setText("");
+
         createMapView();
        Mostrar_locales();
         final Button menu = (Button) findViewById(R.id.btnopciones);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu.class);
                 finish();
                 startActivity(nuevoform);
@@ -147,6 +153,8 @@ public class MapsActivity extends FragmentActivity{
         Productos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                session = new SessionManager(getApplicationContext());
+                session.addDataBusqueda(Producto.getText().toString());
                 Producto.getText();
                 Mostrar_locales();
             }

@@ -13,7 +13,7 @@
 			";
 		 	$query_params = array(
 		    ':Precio' => $_POST['Precio'],
-		    ':Nombre_producto' => utf8_encode($_POST['Nombre_producto']),
+		    ':Nombre_producto' => $_POST['Nombre_producto'],
 		    ':Unidad' => $_POST['Unidad'],
 		    ':Establecimiento_idEstablecimiento' => $_POST['Establecimiento_idEstablecimiento']		   
 		    );	    

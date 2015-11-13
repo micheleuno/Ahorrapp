@@ -33,6 +33,7 @@ public class SessionManager {
     public static final String TAG_NOMBRE_ESTA = "Nombre";
     public static final String TAG_LATITUD = "Latitud";
     public static final String TAG_LONGITUD = "Longitud";
+    public static final String TAG_BUSQUEDA = "Busqueda";
 
     // Constructor
     public SessionManager(Context context){
@@ -46,7 +47,21 @@ public class SessionManager {
             editor.putString(TAG_LONGITUD, longitud);
             editor.commit();
         }
-        //todo estan mal asignados
+    //todo estan mal asignados
+    public void addDataBusqueda(String busqueda){
+        editor.putString(TAG_BUSQUEDA, busqueda);
+
+        editor.commit();
+    }
+    public HashMap<String, String> getDataBusqueda(){
+        HashMap<String, String> busqueda = new HashMap<>();
+        // user name
+        busqueda.put(TAG_BUSQUEDA, pref.getString(TAG_BUSQUEDA, null));
+
+        return busqueda;
+    }
+
+
     public HashMap<String, String> getDataLocal(){
         HashMap<String, String> local = new HashMap<>();
         // user name
@@ -109,21 +124,6 @@ public class SessionManager {
      * If false it will redirect user to login page
      * Else won't do anything
      * */
-    public void checkComent(){
-        // Check login status
-        if(!this.isLoggedIn()){
-            // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, Comentarios.class);
-            // Closing all the Activities
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            // Add new Flag to start new Activity
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            // Staring Login Activity
-            _context.startActivity(i);
-        }
-    }
     /**
      * Get stored session data
      * */

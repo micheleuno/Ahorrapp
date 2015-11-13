@@ -239,19 +239,15 @@ public class Local extends FragmentActivity {
             Latitud = bundle.getString("latitude");
             Longitud = bundle.getString("longitude");
             Nombre = bundle.getString("nombre");
-            Log.e("latitud",Latitud);
-            Log.e("longitud",Longitud);
-            Log.e("nombre",Nombre);
+
             session.addDataLocal(Latitud,Longitud,Nombre);
         }else{
-            Log.e("asd", "paso por session manager");
+
             HashMap<String, String> local = session.getDataLocal();
             Latitud  = local.get(SessionManager.TAG_NOMBRE_ESTA);
             Nombre  = local.get(SessionManager.TAG_LONGITUD);
             Longitud = local.get(SessionManager.TAG_LATITUD);
-            Log.e("latitud",Latitud);
-            Log.e("longitud",Longitud);
-            Log.e("nombre",Nombre);
+
             //todo estan mal asignados
         }
         establedes = new ArrayList<>();
