@@ -24,7 +24,7 @@ public class JSONParser {
     DataOutputStream wr;
     StringBuilder result = new StringBuilder();
     URL urlObj;
-    JSONObject jObj = null;
+    JSONObject jObj = null,jObj2=null;
     StringBuilder sbParams;
     String paramsString;
 
@@ -125,9 +125,13 @@ public class JSONParser {
 
         // try parse the string to a JSON object
         try {
+            jObj2 = new JSONObject("{\"success\":\"2\"}");
             jObj = new JSONObject(result.toString());
+
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
+
+            return jObj2;
         }
 
         // return JSON Object

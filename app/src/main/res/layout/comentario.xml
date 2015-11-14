@@ -35,34 +35,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btncoment"
-        android:layout_alignBottom="@+id/txtcoment"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_gravity="center_horizontal"
         android:background="@mipmap/comentar" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/btncoment"
-        android:layout_alignEnd="@+id/btncoment"
-        android:layout_above="@+id/txtcoment"
-        android:id="@+id/linearLayout">
-
-    </LinearLayout>
-
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        >
     <ListView
         android:isScrollContainer="false"
         android:layout_width="fill_parent"
-        android:layout_height="331dp"
+        android:layout_height="fill_parent"
         android:id="@+id/comentarios"
-        android:layout_below="@+id/btncoment"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:headerDividersEnabled="false"
         android:footerDividersEnabled="false"
-        android:minHeight="331dp" />
+        android:minHeight="331dp"
+
+        />
+    </FrameLayout>
 
 </LinearLayout>

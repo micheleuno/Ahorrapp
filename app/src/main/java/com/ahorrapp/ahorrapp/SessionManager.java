@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -49,7 +50,12 @@ public class SessionManager {
         }
     //todo estan mal asignados
     public void addDataBusqueda(String busqueda){
-        editor.putString(TAG_BUSQUEDA, busqueda);
+
+        if(busqueda.equals("")){
+            editor.remove(TAG_BUSQUEDA);
+        }else{
+            editor.putString(TAG_BUSQUEDA, busqueda);
+        }
 
         editor.commit();
     }

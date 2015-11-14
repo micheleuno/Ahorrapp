@@ -39,6 +39,7 @@ public class Agregar_producto extends FragmentActivity {
     //JSON Node names producto
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
+    private int success;
     String Id_establecimiento;
     JSONArray unidad ;
 
@@ -100,7 +101,7 @@ public class Agregar_producto extends FragmentActivity {
 
             JSONObject json = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_unidades.php", "POST", params);
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     unidad = json.getJSONArray(TAG_UNIDADES);
                     //Log.i("Testing", "produtos.length" + products.length());
@@ -127,6 +128,10 @@ public class Agregar_producto extends FragmentActivity {
         {
             runOnUiThread(new Runnable() {
                 public void run() {
+                    if (success == 2) {
+                        Alertas.mensaje_error(Agregar_producto.this, "Ha ocurrido un error con la consulta");
+                    }
+
                     int cont = 0;
                     HashMap<String, String> pro;
                     while (cont < unidades.size()) {
@@ -138,7 +143,7 @@ public class Agregar_producto extends FragmentActivity {
                     lista.setAdapter(new Lista_adaptador(Agregar_producto.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
                             texto.setTypeface(typeFace);
                             texto.setText(((Combobox) entrada).get_texto());
@@ -148,8 +153,6 @@ public class Agregar_producto extends FragmentActivity {
                         }
                     });
                 }
-
-
             });
         }
     }

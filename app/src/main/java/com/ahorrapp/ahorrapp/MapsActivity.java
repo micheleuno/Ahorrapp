@@ -100,12 +100,13 @@ public class MapsActivity extends FragmentActivity{
         }
 
         protected void onPostExecute(String result){
+            //si se hizo la consulta, pero es vacia
             if(success==0){
                 Producto.setText("");
                 Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto");
             }
-
-            else{
+            //Si es dos es un error desde la consulta
+            else if (success!=2){
                 int cont=0;
                 HashMap<Double, Double> pos;
                 HashMap<String, String> dir;
@@ -117,6 +118,8 @@ public class MapsActivity extends FragmentActivity{
                 }
                 establedes.clear();
                 establepos.clear();
+            }else{
+                    Alertas.mensaje_error(MapsActivity.this,"Ha ocurrido un error con la consulta");
             }
             MapsActivity.this.pDialog.dismiss();
         }
@@ -166,6 +169,8 @@ public class MapsActivity extends FragmentActivity{
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
+                            session = new SessionManager(getApplicationContext());
+                            session.addDataBusqueda(Producto.getText().toString());
                             Producto.getText();
                             Mostrar_locales();
                             return true;

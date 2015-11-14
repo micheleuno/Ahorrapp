@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +34,7 @@ public class Local extends FragmentActivity {
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
     private static final String TAG_UNIDAD = "Unidad";
+    private int success,success2;
     SessionManager session;
     private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
@@ -60,7 +60,7 @@ public class Local extends FragmentActivity {
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_datos_establecimiento.php", "POST", params);
             try {
                 // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
+                success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
@@ -94,24 +94,28 @@ public class Local extends FragmentActivity {
 
         protected void onPostExecute(String result)
         {
-            int cont=0;
-            HashMap<String, String> dir;
-            while(cont<establedes.size()){
-                dir=establedes.get(cont);
-                Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf"); //Cargar tipo de letra
-                TextView nombre =(TextView) findViewById(R.id.txtNombreLocal);
-                nombre.setTypeface(typeFace);
-                nombre.setText(Nombre);
-                TextView direccion =(TextView) findViewById(R.id.txtDireccionLocal);
-                direccion.setTypeface(typeFace);
-                direccion.setText(dir.get(TAG_DIRECCION));
-                TextView descripcion =(TextView) findViewById(R.id.txtdescripcion);
-                descripcion.setTypeface(typeFace);
-                descripcion.setText(dir.get(TAG_DESCRIPCCION));
-                TextView contacto =(TextView) findViewById(R.id.txtContactoLocal);
-                contacto.setTypeface(typeFace);
-                contacto.setText(dir.get(TAG_CONTACTO));
-                cont++;
+            if (success == 2) {
+                Alertas.mensaje_error(Local.this, "Ha ocurrido un error con la consulta");
+            }else {
+                int cont = 0;
+                HashMap<String, String> dir;
+                while (cont < establedes.size()) {
+                    dir = establedes.get(cont);
+                    Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf"); //Cargar tipo de letra
+                    TextView nombre = (TextView) findViewById(R.id.txtNombreLocal);
+                    nombre.setTypeface(typeFace);
+                    nombre.setText(Nombre);
+                    TextView direccion = (TextView) findViewById(R.id.txtDireccionLocal);
+                    direccion.setTypeface(typeFace);
+                    direccion.setText(dir.get(TAG_DIRECCION));
+                    TextView descripcion = (TextView) findViewById(R.id.txtdescripcion);
+                    descripcion.setTypeface(typeFace);
+                    descripcion.setText(dir.get(TAG_DESCRIPCCION));
+                    TextView contacto = (TextView) findViewById(R.id.txtContactoLocal);
+                    contacto.setTypeface(typeFace);
+                    contacto.setText(dir.get(TAG_CONTACTO));
+                    cont++;
+                }
             }
             establedes.clear();
         }
@@ -136,8 +140,8 @@ public class Local extends FragmentActivity {
 
             JSONObject jsonp = jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_productos.php", "POST", params);
             try {
-                int success = jsonp.getInt(TAG_SUCCESS);
-                if (success == 1) {
+                success2 = jsonp.getInt(TAG_SUCCESS);
+                if (success2 == 1) {
                     // products found
                     // Getting Array of Products
                     productsp = jsonp.getJSONArray(TAG_PRODUCTO);
@@ -167,6 +171,10 @@ public class Local extends FragmentActivity {
 
             runOnUiThread(new Runnable() {
                 public void run() {
+
+                    if (success2 == 2) {
+                        Alertas.mensaje_error(Local.this, "Ha ocurrido un error con la consulta");
+                    }else {
                     int cont = 0;
                     HashMap<String, String> pro;
                     while (cont < productos.size()) {
@@ -211,7 +219,7 @@ public class Local extends FragmentActivity {
                                 Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
                                 nuevoform.putExtra("id", Id);
                                 startActivity(nuevoform);
-                            }else{
+                            } else {
                                 Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
                             }
                         }
@@ -220,8 +228,10 @@ public class Local extends FragmentActivity {
 
                 }
 
+            }
 
-            });
+
+        });
             pDialog.dismiss();
         }
     }

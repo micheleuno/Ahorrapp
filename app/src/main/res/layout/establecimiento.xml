@@ -131,6 +131,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
+            android:background="@android:color/transparent"
+            android:cacheColorHint="#00000000"
+
            />
 
         <com.melnykov.fab.FloatingActionButton
@@ -143,7 +146,6 @@
             fab:fab_colorNormal="@color/accent"
             fab:fab_colorPressed="@color/accent_pressed"
             fab:fab_colorRipple="@color/ripple"/>
-            />
 
     </FrameLayout>
 

@@ -40,7 +40,7 @@
                 android:id="@+id/txtProducto"
                 android:hint="Buscar..."
                 android:maxLines="1"
-                android:singleLine="false"
+                android:singleLine="true"
 
                 android:visibility="visible"
                 android:background="@mipmap/fondomenubuscar" />

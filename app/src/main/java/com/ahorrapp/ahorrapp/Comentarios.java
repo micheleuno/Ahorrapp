@@ -31,6 +31,7 @@ public class Comentarios extends FragmentActivity {
     private static final String TAG_COMENTARIO = "Comentario";
     private static final String TAG_USUARIO = "Nombre_usuario";
     private ProgressDialog pDialog;
+    private int success;
     ArrayList<HashMap<String,String>> productos;
     ArrayList<Lista_entrada> datos;
     SessionManager session;
@@ -88,7 +89,7 @@ public class Comentarios extends FragmentActivity {
             paramsp.put("idEstablecimiento", Comentarios.this.Id);
             JSONObject jsonp = Comentarios.this.jsonParserp.makeHttpRequest("http://ahorrapp.hol.es/BD/cargar_comentarios.php", "POST", paramsp);
             try {
-                int success = jsonp.getInt(Comentarios.TAG_SUCCESS);
+                 success = jsonp.getInt(Comentarios.TAG_SUCCESS);
                 if (success == 1) {
                     Comentarios.this.productsp = jsonp.getJSONArray(Comentarios.TAG_COMENTARIO);
                     // Recorriendo todos los comentario
@@ -112,29 +113,36 @@ public class Comentarios extends FragmentActivity {
         }
 
         protected void onPostExecute(String result) {
-            Comentarios.this.datos.clear();
-            Comentarios.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    int cont = 0;
-                    HashMap<String, String> pro;
-                    while (cont < Comentarios.this.productos.size()) {
-                        pro = Comentarios.this.productos.get(cont);
-                        Comentarios.this.datos.add(new Lista_entrada(pro.get(Comentarios.TAG_USUARIO), pro.get(Comentarios.TAG_COMENTARIO)));
-                        cont++;
-                    }
-                    Comentarios.this.productos.clear();
-                    ListView lista = (ListView) Comentarios.this.findViewById(id.comentarios);
-                    lista.setAdapter(new Lista_adaptador(Comentarios.this, layout.entrada, Comentarios.this.datos) {
-                        @Override
-                        public void onEntrada(Object entrada, View view) {
-                            TextView texto_superior_entrada = (TextView) view.findViewById(id.textView_superior);
-                            texto_superior_entrada.setText(((Lista_entrada) entrada).get_textoEncima());
-                            TextView texto_inferior_entrada = (TextView) view.findViewById(id.textView_inferior);
-                            texto_inferior_entrada.setText(((Lista_entrada) entrada).get_textoDebajo());
+            if (success == 2) {
+                Alertas.mensaje_error(Comentarios.this, "Ha ocurrido un error con la consulta");
+            }else {
+
+
+                Comentarios.this.datos.clear();
+                Comentarios.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        int cont = 0;
+                        HashMap<String, String> pro;
+                        while (cont < Comentarios.this.productos.size()) {
+                            pro = Comentarios.this.productos.get(cont);
+                            Comentarios.this.datos.add(new Lista_entrada(pro.get(Comentarios.TAG_USUARIO), pro.get(Comentarios.TAG_COMENTARIO)));
+                            cont++;
                         }
-                    });
-                }
-            });
+                        Comentarios.this.productos.clear();
+                        ListView lista = (ListView) Comentarios.this.findViewById(id.comentarios);
+                        lista.setAdapter(new Lista_adaptador(Comentarios.this, layout.entrada, Comentarios.this.datos) {
+                            @Override
+                            public void onEntrada(Object entrada, View view) {
+                                TextView texto_superior_entrada = (TextView) view.findViewById(id.textView_superior);
+                                texto_superior_entrada.setText(((Lista_entrada) entrada).get_textoEncima());
+                                TextView texto_inferior_entrada = (TextView) view.findViewById(id.textView_inferior);
+                                texto_inferior_entrada.setText(((Lista_entrada) entrada).get_textoDebajo());
+                            }
+                        });
+                    }
+                });
+
+            }
             Comentarios.this.pDialog.dismiss(); //Cerrar dialog de carga
         }
     }
