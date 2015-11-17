@@ -127,6 +127,7 @@ public class MapsActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         session = new SessionManager(getApplicationContext());
@@ -140,12 +141,16 @@ public class MapsActivity extends FragmentActivity{
         Producto.setText("");
 
         createMapView();
-       Mostrar_locales();
+        if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+            Mostrar_locales();
+        }else{
+            Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
+        }
+
         final Button menu = (Button) findViewById(R.id.btnopciones);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu.class);
                 finish();
                 startActivity(nuevoform);
@@ -156,23 +161,33 @@ public class MapsActivity extends FragmentActivity{
         Productos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                session = new SessionManager(getApplicationContext());
-                session.addDataBusqueda(Producto.getText().toString());
-                Producto.getText();
-                Mostrar_locales();
+                if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                    session = new SessionManager(getApplicationContext());
+                    session.addDataBusqueda(Producto.getText().toString());
+                    Producto.getText();
+                    Mostrar_locales();
+                }else{
+                    Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
+                }
+
             }
         });
 
         Producto.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            public boolean onKey(View v, int keyCode, KeyEvent event) { //ver si se presiona enter en el teclado
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            session = new SessionManager(getApplicationContext());
-                            session.addDataBusqueda(Producto.getText().toString());
-                            Producto.getText();
-                            Mostrar_locales();
+                            if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                                session = new SessionManager(getApplicationContext());
+                                session.addDataBusqueda(Producto.getText().toString());
+                                Producto.getText();
+                                Mostrar_locales();
+                            }else{
+                                Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
+                            }
+
                             return true;
                         default:
                             break;
@@ -199,7 +214,7 @@ public class MapsActivity extends FragmentActivity{
                             .snippet("Presionar para crear establecimiento"));
                     id_marker="1";
                 }else{
-                    Alertas.mensaje_error(MapsActivity.this, "Para agregar Establecimiento debe iniciar sesion");
+                    Alertas.mensaje_error(MapsActivity.this, "Para agregar establecimientos debe iniciar sesion");
                 }
             }
 
@@ -209,24 +224,29 @@ public class MapsActivity extends FragmentActivity{
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if(marker.getTitle().equals("Nuevo Establecimiento")){
-                    Intent nuevoform = new Intent(MapsActivity.this, Registrar_establecimiento.class);
-                    Double latitud = marker.getPosition().latitude;
-                    Double longitud = marker.getPosition().longitude;
-                    nuevoform.putExtra("latitude", Double.toString(latitud));
-                    nuevoform.putExtra("longitude",  Double.toString(longitud));
-                    startActivity(nuevoform);
+                if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                    if(marker.getTitle().equals("Nuevo Establecimiento")){
+                        Intent nuevoform = new Intent(MapsActivity.this, Registrar_establecimiento.class);
+                        Double latitud = marker.getPosition().latitude;
+                        Double longitud = marker.getPosition().longitude;
+                        nuevoform.putExtra("latitude", Double.toString(latitud));
+                        nuevoform.putExtra("longitude",  Double.toString(longitud));
+                        startActivity(nuevoform);
 
+                    }
+                    else{
+                        Intent nuevoform = new Intent(MapsActivity.this, Local.class);
+                        Double latitud = marker.getPosition().latitude;
+                        Double longitud = marker.getPosition().longitude;
+                        nuevoform.putExtra("latitude", Double.toString(latitud));
+                        nuevoform.putExtra("longitude",  Double.toString(longitud));
+                        nuevoform.putExtra("nombre", marker.getTitle());
+                        startActivity(nuevoform);
+                    }
+                }else{
+                    Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
                 }
-                else{
-                    Intent nuevoform = new Intent(MapsActivity.this, Local.class);
-                    Double latitud = marker.getPosition().latitude;
-                    Double longitud = marker.getPosition().longitude;
-                    nuevoform.putExtra("latitude", Double.toString(latitud));
-                    nuevoform.putExtra("longitude",  Double.toString(longitud));
-                    nuevoform.putExtra("nombre", marker.getTitle());
-                    startActivity(nuevoform);
-                }}
+                }
         });
     }
     private void createMapView(){
