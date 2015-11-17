@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -47,7 +46,6 @@ public class Negocio extends Activity {
     private static final String TAG_NOMBREP = "Nombre";
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
-    private ProgressDialog pDialog;
     JSONArray unidad ;
     JSONArray productsp ;
     //agregar producto
@@ -67,8 +65,10 @@ public class Negocio extends Activity {
         precio.setTypeface(typeFace);
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
-        new AttemptUnidad().execute();
-        new AttemptProducto().execute();
+        if(Alertas.Verificar_conexion(Negocio.this)){
+            new AttemptUnidad().execute();
+            new AttemptProducto().execute();
+        }
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -87,14 +87,16 @@ public class Negocio extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long id) {
-                Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
-                Intent nuevoform = new Intent(Negocio.this, Opciones_producto.class);
-                nuevoform.putExtra("nombre", productos.get_nombre());
-                nuevoform.putExtra("precio", productos.get_precio());
-                nuevoform.putExtra("unidad", productos.get_unidad());
-                nuevoform.putExtra("id_producto", productos.get_id());
-                finish();
-                startActivity(nuevoform);
+                if(Alertas.Verificar_conexion(Negocio.this)){
+                    Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
+                    Intent nuevoform = new Intent(Negocio.this, Opciones_producto.class);
+                    nuevoform.putExtra("nombre", productos.get_nombre());
+                    nuevoform.putExtra("precio", productos.get_precio());
+                    nuevoform.putExtra("unidad", productos.get_unidad());
+                    nuevoform.putExtra("id_producto", productos.get_id());
+                    finish();
+                    startActivity(nuevoform);
+                }
             }
         });
 
@@ -102,18 +104,20 @@ public class Negocio extends Activity {
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            names = name.getText().toString();
-            precios = precio.getText().toString();
-            if(!names.equals("")&&!precios.equals("")) {
-                name.setText("");
-                precio.setText("");
-                new AttemptAgregar().execute();
-                new AttemptProducto().execute();
-                hideKeyboard();
-                Alertas.mensaje_error(Negocio.this, "Se ha agregado un producto");
-            }else {
-                Alertas.mensaje_error(Negocio.this, "Debe llenar todos los campos");
-            }
+                if(Alertas.Verificar_conexion(Negocio.this)){
+                    names = name.getText().toString();
+                    precios = precio.getText().toString();
+                    if(!names.equals("")&&!precios.equals("")) {
+                        name.setText("");
+                        precio.setText("");
+                        new AttemptAgregar().execute();
+                        new AttemptProducto().execute();
+                        hideKeyboard();
+                        Alertas.mensaje_error(Negocio.this, "Se ha agregado un producto");
+                    }else {
+                        Alertas.mensaje_error(Negocio.this, "Debe llenar todos los campos");
+                    }
+                }
             }
         });
     }
@@ -183,11 +187,7 @@ public class Negocio extends Activity {
     class AttemptProducto extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Negocio.this);
-            pDialog.setMessage("Cargando");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            Alertas.abrir_mensaje_carga(Negocio.this, "Cargando");
         }
 
         protected String doInBackground(String... args) {
@@ -270,7 +270,7 @@ public class Negocio extends Activity {
                     });
                 }
             });
-            pDialog.dismiss();
+           Alertas.cerrar_mensaje_carga();
         }
     }
 

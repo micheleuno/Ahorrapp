@@ -55,7 +55,7 @@ public class Enviar_email extends Activity implements OnClickListener{
     @Override
     public void onClick(View v) {
         contrasena = "";
-        if(!reciep.getText().toString().equals("")){
+        if(Alertas.Verificar_conexion(Enviar_email.this)&&!reciep.getText().toString().equals("")){
             mail=reciep.getText().toString();
             new Attemptusuario().execute();
         }else{

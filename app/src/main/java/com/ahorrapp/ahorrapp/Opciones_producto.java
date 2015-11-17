@@ -69,6 +69,7 @@ public class Opciones_producto extends Activity {
         text3.setTypeface(typeFace);
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
+        if(Alertas.Verificar_conexion(Opciones_producto.this))
         new AttemptUnidad().execute();
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -87,23 +88,25 @@ public class Opciones_producto extends Activity {
         Eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Opciones_producto.this);
-                builder.setMessage("¿Esta seguro de que quiere eliminar el producto?")
-                        .setCancelable(false)
-                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                new AttemptEliminar().execute();
-                                Alertas.mensaje_error(Opciones_producto.this, "Se ha eliminado el producto");
+                if(Alertas.Verificar_conexion(Opciones_producto.this)){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Opciones_producto.this);
+                    builder.setMessage("¿Esta seguro de que quiere eliminar el producto?")
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    new AttemptEliminar().execute();
+                                    Alertas.mensaje_error(Opciones_producto.this, "Se ha eliminado el producto");
 
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
@@ -111,14 +114,16 @@ public class Opciones_producto extends Activity {
         Modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                names = name.getText().toString();
-                precios = precio.getText().toString();
-                if(!names.equals("")&&!precios.equals("")){
-                    new AttemptModificar().execute();
-                    hideKeyboard();
-                    Alertas.mensaje_error(Opciones_producto.this, "Se ha modificado un producto");
-                }else{
-                    Alertas.mensaje_error(Opciones_producto.this, "Debe llenar todos los campos");
+                if(Alertas.Verificar_conexion(Opciones_producto.this)){
+                    names = name.getText().toString();
+                    precios = precio.getText().toString();
+                    if(!names.equals("")&&!precios.equals("")){
+                        new AttemptModificar().execute();
+                        hideKeyboard();
+                        Alertas.mensaje_error(Opciones_producto.this, "Se ha modificado un producto");
+                    }else{
+                        Alertas.mensaje_error(Opciones_producto.this, "Debe llenar todos los campos");
+                    }
                 }
             }
         });

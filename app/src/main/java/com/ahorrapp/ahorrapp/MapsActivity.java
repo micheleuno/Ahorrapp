@@ -44,7 +44,6 @@ public class MapsActivity extends FragmentActivity{
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
     SessionManager session;
-    private ProgressDialog pDialog;
     private  String producto,id_marker="0";
     private int success;
     JSONArray products ;
@@ -55,11 +54,7 @@ public class MapsActivity extends FragmentActivity{
         protected void onPreExecute() {
             producto = Producto.getText().toString();
             super.onPreExecute();
-            MapsActivity.this.pDialog = new ProgressDialog(MapsActivity.this);
-            MapsActivity.this.pDialog.setMessage("Buscando");
-            MapsActivity.this.pDialog.setIndeterminate(false);
-            MapsActivity.this.pDialog.setCancelable(true);
-            MapsActivity.this.pDialog.show();
+            Alertas.abrir_mensaje_carga(MapsActivity.this,"Buscando");
         }
 
         protected String doInBackground(String... args) {
@@ -121,7 +116,7 @@ public class MapsActivity extends FragmentActivity{
             }else{
                     Alertas.mensaje_error(MapsActivity.this,"Ha ocurrido un error con la consulta");
             }
-            MapsActivity.this.pDialog.dismiss();
+            Alertas.cerrar_mensaje_carga();
         }
     }
     @Override
@@ -141,12 +136,9 @@ public class MapsActivity extends FragmentActivity{
         Producto.setText("");
 
         createMapView();
-        if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+        if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
             Mostrar_locales();
-        }else{
-            Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
         }
-
         final Button menu = (Button) findViewById(R.id.btnopciones);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,13 +153,11 @@ public class MapsActivity extends FragmentActivity{
         Productos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                     session = new SessionManager(getApplicationContext());
                     session.addDataBusqueda(Producto.getText().toString());
                     Producto.getText();
                     Mostrar_locales();
-                }else{
-                    Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
                 }
 
             }
@@ -179,15 +169,12 @@ public class MapsActivity extends FragmentActivity{
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                            if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                                 session = new SessionManager(getApplicationContext());
                                 session.addDataBusqueda(Producto.getText().toString());
                                 Producto.getText();
                                 Mostrar_locales();
-                            }else{
-                                Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
                             }
-
                             return true;
                         default:
                             break;
@@ -224,7 +211,7 @@ public class MapsActivity extends FragmentActivity{
         googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                if( Conexion.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                     if(marker.getTitle().equals("Nuevo Establecimiento")){
                         Intent nuevoform = new Intent(MapsActivity.this, Registrar_establecimiento.class);
                         Double latitud = marker.getPosition().latitude;
@@ -243,8 +230,6 @@ public class MapsActivity extends FragmentActivity{
                         nuevoform.putExtra("nombre", marker.getTitle());
                         startActivity(nuevoform);
                     }
-                }else{
-                    Alertas.mensaje_error(MapsActivity.this, "No se encuentra conectado a internet");
                 }
                 }
         });

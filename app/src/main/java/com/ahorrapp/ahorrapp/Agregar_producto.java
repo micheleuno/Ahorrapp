@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -76,7 +77,7 @@ public class Agregar_producto extends FragmentActivity {
             public void onClick(View v) {
                 names = name.getText().toString();
                 precios = precio.getText().toString();
-                if(!names.equals("")&&!precios.equals("")) {
+                if(Alertas.Verificar_conexion(Agregar_producto.this)&&!names.equals("")&&!precios.equals("")) { //si se rellenan todos los datos y hay internet
                     name.setText("");
                     precio.setText("");
                     new AttemptAgregar().execute();

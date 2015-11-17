@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -36,7 +35,6 @@ public class Local extends FragmentActivity {
     private static final String TAG_UNIDAD = "Unidad";
     private int success,success2;
     SessionManager session;
-    private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     JSONParser jsonParserp = new JSONParser();
     JSONArray products ;
@@ -126,11 +124,7 @@ public class Local extends FragmentActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Local.this);
-            pDialog.setMessage("Cargando");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            Alertas.abrir_mensaje_carga(Local.this, "Cargando");
         }
 
         protected String doInBackground(String... args) {
@@ -214,6 +208,8 @@ public class Local extends FragmentActivity {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(Alertas.Verificar_conexion(Local.this)){
+
                             Local.this.session = new SessionManager(Local.this.getApplicationContext());
                             if (Local.this.session.isLoggedIn()) {
                                 Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
@@ -221,6 +217,7 @@ public class Local extends FragmentActivity {
                                 startActivity(nuevoform);
                             } else {
                                 Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
+                            }
                             }
                         }
                     });
@@ -232,7 +229,7 @@ public class Local extends FragmentActivity {
 
 
         });
-            pDialog.dismiss();
+            Alertas.cerrar_mensaje_carga();
         }
     }
 
@@ -252,7 +249,6 @@ public class Local extends FragmentActivity {
 
             session.addDataLocal(Latitud,Longitud,Nombre);
         }else{
-
             HashMap<String, String> local = session.getDataLocal();
             Latitud  = local.get(SessionManager.TAG_NOMBRE_ESTA);
             Nombre  = local.get(SessionManager.TAG_LONGITUD);
@@ -263,6 +259,7 @@ public class Local extends FragmentActivity {
         establedes = new ArrayList<>();
         productos = new ArrayList<>();
         produc = new ArrayList<>();
+        if(Alertas.Verificar_conexion(Local.this))
         Mostrar_locales();
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         TextView text1 =(TextView) findViewById(R.id.txtdireccion);
@@ -275,9 +272,11 @@ public class Local extends FragmentActivity {
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevoform = new Intent(Local.this, Comentarios.class);
-                nuevoform.putExtra("id", Id);
-                startActivity(nuevoform);
+                if(Alertas.Verificar_conexion(Local.this)){
+                    Intent nuevoform = new Intent(Local.this, Comentarios.class);
+                    nuevoform.putExtra("id", Id);
+                    startActivity(nuevoform);
+                }
             }
         });
 
@@ -295,6 +294,4 @@ public class Local extends FragmentActivity {
         new AttemptProducto().execute();
        // Log.e("MIchele", Integer.toString(datos.size()));
     }
-
-
 }

@@ -33,6 +33,15 @@ public class JSONParser {
 
         sbParams = new StringBuilder();
         int i = 0;
+
+        try {
+            jObj2 = new JSONObject("{\"success\":\"2\"}");
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+
+
         for (String key : params.keySet()) {
             try {
                 if (i != 0){
@@ -43,6 +52,7 @@ public class JSONParser {
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                return (jObj2);
             }
             i++;
         }
@@ -74,6 +84,7 @@ public class JSONParser {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                return (jObj2);
             }
         }
         else if(method.equals("GET")){
@@ -100,6 +111,7 @@ public class JSONParser {
 
             } catch (IOException e) {
                 e.printStackTrace();
+                return (jObj2);
             }
 
         }
@@ -119,13 +131,14 @@ public class JSONParser {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return (jObj2);
         }
 
 
 
         // try parse the string to a JSON object
         try {
-            jObj2 = new JSONObject("{\"success\":\"2\"}");
+            //jObj2 = new JSONObject("{\"success\":\"2\"}");
             jObj = new JSONObject(result.toString());
 
         } catch (JSONException e) {

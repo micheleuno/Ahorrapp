@@ -79,9 +79,11 @@ public class Perfil extends Activity {
         Negocio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevoform = new Intent(Perfil.this, Negocio.class);
-                finish();
-                startActivity(nuevoform);
+                if(Alertas.Verificar_conexion(Perfil.this)){
+                    Intent nuevoform = new Intent(Perfil.this, Negocio.class);
+                    finish();
+                    startActivity(nuevoform);
+                }
             }
         });
     }

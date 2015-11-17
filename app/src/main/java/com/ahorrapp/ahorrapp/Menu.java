@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ public class Menu extends Activity {
     private static final String TAG_DIRECCION = "Direccion_usuario";
     private  String username,password;
     private EditText user, pass;
-    private ProgressDialog pDialog;
     SessionManager session;
     JSONParser jsonParser = new JSONParser();
     JSONArray products ;
@@ -49,7 +47,9 @@ public class Menu extends Activity {
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AttemptLogin().execute();
+                if(Alertas.Verificar_conexion(Menu.this)) {
+                    new AttemptLogin().execute();
+                }
             }
         });
 
@@ -57,9 +57,11 @@ public class Menu extends Activity {
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevoform = new Intent(Menu.this, Registro.class);
-                finish();
-                startActivity(nuevoform);
+                if(Alertas.Verificar_conexion(Menu.this)) {
+                    Intent nuevoform = new Intent(Menu.this, Registro.class);
+                    finish();
+                    startActivity(nuevoform);
+                }
             }
         });
 
@@ -67,9 +69,11 @@ public class Menu extends Activity {
         Olvidar_contrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nuevoform = new Intent(Menu.this, Enviar_email.class);
-                finish();
-                startActivity(nuevoform);
+                if(Alertas.Verificar_conexion(Menu.this)){
+                    Intent nuevoform = new Intent(Menu.this, Enviar_email.class);
+                    finish();
+                    startActivity(nuevoform);
+                }
             }
         });
     }
@@ -86,11 +90,7 @@ public class Menu extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Menu.this);
-            pDialog.setMessage("Intentando ingresar");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            Alertas.abrir_mensaje_carga(Menu.this, "Ininiciando sesion");
             username = user.getText().toString();
             password = pass.getText().toString();
         }
@@ -133,7 +133,7 @@ public class Menu extends Activity {
             if (file_url != null) {
                 Toast.makeText(Menu.this, file_url, Toast.LENGTH_LONG).show();
             }
-            pDialog.dismiss();
+           Alertas.cerrar_mensaje_carga();
         }
     }
 }

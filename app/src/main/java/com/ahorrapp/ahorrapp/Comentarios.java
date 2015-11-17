@@ -1,6 +1,5 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -30,7 +29,6 @@ public class Comentarios extends FragmentActivity {
     private static final String TAG_NOMBRE_U = "nombre";
     private static final String TAG_COMENTARIO = "Comentario";
     private static final String TAG_USUARIO = "Nombre_usuario";
-    private ProgressDialog pDialog;
     private int success;
     ArrayList<HashMap<String,String>> productos;
     ArrayList<Lista_entrada> datos;
@@ -62,6 +60,8 @@ public class Comentarios extends FragmentActivity {
             try {
                 // Checking for SUCCESS TAG
                 int success = json.getInt(Comentarios.TAG_SUCCESS);
+                if(success==2)
+                    Alertas.mensaje_error(Comentarios.this,"Ha ocurrido un error con la consulta");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -73,11 +73,7 @@ public class Comentarios extends FragmentActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            Comentarios.this.pDialog = new ProgressDialog(Comentarios.this);
-            Comentarios.this.pDialog.setMessage("Cargando Comentarios");
-            Comentarios.this.pDialog.setIndeterminate(false);
-            Comentarios.this.pDialog.setCancelable(true);
-            Comentarios.this.pDialog.show();
+            Alertas.abrir_mensaje_carga(Comentarios.this, "Cargando");
         }
 
         protected String doInBackground(String... args) {
@@ -143,7 +139,7 @@ public class Comentarios extends FragmentActivity {
                 });
 
             }
-            Comentarios.this.pDialog.dismiss(); //Cerrar dialog de carga
+            Alertas.cerrar_mensaje_carga(); //Cerrar dialog de carga
         }
     }
     @Override
@@ -158,23 +154,25 @@ public class Comentarios extends FragmentActivity {
         comentar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Comentarios.this.Coment = Comentarios.this.Comentario.getText().toString();
-                Comentarios.this.Comentario.setText("");
-                Comentarios.this.session = new SessionManager(Comentarios.this.getApplicationContext());
-                 if(Comentarios.this.session.isLoggedIn()) {  //si el usuario inicio sesion
-                    if (!Comentarios.this.Coment.equals("")) { //si el comentario no es vacio
-                        new AttemptComentario().execute();
-                        Comentarios.this.hideKeyboard();
-                        Alertas.mensaje_error(Comentarios.this, "Se ha agregado un comentario");
-                        new AttemptCargar().execute();
-                    } else {
-                        Alertas.mensaje_error(Comentarios.this,"Debe escribir un comentario primero");
+                if(Alertas.Verificar_conexion(Comentarios.this)){
+                    Comentarios.this.Coment = Comentarios.this.Comentario.getText().toString();
+                    Comentarios.this.Comentario.setText("");
+                    Comentarios.this.session = new SessionManager(Comentarios.this.getApplicationContext());
+                    if(Comentarios.this.session.isLoggedIn()) {  //si el usuario inicio sesion
+                        if (!Comentarios.this.Coment.equals("")) { //si el comentario no es vacio
+                            new AttemptComentario().execute();
+                            Comentarios.this.hideKeyboard();
+                            Alertas.mensaje_error(Comentarios.this, "Se ha agregado un comentario");
+                            new AttemptCargar().execute();
+                        } else {
+                            Alertas.mensaje_error(Comentarios.this,"Debe escribir un comentario primero");
+                        }
+                    }else{
+                        Alertas.mensaje_error(Comentarios.this,"Para comentar debe iniciar sesion");
                     }
-                }else{
-                    Alertas.mensaje_error(Comentarios.this,"Para comentar debe iniciar sesion");
+                    Comentarios.this.Coment =""; //dejar el Gettext de comentarios vacio
                 }
 
-                Comentarios.this.Coment =""; //dejar el Gettext de comentarios vacio
             }
         });
     }

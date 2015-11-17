@@ -53,27 +53,28 @@ public class Registro extends Activity{
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Alertas.Verificar_conexion(Registro.this)){
+                    username = user.getText().toString();
+                    password = pass.getText().toString();
+                    nombre_usuario = nombre.getText().toString();
+                    email_usuario = email.getText().toString();
+                    password2 = pass2.getText().toString();
+                    direccion_usuario = direccion.getText().toString();
 
-                username = user.getText().toString();
-                password = pass.getText().toString();
-                nombre_usuario = nombre.getText().toString();
-                email_usuario = email.getText().toString();
-                password2 = pass2.getText().toString();
-                direccion_usuario = direccion.getText().toString();
-
-                if (!username.equals("")&&!password.equals("")&&!nombre_usuario.equals("")&&!email_usuario.equals("")&&!password2.equals("")&&!direccion_usuario.equals("")) {
-                    if(password2.equals(password)){
-                        if(password2.length()>7) {
-                            new CreateUser().execute();
-                        }else {
-                            Alertas.mensaje_error(Registro.this, "Las contrasenas deben tener al menos 8 caracteres");
+                    if (!username.equals("")&&!password.equals("")&&!nombre_usuario.equals("")&&!email_usuario.equals("")&&!password2.equals("")&&!direccion_usuario.equals("")) {
+                        if(password2.equals(password)){
+                            if(password2.length()>7) {
+                                new CreateUser().execute();
+                            }else {
+                                Alertas.mensaje_error(Registro.this, "Las contrasenas deben tener al menos 8 caracteres");
+                            }
                         }
+                        else {
+                            Alertas.mensaje_error(Registro.this, "Las contrasenas deben coincidir");
+                        }
+                    }else {
+                        Alertas.mensaje_error(Registro.this, "Debe introducir todos los campos");
                     }
-                    else {
-                        Alertas.mensaje_error(Registro.this, "Las contrasenas deben coincidir");
-                    }
-                }else {
-                    Alertas.mensaje_error(Registro.this, "Debe introducir todos los campos");
                 }
             }
         });
@@ -82,11 +83,7 @@ public class Registro extends Activity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Registro.this);
-            pDialog.setMessage("Creando Usuario...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            Alertas.abrir_mensaje_carga(Registro.this, "Creando Usuario...");
         }
         @Override
         protected String doInBackground(String... args) {
@@ -116,8 +113,8 @@ public class Registro extends Activity{
         }
         protected void onPostExecute(String file_url) {
 
-            // dismiss the dialog once product deleted
-            pDialog.dismiss();
+
+           Alertas.cerrar_mensaje_carga();
             if (file_url != null){
                 Toast.makeText(Registro.this, file_url, Toast.LENGTH_LONG).show();
             }

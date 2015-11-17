@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 
 public class Registrar_establecimiento extends Activity{
 
-    private ProgressDialog pDialog;
+
     JSONParser jsonParser = new JSONParser();
     private static final String REGISTER_URL = "http://ahorrapp.hol.es/BD/agregar_establecimiento.php";
     private static final String TAG_SUCCESS = "success";
@@ -34,11 +33,7 @@ public class Registrar_establecimiento extends Activity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Registrar_establecimiento.this);
-            pDialog.setMessage("Creando Establecimiento...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+            Alertas.abrir_mensaje_carga(Registrar_establecimiento.this, "Creando Estableciento...");
         }
         @Override
         protected String doInBackground(String... args) {
@@ -70,7 +65,7 @@ public class Registrar_establecimiento extends Activity{
         protected void onPostExecute(String file_url) {
 
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
+           Alertas.cerrar_mensaje_carga();
             if (file_url != null){
                 Toast.makeText(Registrar_establecimiento.this, file_url, Toast.LENGTH_LONG).show();
             }
@@ -109,20 +104,20 @@ public class Registrar_establecimiento extends Activity{
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contacto_es = contacto.getText().toString();
-                nombre_es = nombre.getText().toString();
-                descripcion_es = descripcion.getText().toString();
-                direccion_es = direccion.getText().toString();
-                if (!contacto_es.equals("")&&!nombre_es.equals("")&&!descripcion_es.equals("")&&!direccion_es.equals("")){
+                if(Alertas.Verificar_conexion(Registrar_establecimiento.this)){
+                    contacto_es = contacto.getText().toString();
+                    nombre_es = nombre.getText().toString();
+                    descripcion_es = descripcion.getText().toString();
+                    direccion_es = direccion.getText().toString();
+                    if (!contacto_es.equals("")&&!nombre_es.equals("")&&!descripcion_es.equals("")&&!direccion_es.equals("")){
 
-                    new CreateEstablecimiento().execute();
-                }else {
-                    Alertas.mensaje_error(Registrar_establecimiento.this, "Debe introducir todos los campos");
+                        new CreateEstablecimiento().execute();
+                    }else {
+                        Alertas.mensaje_error(Registrar_establecimiento.this, "Debe introducir todos los campos");
+                    }
                 }
             }
         });
     }
-
-
 
 }
