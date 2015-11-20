@@ -1,8 +1,12 @@
 package com.ahorrapp.ahorrapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -21,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Comentarios extends FragmentActivity {
+public class Comentarios extends AppCompatActivity {
 
     private EditText Comentario;
     private static final String TAG_SUCCESS = "success";
@@ -146,6 +150,11 @@ public class Comentarios extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(layout.comentario);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Comentarios.this);
         this.productos = new ArrayList<>();
         this.datos = new ArrayList<>();
         new AttemptCargar().execute();
@@ -182,6 +191,18 @@ public class Comentarios extends FragmentActivity {
         if (view != null) {
             InputMethodManager inputManager = (InputMethodManager) getSystemService(Comentarios.INPUT_METHOD_SERVICE);
             inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Comentarios.this, Local.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -1,11 +1,14 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,7 +30,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class Enviar_email extends Activity implements OnClickListener{
+public class Enviar_email extends AppCompatActivity implements OnClickListener{
 
 
     private static final String TAG_SUCCESS = "success";
@@ -43,7 +46,11 @@ public class Enviar_email extends Activity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enviar_email);
-
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Enviar_email.this);
         context = this;
 
         Button login = (Button) findViewById(R.id.btn_submit);
@@ -139,5 +146,16 @@ public class Enviar_email extends Activity implements OnClickListener{
         Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu_a.class);
         finish();
         startActivity(nuevoform);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu_a.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

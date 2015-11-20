@@ -1,10 +1,13 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class Negocio extends Activity {
+public class Negocio extends AppCompatActivity {
     // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     private EditText name,precio;
     String unidad_id,names,precios;
@@ -53,7 +56,14 @@ public class Negocio extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.perfil_negocio);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Negocio.this);
+
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         unidades = new ArrayList<>();
         productos = new ArrayList<>();
@@ -313,5 +323,16 @@ public class Negocio extends Activity {
         Intent nuevoform = new Intent(Negocio.this, Perfil.class);
         finish();
         startActivity(nuevoform);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Negocio.this, Perfil.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

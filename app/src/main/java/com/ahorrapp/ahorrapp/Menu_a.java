@@ -1,11 +1,13 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 
-public class Menu_a extends Activity {
+public class Menu_a extends AppCompatActivity {
 
     private static final String LOGIN_URL = "http://ahorrapp.hol.es/BD/login.php";
     private static final String TAG_SUCCESS = "success";
@@ -40,6 +42,13 @@ public class Menu_a extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Menu_a.this);
+
         session = new SessionManager(getApplicationContext());
         session.checkLogin();
         user = (EditText) findViewById(R.id.txtUsuario);
@@ -48,8 +57,10 @@ public class Menu_a extends Activity {
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu_a.this)) {
+                if(Alertas.Verificar_conexion(Menu_a.this)&&!user.getText().toString().equals("")&&!pass.getText().toString().equals("")) {
                     new AttemptLogin().execute();
+                }else{
+                    Alertas.mensaje_error(Menu_a.this,"Debe ingresar todos los datos");
                 }
             }
         });
@@ -84,6 +95,17 @@ public class Menu_a extends Activity {
         Intent nuevoform = new Intent(Menu_a.this, MapsActivity.class);
         finish();
         startActivity(nuevoform);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Menu_a.this, MapsActivity.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     class AttemptLogin extends AsyncTask<String, String, String> {
@@ -136,5 +158,6 @@ public class Menu_a extends Activity {
             }
            Alertas.cerrar_mensaje_carga();
         }
+
     }
 }

@@ -1,11 +1,14 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class Registro extends Activity{
+public class Registro extends AppCompatActivity {
     private EditText user, pass,email,nombre,pass2,direccion;
     JSONParser jsonParser = new JSONParser();
     private static final String REGISTER_URL = "http://ahorrapp.hol.es/BD/agregar_usuario.php";
@@ -30,6 +33,11 @@ public class Registro extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Registro.this);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         user = (EditText)findViewById(R.id.txtusername); //nombre de la cuenta
         user.setTypeface(typeFace);
@@ -129,6 +137,17 @@ public class Registro extends Activity{
         Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu_a.class);
         finish();
         startActivity(nuevoform);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu_a.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

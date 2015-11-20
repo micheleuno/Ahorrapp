@@ -1,11 +1,14 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 
-public class Registrar_establecimiento extends Activity{
+public class Registrar_establecimiento extends AppCompatActivity {
 
 
     JSONParser jsonParser = new JSONParser();
@@ -76,13 +79,29 @@ public class Registrar_establecimiento extends Activity{
             }
         }
     }
-
+    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Registrar_establecimiento.this, MapsActivity.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar_establecimiento);
 
+        setContentView(R.layout.perfil_negocio);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Registrar_establecimiento.this);
         Bundle bundle = getIntent().getExtras();
         Latitud = bundle.getString("latitude");
         Longitud = bundle.getString("longitude");

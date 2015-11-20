@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -23,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Opciones_producto extends Activity {
+public class Opciones_producto extends AppCompatActivity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_UNIDADES = "Unidades";
     private static final String TAG_UNIDAD = "Unidad";
@@ -48,6 +52,11 @@ public class Opciones_producto extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editar_productos);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
+        Alertas.cambiar_status_bar(Opciones_producto.this);
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf"); //elegir fuente del texto
         unidades = new ArrayList<>();
         datos = new ArrayList<>();
@@ -134,6 +143,18 @@ public class Opciones_producto extends Activity {
         Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
         finish();
         startActivity(nuevoform);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     class AttemptModificar extends AsyncTask<String, String, String> {
         protected void onPreExecute() {
