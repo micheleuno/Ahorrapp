@@ -136,7 +136,7 @@ public class Enviar_email extends Activity implements OnClickListener{
         }
     }
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu.class);
+        Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu_a.class);
         finish();
         startActivity(nuevoform);
     }

@@ -1,6 +1,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/txtProducto"
+        android:hint="Buscar"
+        android:textCursorDrawable="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:visibility="visible"
+        android:textColorHint="#FFFFFFFF"
+        android:textColorHighlight="#FFFFFFFF"
+        android:textColor="#FFFFFFFF"
+        android:textColorLink="#FFFFFFFF"
+        android:shadowColor="#FFFFFFFF" />
+
+
+    </android.support.v7.widget.Toolbar>
+
 
 
     <fragment
@@ -11,51 +41,7 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/frameLayout" />
+        tools:layout="@layout/abc_action_bar_up_container" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:id="@+id/frameLayout">
-
-        <LinearLayout
-
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:weightSum="1"
-            android:background="#ffece7de"
-            android:id="@+id/anbt">
-
-            <Button
-                android:layout_width="94dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/btnopciones"
-                android:background="@mipmap/menulogo" />
-
-            <EditText
-                android:layout_width="212dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/txtProducto"
-                android:hint="Buscar..."
-                android:maxLines="1"
-                android:singleLine="true"
-
-                android:visibility="visible"
-                android:background="@mipmap/fondomenubuscar" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/buscador"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:singleLine="false"
-                android:background="@mipmap/buscar" />
-
-        </LinearLayout>
-
-    </FrameLayout>
 
 </RelativeLayout>

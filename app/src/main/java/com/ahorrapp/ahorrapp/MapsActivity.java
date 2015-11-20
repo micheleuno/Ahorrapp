@@ -1,15 +1,17 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MapsActivity extends FragmentActivity{
+public class MapsActivity extends AppCompatActivity {
 
     private GoogleMap googleMap;
     ArrayList<HashMap<Double,Double>> establepos;
@@ -120,11 +122,22 @@ public class MapsActivity extends FragmentActivity{
         }
     }
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_mapa, menu);
+        return true;
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'></font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
+        setSupportActionBar(myToolbar);
+
         session = new SessionManager(getApplicationContext());
         establepos = new ArrayList<>();
         establedes = new ArrayList<>();
@@ -139,29 +152,7 @@ public class MapsActivity extends FragmentActivity{
         if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
             Mostrar_locales();
         }
-        final Button menu = (Button) findViewById(R.id.btnopciones);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu.class);
-                finish();
-                startActivity(nuevoform);
-            }
-        });
 
-        final Button Productos = (Button) findViewById(R.id.buscador);
-        Productos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
-                    session = new SessionManager(getApplicationContext());
-                    session.addDataBusqueda(Producto.getText().toString());
-                    Producto.getText();
-                    Mostrar_locales();
-                }
-
-            }
-        });
 
         Producto.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) { //ver si se presiona enter en el teclado
@@ -243,6 +234,7 @@ public class MapsActivity extends FragmentActivity{
                     // El objeto GoogleMap ha sido referenciado correctamente
                     //ahora podemos manipular sus propiedades
                     //Seteamos el tipo de mapa
+
                     googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
                     //Activamos la capa o layer MyLocation
@@ -303,6 +295,27 @@ public class MapsActivity extends FragmentActivity{
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar el menu
+                Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu_a.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+            case R.id.buscar_estab:
+                if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+                    session = new SessionManager(getApplicationContext());
+                    session.addDataBusqueda(Producto.getText().toString());
+                    Producto.getText();
+                    Mostrar_locales();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

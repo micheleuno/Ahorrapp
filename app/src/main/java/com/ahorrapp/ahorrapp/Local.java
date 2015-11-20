@@ -6,6 +6,11 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Local extends FragmentActivity {
+public class Local extends AppCompatActivity {
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
@@ -232,12 +237,20 @@ public class Local extends FragmentActivity {
             Alertas.cerrar_mensaje_carga();
         }
     }
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_bar_local, menu);
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
         SessionManager session;
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
+        setSupportActionBar(myToolbar);
         session = new SessionManager(getApplicationContext());
         Bundle bundle;
         new Bundle();
@@ -293,5 +306,18 @@ public class Local extends FragmentActivity {
         new AttemptLocal().execute();
         new AttemptProducto().execute();
        // Log.e("MIchele", Integer.toString(datos.size()));
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //al apretar ir atras
+                Intent nuevoform = new Intent(Local.this, MapsActivity.class);
+                finish();
+                startActivity(nuevoform);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 
-public class Menu extends Activity {
+public class Menu_a extends Activity {
 
     private static final String LOGIN_URL = "http://ahorrapp.hol.es/BD/login.php";
     private static final String TAG_SUCCESS = "success";
@@ -47,7 +48,7 @@ public class Menu extends Activity {
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu.this)) {
+                if(Alertas.Verificar_conexion(Menu_a.this)) {
                     new AttemptLogin().execute();
                 }
             }
@@ -57,8 +58,8 @@ public class Menu extends Activity {
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu.this)) {
-                    Intent nuevoform = new Intent(Menu.this, Registro.class);
+                if(Alertas.Verificar_conexion(Menu_a.this)) {
+                    Intent nuevoform = new Intent(Menu_a.this, Registro.class);
                     finish();
                     startActivity(nuevoform);
                 }
@@ -69,8 +70,8 @@ public class Menu extends Activity {
         Olvidar_contrasena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu.this)){
-                    Intent nuevoform = new Intent(Menu.this, Enviar_email.class);
+                if(Alertas.Verificar_conexion(Menu_a.this)){
+                    Intent nuevoform = new Intent(Menu_a.this, Enviar_email.class);
                     finish();
                     startActivity(nuevoform);
                 }
@@ -80,7 +81,7 @@ public class Menu extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Menu.this, MapsActivity.class);
+        Intent nuevoform = new Intent(Menu_a.this, MapsActivity.class);
         finish();
         startActivity(nuevoform);
     }
@@ -90,7 +91,7 @@ public class Menu extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Alertas.abrir_mensaje_carga(Menu.this, "Ininiciando sesion");
+            Alertas.abrir_mensaje_carga(Menu_a.this, "Ininiciando sesion");
             username = user.getText().toString();
             password = pass.getText().toString();
         }
@@ -115,7 +116,7 @@ public class Menu extends Activity {
                     JSONObject c = products.getJSONObject(0);
                     // Storing each json item in variable
                     session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT), c.getString(TAG_ID), c.getString(TAG_EMAIL), c.getString(TAG_DIRECCION));
-                    Intent i = new Intent(Menu.this, Perfil.class);
+                    Intent i = new Intent(Menu_a.this, Perfil.class);
                     finish();
                     startActivity(i);
                     return json.getString(TAG_MESSAGE);
@@ -131,7 +132,7 @@ public class Menu extends Activity {
         protected void onPostExecute(String file_url) {
             // dismiss the dialog once product deleted
             if (file_url != null) {
-                Toast.makeText(Menu.this, file_url, Toast.LENGTH_LONG).show();
+                Toast.makeText(Menu_a.this, file_url, Toast.LENGTH_LONG).show();
             }
            Alertas.cerrar_mensaje_carga();
         }

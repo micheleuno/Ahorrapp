@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 
 public class Registro extends Activity{
     private EditText user, pass,email,nombre,pass2,direccion;
-    private ProgressDialog pDialog;
     JSONParser jsonParser = new JSONParser();
     private static final String REGISTER_URL = "http://ahorrapp.hol.es/BD/agregar_usuario.php";
     private static final String TAG_SUCCESS = "success";
@@ -119,7 +117,7 @@ public class Registro extends Activity{
                 Toast.makeText(Registro.this, file_url, Toast.LENGTH_LONG).show();
             }
             if(success == 1) {
-                Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
+                Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu_a.class);
                 finish();
                 startActivity(nuevoform);
             }
@@ -128,7 +126,7 @@ public class Registro extends Activity{
 
     @Override
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu.class);
+        Intent nuevoform = new Intent(Registro.this, com.ahorrapp.ahorrapp.Menu_a.class);
         finish();
         startActivity(nuevoform);
     }
