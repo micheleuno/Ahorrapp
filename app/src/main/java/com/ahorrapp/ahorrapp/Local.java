@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -214,22 +213,18 @@ public class Local extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if(Alertas.Verificar_conexion(Local.this)){
-
-                            Local.this.session = new SessionManager(Local.this.getApplicationContext());
-                            if (Local.this.session.isLoggedIn()) {
-                                Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
-                                nuevoform.putExtra("id", Id);
-                                startActivity(nuevoform);
-                            } else {
-                                Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
-                            }
+                                Local.this.session = new SessionManager(Local.this.getApplicationContext());
+                                if (Local.this.session.isLoggedIn()) {
+                                    Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
+                                    nuevoform.putExtra("id", Id);
+                                    startActivity(nuevoform);
+                                } else {
+                                    Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
+                                }
                             }
                         }
                     });
-
-
                 }
-
             }
 
 
@@ -246,7 +241,6 @@ public class Local extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
         SessionManager session;
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
@@ -315,7 +309,6 @@ public class Local extends AppCompatActivity {
                 finish();
                 startActivity(nuevoform);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }

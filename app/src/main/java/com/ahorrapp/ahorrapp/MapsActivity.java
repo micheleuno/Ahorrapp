@@ -130,9 +130,10 @@ public class MapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        Alertas.cambiar_status_bar(MapsActivity.this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'></font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);

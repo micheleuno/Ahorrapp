@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class Alertas {
 private static ProgressDialog pDialog;
@@ -51,5 +54,14 @@ private static ProgressDialog pDialog;
             connected = false;
         }
         return (connected);
+    }
+    public static void cambiar_status_bar(Activity vista){
+        Window window = vista.getWindow();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(vista.getResources().getColor(R.color.ColorPrimaryDark));
+        }
     }
 }
