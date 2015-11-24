@@ -21,5 +21,11 @@
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 
+    <string name="Iniciar_sesion">Iniciar Sesion</string>
+    <string name="Registrarse">Registrarse</string>
+    <string name="Nombre_usuario">Nombre usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="Recuperar_contraseña">Recuperar Contraseña</string>
+    <string name="Buscar">Buscar</string>
 
 </resources>
