@@ -298,7 +298,7 @@ public class MapsActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: //al apretar el menu
@@ -315,7 +315,7 @@ public class MapsActivity extends AppCompatActivity {
                 }
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return true;
         }
     }
 

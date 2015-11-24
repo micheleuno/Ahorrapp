@@ -95,8 +95,6 @@ public class Registrar_establecimiento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrar_establecimiento);
-
-        setContentView(R.layout.perfil_negocio);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
