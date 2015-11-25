@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -143,14 +144,14 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
         }
     }
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu_a.class);
+        Intent nuevoform = new Intent(Enviar_email.this, MapsActivity.class);
         finish();
         startActivity(nuevoform);
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: //al apretar ir atras
-                Intent nuevoform = new Intent(Enviar_email.this, com.ahorrapp.ahorrapp.Menu_a.class);
+                Intent nuevoform = new Intent(Enviar_email.this, MapsActivity.class);
                 finish();
                 startActivity(nuevoform);
                 return true;
@@ -158,4 +159,5 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

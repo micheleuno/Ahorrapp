@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -12,7 +13,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,6 +42,8 @@ public class MapsActivity extends AppCompatActivity {
     EditText Producto;
     JSONParser jsonParser = new JSONParser();
     Marker marker;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_LATITUD = "Latitud";
@@ -46,7 +52,7 @@ public class MapsActivity extends AppCompatActivity {
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
     SessionManager session;
-    private  String producto,id_marker="0";
+    private  String producto,id_marker="0",es_dueño="-1";
     private int success;
     JSONArray products ;
 
@@ -130,7 +136,7 @@ public class MapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
+        String[] datos_navdraw;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Alertas.cambiar_status_bar(MapsActivity.this);
@@ -138,8 +144,31 @@ public class MapsActivity extends AppCompatActivity {
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'></font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_menu_white_36dp);
         setSupportActionBar(myToolbar);
-
         session = new SessionManager(getApplicationContext());
+        if(MapsActivity.this.session.isLoggedIn()){
+            HashMap<String, String> user = session.getUserDetails();
+             es_dueño = user.get(SessionManager.TAG_LOCAL);
+            if(es_dueño.equals("0"))     //no es dueño de local
+                datos_navdraw = getResources().getStringArray(R.array.sesion_iniciada);
+            else  //es dueño de un local
+                datos_navdraw = getResources().getStringArray(R.array.dueño_local);
+        }else{//no ha iniciado sesion
+             datos_navdraw = getResources().getStringArray(R.array.inicio_sesion);
+        }
+
+            // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<>(this,
+                R.layout.drawer_list_item, datos_navdraw));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+
+
+
         establepos = new ArrayList<>();
         establedes = new ArrayList<>();
         Producto = (EditText) findViewById(R.id.txtProducto);
@@ -226,6 +255,70 @@ public class MapsActivity extends AppCompatActivity {
                 }
         });
     }
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+    private void selectItem(int position) {
+        // Create a new fragment and specify the planet to show based on position
+        Intent nuevoform;
+        switch (position){
+            case 0:
+                if(Alertas.Verificar_conexion(MapsActivity.this)) {
+                    Log.e("Maps activity",es_dueño+" eso vale es dueño");
+                    if(es_dueño.equals("0")){ //no es dueño local
+                        Log.e("Maps activity","fue a solicitar");
+                        nuevoform = new Intent(MapsActivity.this, Solicitar.class);
+                        finish();
+                        startActivity(nuevoform);
+                        break;
+                    }
+                    if(Integer.parseInt(es_dueño)>0){   //es dueño
+                        Log.e("Maps activity","fue a negocio");
+                         nuevoform = new Intent(MapsActivity.this, Negocio.class);
+                        finish();
+                        startActivity(nuevoform);
+                        break;
+                    }
+                    Log.e("Maps activity","fue a menu");
+                    nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu_a.class);
+                    finish();
+                    startActivity(nuevoform);
+
+
+                }
+                break;
+            case 1:
+                if(Alertas.Verificar_conexion(MapsActivity.this)) {
+                    if(session.isLoggedIn()){
+                        session.logoutUser();
+                        Toast.makeText(this, "Se ha cerrado la sesion", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
+
+                    nuevoform = new Intent(MapsActivity.this, Registro.class);
+                    finish();
+                    startActivity(nuevoform);
+                }
+                break;
+            case 2:
+                if(Alertas.Verificar_conexion(MapsActivity.this)) {
+                    nuevoform = new Intent(MapsActivity.this, Enviar_email.class);
+                    finish();
+                    startActivity(nuevoform);
+                }
+                break;
+            default:
+
+        }
+        // Highlight the selected item, update the title, and close the drawer
+        mDrawerList.setItemChecked(position, true);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+
     private void createMapView(){
         final LatLng UPV = new LatLng(-33.044662, -71.612465);
         try {
@@ -302,9 +395,7 @@ public class MapsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: //al apretar el menu
-                Intent nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu_a.class);
-                finish();
-                startActivity(nuevoform);
+                mDrawerLayout.openDrawer(mDrawerList);
                 return true;
             case R.id.buscar_estab:
                 if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red

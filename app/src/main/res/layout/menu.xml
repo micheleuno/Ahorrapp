@@ -35,6 +35,7 @@
         android:id="@+id/btnIniciarSesion"
         android:text="@string/Iniciar_sesion"
         />
+    <!--
     <Button
         style="@style/Boton"
         android:id="@+id/btnRegistrarse"
@@ -47,5 +48,6 @@
         android:id="@+id/btnOlvidarPass"
         android:text="@string/Recuperar_contraseña"
         />
+    -->
 
 </LinearLayout>

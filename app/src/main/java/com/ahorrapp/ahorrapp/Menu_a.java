@@ -51,7 +51,7 @@ public class Menu_a extends AppCompatActivity {
         Alertas.cambiar_status_bar(Menu_a.this);
 
         session = new SessionManager(getApplicationContext());
-        session.checkLogin();
+       // session.checkLogin();
         user = (EditText) findViewById(R.id.txtUsuario);
         user.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass = (EditText) findViewById(R.id.txtPass);
@@ -68,7 +68,7 @@ public class Menu_a extends AppCompatActivity {
             }
         });
 
-        final Button registrar = (Button) findViewById(R.id.btnRegistrarse);
+      /*  final Button registrar = (Button) findViewById(R.id.btnRegistrarse);
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +90,7 @@ public class Menu_a extends AppCompatActivity {
                     startActivity(nuevoform);
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -141,7 +141,7 @@ public class Menu_a extends AppCompatActivity {
                     JSONObject c = products.getJSONObject(0);
                     // Storing each json item in variable
                     session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT), c.getString(TAG_ID), c.getString(TAG_EMAIL), c.getString(TAG_DIRECCION));
-                    Intent i = new Intent(Menu_a.this, Perfil.class);
+                    Intent i = new Intent(Menu_a.this, MapsActivity.class);
                     finish();
                     startActivity(i);
                     return json.getString(TAG_MESSAGE);

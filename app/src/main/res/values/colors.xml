@@ -2,7 +2,6 @@
 <resources>
     <color name="primary">#e6907f</color>
     <color name="ColorPrimaryDark">#fccc8071</color>
-
     <color name="white">#FFFFFFFF</color>
     <color name="primary_dark">#fccc8071</color>
     <color name="ripple">#e6907f</color>

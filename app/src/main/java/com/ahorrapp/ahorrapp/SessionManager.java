@@ -112,7 +112,7 @@ public class SessionManager {
         if(this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
 
-            Intent i = new Intent(_context, Perfil.class);
+           Intent i = new Intent(_context, Perfil.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -156,7 +156,7 @@ public class SessionManager {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, com.ahorrapp.ahorrapp.Menu_a.class);
+        Intent i = new Intent(_context,MapsActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

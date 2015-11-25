@@ -76,6 +76,7 @@ public class Perfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent nuevoform = new Intent(Perfil.this, Solicitar.class);
+                finish();
                 startActivity(nuevoform);
             }
         });

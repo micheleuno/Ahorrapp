@@ -320,14 +320,14 @@ public class Negocio extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Negocio.this, Perfil.class);
+        Intent nuevoform = new Intent(Negocio.this, MapsActivity.class);
         finish();
         startActivity(nuevoform);
     }
     public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
         switch (item.getItemId()) {
             case android.R.id.home: //al apretar ir atras
-                Intent nuevoform = new Intent(Negocio.this, Perfil.class);
+                Intent nuevoform = new Intent(Negocio.this, MapsActivity.class);
                 finish();
                 startActivity(nuevoform);
                 return true;
