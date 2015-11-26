@@ -294,29 +294,35 @@ public class MapsActivity extends AppCompatActivity {
                     nuevoform = new Intent(MapsActivity.this, com.ahorrapp.ahorrapp.Menu_a.class);
                     finish();
                     startActivity(nuevoform);
-
-
                 }
                 break;
+
+
             case 1:
+
+                if(Alertas.Verificar_conexion(MapsActivity.this)) {
+                    nuevoform = new Intent(MapsActivity.this, Perfil.class);  //esta logeado
+                    finish();
+                    startActivity(nuevoform);
+                    break;
+                }
+                nuevoform = new Intent(MapsActivity.this, Registro.class);
+                finish();
+                startActivity(nuevoform);
+                break;
+
+            case 2:
                 if(Alertas.Verificar_conexion(MapsActivity.this)) {
                     if(session.isLoggedIn()){
                         session.logoutUser();
                         Toast.makeText(this, "Se ha cerrado la sesion", Toast.LENGTH_SHORT).show();
                         break;
                     }
-
-                    nuevoform = new Intent(MapsActivity.this, Registro.class);
-                    finish();
-                    startActivity(nuevoform);
                 }
-                break;
-            case 2:
-                if(Alertas.Verificar_conexion(MapsActivity.this)) {
                     nuevoform = new Intent(MapsActivity.this, Enviar_email.class);
                     finish();
                     startActivity(nuevoform);
-                }
+
                 break;
             default:
 
