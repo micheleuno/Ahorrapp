@@ -29,6 +29,7 @@
         <EditText
             style="@style/Edittext"
             android:id="@+id/editprecio_prod"
+            android:inputType="number"
             android:hint="@string/Precio_product" />
 
         <Spinner

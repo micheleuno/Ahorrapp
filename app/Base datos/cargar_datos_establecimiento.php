@@ -5,8 +5,11 @@
 		$Latitud =utf8_encode($_POST['Latitud']);
 		$Longitud =utf8_encode($_POST['Longitud']);
 		$conexion = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-		$query = " SELECT idEstablecimiento,Nombre,Direccion,Descripcion,Contacto FROM Establecimiento
-					Where Latitud = '".$Latitud."' and Longitud = '".$Longitud."'"; 			
+		$query = " SELECT d.idEstablecimiento as idEstablecimiento , d.Nombre as Nombre, d.Direccion as Direccion, d.Descripcion as Descripcion, d.Contacto as Contacto, Usuario.Id_establecimiento as Id_usuario_estab
+			FROM Establecimiento d
+			LEFT JOIN Usuario ON d.idEstablecimiento = Usuario.Id_establecimiento
+			WHERE Latitud =  '".$Latitud."'
+			AND Longitud =  '".$Longitud."'"; 			
 		$result = mysqli_query($conexion, $query); 
 		if (mysqli_num_rows($result) > 0 ) {
 			$response["Establecimiento"] = array();
@@ -15,6 +18,7 @@
 				$product["Nombre"] = $row["Nombre"];
 				$product["Direccion"] = $row["Direccion"];
 				$product["IdEstablecimiento"] = $row["idEstablecimiento"];
+				$product["Id_usuario_estab"] = $row["Id_usuario_estab"];
 				$product["Descripcion"] = $row["Descripcion"];
 				$product["Contacto"] = $row["Contacto"];
 				array_push($response["Establecimiento"], $product);

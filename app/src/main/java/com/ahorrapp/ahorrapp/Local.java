@@ -40,6 +40,7 @@ public class Local extends AppCompatActivity {
     private static final String TAG_PRODUCTO = "Producto";
     private static final String TAG_UNIDAD = "Unidad";
     private static final String TAG_IDPRODUCTO ="idUbicacion";
+    private static final String TAG_ID_LOCAL_USUARIO ="Id_usuario_estab";
     private int success,success2;
     ListView lista_p;
     SessionManager session;
@@ -50,7 +51,7 @@ public class Local extends AppCompatActivity {
     ArrayList<HashMap<String,String>> establedes;
     ArrayList<HashMap<String,String>> productos;
     ArrayList<Lista_productos> produc;
-    String Latitud,Longitud,Nombre;
+    String Latitud,Longitud,Nombre,id_usuario_estab;
     String Id;
 
     class AttemptLocal extends AsyncTask<String, String, String> {
@@ -80,6 +81,7 @@ public class Local extends AppCompatActivity {
                         String contacto = c.getString(TAG_CONTACTO);
                         String descripcion = c.getString(TAG_DESCRIPCCION);
                         String id = c.getString(TAG_ID);
+                         id_usuario_estab = c.getString(TAG_ID_LOCAL_USUARIO);
                         Id=id;
                         // creating new HashMap
                         HashMap<String, String> dir = new HashMap<>();
@@ -188,11 +190,15 @@ public class Local extends AppCompatActivity {
                         cont++;
                     }
                     productos.clear();
+
                     ListView lista = (ListView) findViewById(R.id.productos);
 
                     FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                    fab.attachToListView(lista);
-
+                        if(id_usuario_estab.equals("null")) {
+                            Log.e("local", id_usuario_estab);
+                            fab.attachToListView(lista);
+                        }else
+                        fab.hide();
                     lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
@@ -211,7 +217,6 @@ public class Local extends AppCompatActivity {
 
                             TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
                             id_producto.setTypeface(typeFace);
-                            Log.e("local", "id es" + ((Lista_productos) entrada).get_id());
                             id_producto.setText(((Lista_productos) entrada).get_id());
                         }
 
@@ -219,18 +224,51 @@ public class Local extends AppCompatActivity {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if(Alertas.Verificar_conexion(Local.this)){
+                            if (Alertas.Verificar_conexion(Local.this)) {
                                 Local.this.session = new SessionManager(Local.this.getApplicationContext());
                                 if (Local.this.session.isLoggedIn()) {
-                                    Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
-                                    nuevoform.putExtra("id", Id);
-                                    startActivity(nuevoform);
+                                    if (id_usuario_estab.equals("null")) { //si no tiene dueño
+                                        Intent nuevoform = new Intent(Local.this, Agregar_producto.class);
+                                        nuevoform.putExtra("id", Id);
+                                        startActivity(nuevoform);
+                                    } else {
+                                        Alertas.mensaje_error(Local.this, "Este establecimiento es administrado por otro usuario");
+                                    }
+
                                 } else {
                                     Alertas.mensaje_error(Local.this, "Para agregar productos debe iniciar sesion");
                                 }
                             }
                         }
                     });
+
+
+                        if(id_usuario_estab.equals("null")) {
+                            lista_p.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                                    Local.this.session = new SessionManager(Local.this.getApplicationContext());
+                                    if (Local.this.session.isLoggedIn()) {
+                                        if (Alertas.Verificar_conexion(Local.this)) {
+
+                                            Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
+                                            Intent nuevoform = new Intent(Local.this, Opciones_producto.class);
+                                            nuevoform.putExtra("nombre", productos.get_nombre());
+                                            nuevoform.putExtra("precio", productos.get_precio());
+                                            nuevoform.putExtra("unidad", productos.get_unidad());
+                                            nuevoform.putExtra("vista_anterior", "local");
+                                            nuevoform.putExtra("id_producto", productos.get_id());
+                                            finish();
+                                            startActivity(nuevoform);
+
+                                        }
+                                    } else {
+                                        Alertas.mensaje_error(Local.this, "Para editar productos debe iniciar sesion");
+                                    }
+                                }
+                            });
+                        }
+
                 }
             }
 
@@ -279,6 +317,7 @@ public class Local extends AppCompatActivity {
         produc = new ArrayList<>();
         if(Alertas.Verificar_conexion(Local.this))
         Mostrar_locales();
+
         Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         TextView text1 =(TextView) findViewById(R.id.txtdireccion);
         text1.setTypeface(typeFace);
@@ -298,30 +337,6 @@ public class Local extends AppCompatActivity {
             }
         });
 
-        lista_p.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                Local.this.session = new SessionManager(Local.this.getApplicationContext());
-                if (Local.this.session.isLoggedIn()) {
-                if (Alertas.Verificar_conexion(Local.this)) {
-
-                    Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
-                    Intent nuevoform = new Intent(Local.this, Opciones_producto.class);
-                    nuevoform.putExtra("nombre", productos.get_nombre());
-                    nuevoform.putExtra("precio", productos.get_precio());
-                    nuevoform.putExtra("unidad", productos.get_unidad());
-                    nuevoform.putExtra("vista_anterior", "local");
-                    nuevoform.putExtra("id_producto", productos.get_id());
-                    finish();
-                    startActivity(nuevoform);
-
-                }
-                } else {
-                    Alertas.mensaje_error(Local.this, "Para editar productos debe iniciar sesion");
-                }
-            }
-        });
 
     }
 
