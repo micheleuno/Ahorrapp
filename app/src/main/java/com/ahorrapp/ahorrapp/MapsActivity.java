@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -72,11 +70,11 @@ public class MapsActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
 
             try {
-            HashMap<String, String> params = new HashMap<>();
-            params.put("Nombre", producto.trim());
-            params.put("Latitud", latitud);
-            params.put("Longitud", longitud);
-            JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
+                HashMap<String, String> params = new HashMap<>();
+                params.put("Nombre", producto.trim());
+                params.put("Latitud", "-33.0447116");
+                params.put("Longitud", "-71.6124589");
+                JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
@@ -128,7 +126,7 @@ public class MapsActivity extends AppCompatActivity {
                 establedes.clear();
                 establepos.clear();
             }else{
-                    Alertas.mensaje_error(MapsActivity.this,"Ha ocurrido un error con la consulta");
+                Alertas.mensaje_error(MapsActivity.this,"Ha ocurrido un error con la consulta");
             }
             Alertas.cerrar_mensaje_carga();
         }
@@ -153,16 +151,16 @@ public class MapsActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
         if(MapsActivity.this.session.isLoggedIn()){
             HashMap<String, String> user = session.getUserDetails();
-             es_dueño = user.get(SessionManager.TAG_LOCAL);
+            es_dueño = user.get(SessionManager.TAG_LOCAL);
             if(es_dueño.equals("0"))     //no es dueño de local
                 datos_navdraw = getResources().getStringArray(R.array.sesion_iniciada);
             else  //es dueño de un local
                 datos_navdraw = getResources().getStringArray(R.array.dueño_local);
         }else{//no ha iniciado sesion
-             datos_navdraw = getResources().getStringArray(R.array.inicio_sesion);
+            datos_navdraw = getResources().getStringArray(R.array.inicio_sesion);
         }
 
-            // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
 
@@ -184,7 +182,7 @@ public class MapsActivity extends AppCompatActivity {
             HashMap<String, String> busqueda = session.getDataBusqueda();
             Producto.setText(busqueda.get("Busqueda"));
         }else
-        Producto.setText("");
+            Producto.setText("");
 
         createMapView();
         if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
@@ -260,7 +258,7 @@ public class MapsActivity extends AppCompatActivity {
                         startActivity(nuevoform);
                     }
                 }
-                }
+            }
         });
     }
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -285,7 +283,7 @@ public class MapsActivity extends AppCompatActivity {
                     }
                     if(Integer.parseInt(es_dueño)>0){   //es dueño
                         Log.e("Maps activity","fue a negocio");
-                         nuevoform = new Intent(MapsActivity.this, Negocio.class);
+                        nuevoform = new Intent(MapsActivity.this, Negocio.class);
                         finish();
                         startActivity(nuevoform);
                         break;
@@ -319,9 +317,9 @@ public class MapsActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                    nuevoform = new Intent(MapsActivity.this, Enviar_email.class);
-                    finish();
-                    startActivity(nuevoform);
+                nuevoform = new Intent(MapsActivity.this, Enviar_email.class);
+                finish();
+                startActivity(nuevoform);
 
                 break;
             default:
@@ -371,12 +369,12 @@ public class MapsActivity extends AppCompatActivity {
         snippet = result.toString();
         if(Id==0) {
             googleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Lat, Long))
-                    .title(Nombre)
-                    .draggable(false)
-                    .snippet(snippet)
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker1))
-                    );
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker1))
+            );
         }
         if(Id==1) {
             googleMap.addMarker(new MarkerOptions()
@@ -463,8 +461,6 @@ public class MapsActivity extends AppCompatActivity {
     }
     private void Mostrar_locales() {
         googleMap.clear();
-        latitud = Double.toString(googleMap.getMyLocation().getLatitude());
-        longitud = Double.toString(googleMap.getMyLocation().getLongitude());
         new AttemptLogin().execute();
     }
     boolean doubleBackToExitPressedOnce = false;

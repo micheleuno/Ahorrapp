@@ -34,6 +34,9 @@
     <string name="Coment">Comentar</string>
     <string name="Nombre_product">Nombre</string>
     <string name="nombre_producto">producto</string>
+    <string name="boton_agregar">Agregar</string>
+    <string name="Editt_precio">Precio</string>
+    <string name="editt_nombre">Nombre</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

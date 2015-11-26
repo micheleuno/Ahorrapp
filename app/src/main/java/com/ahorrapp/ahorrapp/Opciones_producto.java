@@ -1,6 +1,5 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -79,7 +78,7 @@ public class Opciones_producto extends AppCompatActivity {
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
         if(Alertas.Verificar_conexion(Opciones_producto.this))
-        new AttemptUnidad().execute();
+            new AttemptUnidad().execute();
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -140,23 +139,37 @@ public class Opciones_producto extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
-        finish();
-        startActivity(nuevoform);
+
+        Redireccionar();
+
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) { //al apretar atras en el toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+       //al apretar atras en el toolbar
         switch (item.getItemId()) {
+
             case android.R.id.home: //al apretar ir atras
-                Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
-                finish();
-                startActivity(nuevoform);
+               Redireccionar();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void  Redireccionar(){
+        Bundle bundle = getIntent().getExtras();
+        if("negocio".equals(bundle.getString("vista_anterior"))){
+            Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
+            finish();
+            startActivity(nuevoform);
+        }else{
+            Intent nuevoform = new Intent(Opciones_producto.this, Local.class);
+            finish();
+            startActivity(nuevoform);
+        }
+    }
     class AttemptModificar extends AsyncTask<String, String, String> {
+
         protected void onPreExecute() {
             id_prod = id_producto.getText().toString();
             nombre = name.getText().toString();
@@ -180,7 +193,7 @@ public class Opciones_producto extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        return null;
+            return null;
         }
     }
 
@@ -205,12 +218,10 @@ public class Opciones_producto extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        return null;
+            return null;
         }
         protected void onPostExecute(String file_url) {
-            Intent nuevoform = new Intent(Opciones_producto.this, Negocio.class);
-            finish();
-            startActivity(nuevoform);
+           Redireccionar();
         }
 
     }
@@ -253,7 +264,7 @@ public class Opciones_producto extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        return null;
+            return null;
         }
 
         protected void onPostExecute(String result) {

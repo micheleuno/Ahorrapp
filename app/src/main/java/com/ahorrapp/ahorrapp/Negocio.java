@@ -103,6 +103,7 @@ public class Negocio extends AppCompatActivity {
                     nuevoform.putExtra("nombre", productos.get_nombre());
                     nuevoform.putExtra("precio", productos.get_precio());
                     nuevoform.putExtra("unidad", productos.get_unidad());
+                    nuevoform.putExtra("vista_anterior","negocio");
                     nuevoform.putExtra("id_producto", productos.get_id());
                     finish();
                     startActivity(nuevoform);

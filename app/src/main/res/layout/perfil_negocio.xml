@@ -25,13 +25,13 @@
             style="@style/Edittext"
             android:inputType="textPersonName"
             android:id="@+id/editnombre"
-            android:hint="Nombre" />
+            android:hint="@string/editt_nombre" />
 
         <EditText
             style="@style/Edittext"
             android:inputType="number"
             android:id="@+id/editprecio"
-            android:hint="Precio" />
+            android:hint="@string/Editt_precio" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
         <Button
             style="@style/Boton"
             android:id="@+id/btnagregar"
-            android:text="Agregar"/>
+            android:text="@string/boton_agregar"/>
 
     </LinearLayout>
 

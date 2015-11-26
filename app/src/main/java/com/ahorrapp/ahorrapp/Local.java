@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,7 +39,9 @@ public class Local extends AppCompatActivity {
     private static final String TAG_PRECIO = "Precio";
     private static final String TAG_PRODUCTO = "Producto";
     private static final String TAG_UNIDAD = "Unidad";
+    private static final String TAG_IDPRODUCTO ="idUbicacion";
     private int success,success2;
+    ListView lista_p;
     SessionManager session;
     JSONParser jsonParser = new JSONParser();
     JSONParser jsonParserp = new JSONParser();
@@ -150,12 +154,14 @@ public class Local extends AppCompatActivity {
                         String precio = p.getString(TAG_PRECIO);
                         String Producto = p.getString(TAG_NOMBREP);
                         String Unidad = p.getString(TAG_UNIDAD);
+                        String id_producto=p.getString(TAG_IDPRODUCTO);
                         // creating new HashMap
                         HashMap<String, String> pro = new HashMap<>();
                         // adding each child node to HashMap key => value
                         pro.put(TAG_PRECIO, precio);
                         pro.put(TAG_NOMBREP, Producto);
                         pro.put(TAG_UNIDAD, Unidad);
+                        pro.put(TAG_IDPRODUCTO,id_producto);
                         productos.add(pro);
                     }
                 }
@@ -178,7 +184,7 @@ public class Local extends AppCompatActivity {
                     while (cont < productos.size()) {
 
                         pro = productos.get(cont);
-                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD), pro.get(TAG_UNIDAD)));
+                        produc.add(new Lista_productos(pro.get(TAG_NOMBREP), pro.get(TAG_PRECIO), pro.get(TAG_UNIDAD), pro.get(TAG_IDPRODUCTO)));
                         cont++;
                     }
                     productos.clear();
@@ -205,6 +211,7 @@ public class Local extends AppCompatActivity {
 
                             TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
                             id_producto.setTypeface(typeFace);
+                            Log.e("local", "id es" + ((Lista_productos) entrada).get_id());
                             id_producto.setText(((Lista_productos) entrada).get_id());
                         }
 
@@ -241,6 +248,7 @@ public class Local extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.establecimiento);
         SessionManager session;
+        lista_p = (ListView)findViewById(R.id.productos);
         //toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
@@ -282,7 +290,7 @@ public class Local extends AppCompatActivity {
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Local.this)){
+                if (Alertas.Verificar_conexion(Local.this)) {
                     Intent nuevoform = new Intent(Local.this, Comentarios.class);
                     nuevoform.putExtra("id", Id);
                     startActivity(nuevoform);
@@ -290,6 +298,30 @@ public class Local extends AppCompatActivity {
             }
         });
 
+        lista_p.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                Local.this.session = new SessionManager(Local.this.getApplicationContext());
+                if (Local.this.session.isLoggedIn()) {
+                if (Alertas.Verificar_conexion(Local.this)) {
+
+                    Lista_productos productos = (Lista_productos) lista_p.getItemAtPosition(position);
+                    Intent nuevoform = new Intent(Local.this, Opciones_producto.class);
+                    nuevoform.putExtra("nombre", productos.get_nombre());
+                    nuevoform.putExtra("precio", productos.get_precio());
+                    nuevoform.putExtra("unidad", productos.get_unidad());
+                    nuevoform.putExtra("vista_anterior", "local");
+                    nuevoform.putExtra("id_producto", productos.get_id());
+                    finish();
+                    startActivity(nuevoform);
+
+                }
+                } else {
+                    Alertas.mensaje_error(Local.this, "Para editar productos debe iniciar sesion");
+                }
+            }
+        });
 
     }
 
@@ -316,4 +348,5 @@ public class Local extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
