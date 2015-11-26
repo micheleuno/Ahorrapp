@@ -162,6 +162,8 @@ public class MapsActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerList.setBackgroundResource(R.drawable.color_drawer);
+
         mDrawerList.setAdapter(new ArrayAdapter<>(this,
                 R.layout.drawer_list_item, datos_navdraw));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
