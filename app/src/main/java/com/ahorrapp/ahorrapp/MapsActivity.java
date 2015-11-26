@@ -347,8 +347,6 @@ public class MapsActivity extends AppCompatActivity {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
                     //Activamos la capa o layer MyLocation
                     googleMap.setMyLocationEnabled(true);
-                    latitud = Double.toString(googleMap.getMyLocation().getLatitude());
-                    longitud = Double.toString(googleMap.getMyLocation().getLongitude());
                 }
                 if(null == googleMap) {
                     Toast.makeText(getApplicationContext(),
@@ -465,6 +463,8 @@ public class MapsActivity extends AppCompatActivity {
     }
     private void Mostrar_locales() {
         googleMap.clear();
+        latitud = Double.toString(googleMap.getMyLocation().getLatitude());
+        longitud = Double.toString(googleMap.getMyLocation().getLongitude());
         new AttemptLogin().execute();
     }
     boolean doubleBackToExitPressedOnce = false;
