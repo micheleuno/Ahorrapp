@@ -23,24 +23,24 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            style="@style/Edittext"
             android:id="@+id/txtcoment"
-            android:hint="Da tu opinión"
+            android:hint="@string/Dar_opinion"
             android:lines="3"
             android:maxLines="3"
             android:nestedScrollingEnabled="true"
-            android:maxLength="400" />
+            android:maxLength="400"
+            android:layout_width="match_parent"/>
 
     </LinearLayout>
 
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/btncoment"
-        android:layout_gravity="center_horizontal"
-        android:background="@mipmap/comentar" />
+        style="@style/Boton"
+        android:text= "@string/Coment"/>
 
     <FrameLayout
         android:orientation="vertical"

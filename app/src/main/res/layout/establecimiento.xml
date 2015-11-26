@@ -107,11 +107,9 @@
 
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Boton"
             android:id="@+id/btnComentarios"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/comentarios"
+            android:text="Comentarios"
 
            />
 

@@ -32,8 +32,7 @@
         android:id="@+id/textnombreproducto" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Edittext"
         android:id="@+id/Nombre"
         android:maxLines="1" />
 
@@ -45,8 +44,7 @@
         android:id="@+id/textprecio" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Edittext"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/Precio" />
@@ -70,11 +68,10 @@
         android:layout_weight="0.26" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Boton"
         android:id="@+id/btnModificar"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/modificarproducto" />
+        android:text="Modificar" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -83,10 +80,9 @@
         android:layout_gravity="right" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Boton"
         android:id="@+id/btnEliminar"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/eliminarproducto" />
+        android:text="Eliminar" />
 
 </LinearLayout>

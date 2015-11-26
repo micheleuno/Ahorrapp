@@ -18,24 +18,18 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="212dp"
+        android:layout_height="match_parent"
         android:id="@+id/fondo">
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
+            style="@style/Edittext"
             android:id="@+id/editnombre_prod"
-            android:hint="Nombre" />
+            android:hint="@string/Nombre_producto" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
+            style="@style/Edittext"
             android:id="@+id/editprecio_prod"
-            android:hint="Precio" />
+            android:hint="@string/Precio_product" />
 
         <Spinner
             android:layout_width="match_parent"
@@ -44,11 +38,10 @@
             android:clickable="True" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Boton"
             android:id="@+id/btnagregar_prod"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/agregar" />
+            android:text="Agregar"
+             />
 
     </LinearLayout>
 

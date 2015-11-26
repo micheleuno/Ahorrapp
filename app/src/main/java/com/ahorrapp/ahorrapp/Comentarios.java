@@ -159,6 +159,7 @@ public class Comentarios extends AppCompatActivity {
         this.datos = new ArrayList<>();
         new AttemptCargar().execute();
         this.Comentario = (EditText) this.findViewById(id.txtcoment);
+
         Button comentar = (Button) this.findViewById(id.btncoment);  //al presionar comentar
         comentar.setOnClickListener(new OnClickListener() {
             @Override

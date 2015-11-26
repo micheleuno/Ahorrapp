@@ -27,6 +27,11 @@
     <string name="contrasena">Contraseña</string>
     <string name="Recuperar_contraseña">Recuperar Contraseña</string>
     <string name="Buscar">Buscar</string>
+    <string name="Nombre_producto">Nombre</string>
+    <string name="Agregar_producto">Agregar</string>
+    <string name="Precio_product">Precio</string>
+    <string name="Dar_opinion">Da tu opinión</string>
+    <string name="Coment">Comentar</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

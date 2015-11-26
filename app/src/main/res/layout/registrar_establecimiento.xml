@@ -33,42 +33,36 @@
         </LinearLayout>
 
         <EditText
+            style="@style/Edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:ems="10"
             android:id="@+id/txtNombreEstablecimiento"
-            android:layout_gravity="center_horizontal"
             android:hint="Nombre Establecimiento" />
 
         <EditText
+            style="@style/Edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:ems="10"
             android:id="@+id/txtDescripcion"
             android:hint="Descripcion" />
 
     <EditText
+        style="@style/Edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:inputType="phone"
-        android:ems="10"
         android:id="@+id/txtContacto"
         android:hint="Contacto" />
 
     <EditText
+        style="@style/Edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/txtDireccionEstablecimiento"
-            android:layout_gravity="center_horizontal"
             android:hint="Direccion" />
 
     <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Boton"
+        android:layout_height="60dp"
             android:id="@+id/btnGuardar_es"
-            android:layout_gravity="center_horizontal"
             android:onClick="onClickbtnGuardar"
             android:background="@mipmap/registro" />
 
