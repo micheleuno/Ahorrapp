@@ -32,6 +32,8 @@
     <string name="Precio_product">Precio</string>
     <string name="Dar_opinion">Da tu opinión</string>
     <string name="Coment">Comentar</string>
+    <string name="Nombre_product">Nombre</string>
+    <string name="nombre_producto">producto</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>
@@ -41,11 +43,13 @@
 
     <string-array name="sesion_iniciada">
         <item>Darse de alta como dueño</item>
+        <item>Perfil</item>
         <item>Cerrar sesión</item>
     </string-array>
 
     <string-array name="dueño_local">
         <item>Administrar local</item>
+        <item>Perfil</item>
         <item>Cerrar Sesión</item>
     </string-array>
 

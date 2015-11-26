@@ -24,7 +24,7 @@
         <EditText
             style="@style/Edittext"
             android:id="@+id/editnombre_prod"
-            android:hint="@string/Nombre_producto" />
+            android:hint="@string/nombre_producto"/>
 
         <EditText
             style="@style/Edittext"
