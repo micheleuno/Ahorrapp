@@ -40,7 +40,6 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".Local"
             android:id="@+id/establecimiento">

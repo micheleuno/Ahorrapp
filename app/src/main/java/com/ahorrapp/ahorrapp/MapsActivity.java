@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -116,7 +119,7 @@ public class MapsActivity extends AppCompatActivity {
                 while(cont<establedes.size()){
                     pos=establepos.get(cont);
                     dir=establedes.get(cont);
-                    addMarker(pos.get(1.0), pos.get(2.0), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),dir.get(TAG_ID));
+                    addMarker(pos.get(1.0), pos.get(2.0), dir.get(TAG_NOMBRE), dir.get(TAG_DIRECCION),cont);
                     cont++;
                 }
                 establedes.clear();
@@ -346,7 +349,7 @@ public class MapsActivity extends AppCompatActivity {
         }
     }
 
-    private void addMarker(Double Lat, Double Long, String Nombre,String Direccion, String Id){
+    private void addMarker(Double Lat, Double Long, String Nombre,String Direccion, int Id){
 
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < (Nombre.length()-Direccion.length()); i++) {
@@ -357,13 +360,97 @@ public class MapsActivity extends AppCompatActivity {
         result.append(Direccion);
         String snippet;
         snippet = result.toString();
-        if(null != googleMap){
+        if(Id==0) {
             googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(Lat, Long))
                     .title(Nombre)
                     .draggable(false)
-                    .snippet(snippet));
+                    .snippet(snippet)
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker1))
+                    );
         }
+        if(Id==1) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker2))
+            );
+        }
+        if(Id==2) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker3))
+            );
+        }
+        if(Id==3) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker4))
+            );
+        }
+        if(Id==4) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker5))
+            );
+        }
+        if(Id==5) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker6))
+            );
+        }
+        if(Id==6) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker7))
+            );
+        }
+        if(Id==7) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker8))
+            );
+        }
+        if(Id==8) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker9))
+            );
+        }
+        if(Id==9) {
+            googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Lat, Long))
+                            .title(Nombre)
+                            .draggable(false)
+                            .snippet(snippet)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker10))
+            );
+        }
+
     }
     private void Mostrar_locales() {
         googleMap.clear();
