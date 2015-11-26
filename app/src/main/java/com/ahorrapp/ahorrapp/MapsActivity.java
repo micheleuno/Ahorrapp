@@ -42,6 +42,7 @@ public class MapsActivity extends AppCompatActivity {
     private GoogleMap googleMap;
     ArrayList<HashMap<Double,Double>> establepos;
     ArrayList<HashMap<String,String>> establedes;
+    String latitud,longitud;
     EditText Producto;
     JSONParser jsonParser = new JSONParser();
     Marker marker;
@@ -73,6 +74,8 @@ public class MapsActivity extends AppCompatActivity {
             try {
             HashMap<String, String> params = new HashMap<>();
             params.put("Nombre", producto.trim());
+            params.put("Latitud", latitud);
+            params.put("Longitud", longitud);
             JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
 
                 success = json.getInt(TAG_SUCCESS);
@@ -338,6 +341,8 @@ public class MapsActivity extends AppCompatActivity {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
                     //Activamos la capa o layer MyLocation
                     googleMap.setMyLocationEnabled(true);
+                    latitud = Double.toString(googleMap.getMyLocation().getLatitude());
+                    longitud = Double.toString(googleMap.getMyLocation().getLongitude());
                 }
                 if(null == googleMap) {
                     Toast.makeText(getApplicationContext(),
