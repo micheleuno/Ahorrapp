@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -159,6 +160,8 @@ public class Comentarios extends AppCompatActivity {
         this.datos = new ArrayList<>();
         new AttemptCargar().execute();
         this.Comentario = (EditText) this.findViewById(id.txtcoment);
+        Comentario.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+
         Button comentar = (Button) this.findViewById(id.btncoment);  //al presionar comentar
         comentar.setOnClickListener(new OnClickListener() {
             @Override

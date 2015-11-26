@@ -2,6 +2,8 @@ package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +20,10 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 
 public class Registrar_establecimiento extends AppCompatActivity {
@@ -113,6 +118,19 @@ public class Registrar_establecimiento extends AppCompatActivity {
         nombre.setTypeface(typeFace);
         direccion = (EditText)findViewById(R.id.txtDireccionEstablecimiento);
         direccion.setTypeface(typeFace);
+
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(Double.parseDouble(Latitud) ,Double.parseDouble(Longitud) , 1);
+            String address = addresses.get(0).getAddressLine(0);
+            direccion.setText(address);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
 
         TextView text1 =(TextView) findViewById(R.id.txtregistro_es);
