@@ -41,7 +41,7 @@
         <Button
             style="@style/Boton"
             android:id="@+id/btnagregar_prod"
-            android:text="Agregar"
+            android:text="@string/boton_agregar2"
              />
 
     </LinearLayout>

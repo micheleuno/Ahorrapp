@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -35,7 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MapsActivity extends AppCompatActivity {
+public class MapsActivity extends AppCompatActivity  implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap googleMap;
     ArrayList<HashMap<Double,Double>> establepos;
@@ -53,10 +58,36 @@ public class MapsActivity extends AppCompatActivity {
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
+    private GoogleApiClient mGoogleApiClient;
+
     SessionManager session;
     private  String producto,id_marker="0",es_dueño="-1";
     private int success;
     JSONArray products ;
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+           latitud= String.valueOf(mLastLocation.getLatitude());
+            longitud= String.valueOf(mLastLocation.getLongitude());
+            Log.e("MapsActivity Longitud: ",longitud+" Latitud: "+latitud);
+        }
+
+
+    }
+
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
 
 
     class AttemptLogin extends AsyncTask<String, String, String> {
@@ -72,9 +103,9 @@ public class MapsActivity extends AppCompatActivity {
             try {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("Nombre", producto.trim());
-                params.put("Latitud", "-33.0447116");
-                params.put("Longitud", "-71.6124589");
-                JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos.php", "POST", params);
+                params.put("Latitud", latitud);
+                params.put("Longitud", longitud);
+                JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos_dis.php", "POST", params);
 
                 success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
@@ -143,6 +174,12 @@ public class MapsActivity extends AppCompatActivity {
         String[] datos_navdraw;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        buildGoogleApiClient();
+
+
+
+
+
         Alertas.cambiar_status_bar(MapsActivity.this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'></font>"));
@@ -186,6 +223,9 @@ public class MapsActivity extends AppCompatActivity {
 
         createMapView();
         if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+            LatLng position=googleMap.getCameraPosition().target;
+            latitud=Double.toString(position.latitude);
+            longitud=Double.toString(position.longitude);
             Mostrar_locales();
         }
 
@@ -261,6 +301,15 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
     }
+    protected synchronized void buildGoogleApiClient() {
+         mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
