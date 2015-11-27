@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:dropDownListViewStyle">@style/Spinner</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorControlNormal">#ffffff</item>
         <item name="colorControlActivated">#ffffff</item>
@@ -34,6 +35,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Spinner" >
+        <item name="android:dropDownSelector">@color/primary</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_width">180dp</item>
+        <item name="android:textColor">#e6907f</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:divider">@android:color/white</item>
+        <item name="android:dividerHeight">1dp</item>
+
+    </style>
 
 
 </resources>

@@ -1,7 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,14 +56,14 @@ public class Agregar_producto extends AppCompatActivity {
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Agregar_producto.this);
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
         unidades = new ArrayList<>();
         datos = new ArrayList<>();
         name = (EditText) findViewById(R.id.editnombre_prod);
-        name.setTypeface(typeFace);
+        name.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         precio = (EditText) findViewById(R.id.editprecio_prod);
-        precio.setTypeface(typeFace);
+        precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         lista = (Spinner) findViewById(R.id.Unidades_prod);
+        lista.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         new AttemptUnidad().execute();
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -151,12 +151,11 @@ public class Agregar_producto extends AppCompatActivity {
                     lista.setAdapter(new Lista_adaptador(Agregar_producto.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
-                            texto.setTypeface(typeFace);
+                            texto.setTextColor(getResources().getColor(R.color.primary));
+                            texto.setTextSize(18);
                             texto.setText(((Combobox) entrada).get_texto());
                             TextView texto_id = (TextView) view.findViewById(R.id.id_unidad);
-                            texto_id.setTypeface(typeFace);
                             texto_id.setText(((Combobox) entrada).get_id());
                         }
                     });

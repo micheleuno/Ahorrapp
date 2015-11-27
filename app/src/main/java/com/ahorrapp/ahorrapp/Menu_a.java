@@ -67,30 +67,6 @@ public class Menu_a extends AppCompatActivity {
                 }
             }
         });
-
-      /*  final Button registrar = (Button) findViewById(R.id.btnRegistrarse);
-        registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu_a.this)) {
-                    Intent nuevoform = new Intent(Menu_a.this, Registro.class);
-                    finish();
-                    startActivity(nuevoform);
-                }
-            }
-        });
-
-        final Button Olvidar_contrasena = (Button) findViewById(R.id.btnOlvidarPass);
-        Olvidar_contrasena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Alertas.Verificar_conexion(Menu_a.this)){
-                    Intent nuevoform = new Intent(Menu_a.this, Enviar_email.class);
-                    finish();
-                    startActivity(nuevoform);
-                }
-            }
-        });*/
     }
 
     @Override
@@ -124,8 +100,7 @@ public class Menu_a extends AppCompatActivity {
         @Override
         protected String doInBackground(String... args) {
             int success;
-            try {
-                // Building Parameters
+            try {                // Building Parameters
 
                 // getting product details by making HTTP request
 
