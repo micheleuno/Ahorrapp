@@ -416,96 +416,26 @@ public class MapsActivity extends AppCompatActivity  implements
         result.append(Direccion);
         String snippet;
         snippet = result.toString();
-        if(Id==0) {
+        int[] marcadores = {R.mipmap.marker1,R.mipmap.marker2,R.mipmap.marker3,R.mipmap.marker4,R.mipmap.marker5};
+
+        if(Id<5&& !Producto.getText().toString().equals("")) {
             googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(Lat, Long))
                             .title(Nombre)
                             .draggable(false)
                             .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker1))
+                            .icon(BitmapDescriptorFactory.fromResource(marcadores[Id]))
             );
-        }
-        if(Id==1) {
+        }else{
             googleMap.addMarker(new MarkerOptions()
                             .position(new LatLng(Lat, Long))
                             .title(Nombre)
                             .draggable(false)
                             .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker2))
             );
         }
-        if(Id==2) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker3))
-            );
-        }
-        if(Id==3) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker4))
-            );
-        }
-        if(Id==4) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker5))
-            );
-        }
-        if(Id==5) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker6))
-            );
-        }
-        if(Id==6) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker7))
-            );
-        }
-        if(Id==7) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker8))
-            );
-        }
-        if(Id==8) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker9))
-            );
-        }
-        if(Id==9) {
-            googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(Lat, Long))
-                            .title(Nombre)
-                            .draggable(false)
-                            .snippet(snippet)
-                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.marker10))
-            );
-        }
+
+
 
     }
     private void Mostrar_locales() {
