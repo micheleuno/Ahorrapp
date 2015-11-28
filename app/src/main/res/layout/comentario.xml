@@ -49,14 +49,12 @@
         android:layout_gravity="center_horizontal"
         >
     <ListView
+        android:divider="@color/primary"
+        android:dividerHeight="1px"
         android:isScrollContainer="false"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/comentarios"
-        android:headerDividersEnabled="false"
-        android:footerDividersEnabled="false"
-        android:minHeight="331dp"
-
         />
     </FrameLayout>
 

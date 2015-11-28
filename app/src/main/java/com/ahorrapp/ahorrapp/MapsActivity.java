@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -51,6 +53,7 @@ public class MapsActivity extends AppCompatActivity  implements
     Marker marker;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private CheckBox nombre_local,rubro,nombre_producto,distancia;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_LATITUD = "Latitud";
@@ -59,9 +62,8 @@ public class MapsActivity extends AppCompatActivity  implements
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
     private GoogleApiClient mGoogleApiClient;
-
     SessionManager session;
-    private  String producto,id_marker="0",es_dueño="-1";
+    private  String producto,id_marker="0",es_dueño="-1",nomb_local_flag="0",rubro_flag="0",nombre_producto_flag="0",distancia_flag="0";
     private int success;
     JSONArray products ;
 
@@ -72,23 +74,32 @@ public class MapsActivity extends AppCompatActivity  implements
         if (mLastLocation != null) {
            latitud= String.valueOf(mLastLocation.getLatitude());
             longitud= String.valueOf(mLastLocation.getLongitude());
+            final LatLng UPV = new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 14));
+            Mostrar_locales();
             Log.e("MapsActivity Longitud: ",longitud+" Latitud: "+latitud);
         }
-
-
     }
+
 
 
     @Override
     public void onConnectionSuspended(int i) {
+        LatLng position=googleMap.getCameraPosition().target;
+        latitud=Double.toString(position.latitude);
+        longitud=Double.toString(position.longitude);
+         Mostrar_locales();
 
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+        LatLng position=googleMap.getCameraPosition().target;
+        latitud=Double.toString(position.latitude);
+        longitud=Double.toString(position.longitude);
+         Mostrar_locales();
 
     }
-
 
     class AttemptLogin extends AsyncTask<String, String, String> {
 
@@ -105,6 +116,10 @@ public class MapsActivity extends AppCompatActivity  implements
                 params.put("Nombre", producto.trim());
                 params.put("Latitud", latitud);
                 params.put("Longitud", longitud);
+                params.put("Nombre_producto_flag", nombre_producto_flag);
+                params.put("Nombre_local_flag", nomb_local_flag);
+                params.put("Rubro", rubro_flag);
+                params.put("Distancia", distancia_flag);
                 JSONObject json = jsonParser.makeHttpRequest("http://ahorrapp.hol.es/BD/buscar_establecimientos_dis.php", "POST", params);
 
                 success = json.getInt(TAG_SUCCESS);
@@ -165,8 +180,61 @@ public class MapsActivity extends AppCompatActivity  implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_mapa, menu);
+
+         nombre_producto = (CheckBox) menu.findItem(R.id.nombre_produto).getActionView();
+        nombre_local = (CheckBox) menu.findItem(R.id.Nombre_local).getActionView();
+        rubro = (CheckBox) menu.findItem(R.id.Rubro).getActionView();
+        distancia =  (CheckBox) menu.findItem(R.id.Distancia).getActionView();
+
         return true;
     }
+
+    public void onCheckboxClicked(MenuItem item) {
+        // Is the view now checked?
+        boolean checked = item.isChecked();
+        // Check which checkbox was clicked
+        switch(item.getItemId()) {
+            case R.id.nombre_produto:
+                item.setChecked(!item.isChecked());
+                if (checked){
+                    nombre_producto_flag="0";
+                }else{
+                    nombre_producto_flag="1";
+                }
+                Log.e("nombre_producto_flag: ",nombre_producto_flag);
+                break;
+            case R.id.Nombre_local:
+                item.setChecked(!item.isChecked());
+                if (checked){
+                    nomb_local_flag="0";
+                }else{
+                    nomb_local_flag="1";
+                }
+                Log.e("nomb_local_flag",nomb_local_flag);
+                break;
+
+            case R.id.Rubro:
+                item.setChecked(!item.isChecked());
+                if (checked){
+                    rubro_flag="0";
+                }else{
+                    rubro_flag="1";
+                }
+                Log.e("rubro_flag: ",rubro_flag);
+                break;
+
+            case R.id.Distancia:
+                item.setChecked(!item.isChecked());
+                if (checked){
+                    distancia_flag="0";
+                }else{
+                    distancia_flag="1";
+                }
+                Log.e("rubro_flag: ",distancia_flag);
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -175,10 +243,6 @@ public class MapsActivity extends AppCompatActivity  implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         buildGoogleApiClient();
-
-
-
-
 
         Alertas.cambiar_status_bar(MapsActivity.this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -210,8 +274,6 @@ public class MapsActivity extends AppCompatActivity  implements
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
-
-
         establepos = new ArrayList<>();
         establedes = new ArrayList<>();
         Producto = (EditText) findViewById(R.id.txtProducto);
@@ -226,7 +288,7 @@ public class MapsActivity extends AppCompatActivity  implements
             LatLng position=googleMap.getCameraPosition().target;
             latitud=Double.toString(position.latitude);
             longitud=Double.toString(position.longitude);
-            Mostrar_locales();
+           // Mostrar_locales();
         }
 
 
@@ -300,6 +362,7 @@ public class MapsActivity extends AppCompatActivity  implements
                 }
             }
         });
+
     }
     protected synchronized void buildGoogleApiClient() {
          mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -380,6 +443,7 @@ public class MapsActivity extends AppCompatActivity  implements
     }
 
 
+
     private void createMapView(){
         final LatLng UPV = new LatLng(-33.044662, -71.612465);
         try {
@@ -391,7 +455,7 @@ public class MapsActivity extends AppCompatActivity  implements
                     //Seteamos el tipo de mapa
 
                     googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 10));
                     //Activamos la capa o layer MyLocation
                     googleMap.setMyLocationEnabled(true);
                 }

@@ -8,10 +8,47 @@
     android:title="@string/app_name"
     app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/texto"
+        android:title="@string/filtro"
+        />
+
+    <item android:id="@+id/nombre_produto"
+           android:title="@string/action_search"
+           app:actionViewClass="android.widget.CheckBox"
+           android:checkable="true"
+           app:showAsAction="never"
+           android:onClick="onCheckboxClicked"
+           />
+
+
+    <item android:id="@+id/Nombre_local"
+        android:title="@string/nombre_local"
+        app:actionViewClass="android.widget.CheckBox"
+        android:checkable="true"
+        app:showAsAction="never"
+        android:onClick="onCheckboxClicked"
+        />
+    <item android:id="@+id/Rubro"
+        android:title="@string/Rubro"
+        app:actionViewClass="android.widget.CheckBox"
+        android:checkable="true"
+        app:showAsAction="never"
+        android:onClick="onCheckboxClicked"
+        />
+    <item android:id="@+id/Distancia"
+        android:title="@string/distancia"
+        app:actionViewClass="android.widget.CheckBox"
+        android:checkable="true"
+        app:showAsAction="never"
+        android:onClick="onCheckboxClicked"
+        />
+
+
+    <!--
 
 
 
-    <!-- Settings, should always be in the overflow -->
+     Settings, should always be in the overflow -->
 
 
 </menu>

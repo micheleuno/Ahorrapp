@@ -2,7 +2,7 @@
     <string name="app_name">Ahorrapp</string>
     <string name="title_activity_maps">AhorrApp</string>
     <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
+    <string name="action_search">Nombre Producto</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
@@ -38,6 +38,10 @@
     <string name="Editt_precio">Precio</string>
     <string name="editt_nombre">Nombre</string>
     <string name="boton_agregar2">Agregar</string>
+    <string name="Rubro">Rubro</string>
+    <string name="nombre_local">Nombre Local</string>
+    <string name="filtro">Filtrar locales</string>
+    <string name="distancia">Distancia</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

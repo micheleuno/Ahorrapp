@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -78,7 +77,7 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
 
             try{
                 Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("Equipo AhorrApp"));
+                message.setFrom(new InternetAddress("ahorrapp.tds@gmail.com"));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(rec));
                 message.setSubject("Recuperación de contraseña");
                 message.setContent("Su Contraseña es:  "+contrasena + "Y su Usuario es: "+ user, "text/html; charset=utf-8");
