@@ -15,6 +15,16 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        style="@style/Textview"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/Agregar_producto1"
+        android:id="@+id/txtregistro_es"
+        android:layout_gravity="center_horizontal" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -24,7 +34,7 @@
         <EditText
             style="@style/Edittext"
             android:id="@+id/editnombre_prod"
-            android:hint="@string/nombre_producto"/>
+            android:hint="@string/Nombre_product"/>
 
         <EditText
             style="@style/Edittext"

@@ -32,7 +32,7 @@
     <string name="Precio_product">Precio</string>
     <string name="Dar_opinion">Da tu opinión</string>
     <string name="Coment">Comentar</string>
-    <string name="Nombre_product">Nombre</string>
+    <string name="Nombre_product">Nombre Producto</string>
     <string name="nombre_producto">producto</string>
     <string name="boton_agregar">Agregar</string>
     <string name="Editt_precio">Precio</string>
@@ -48,6 +48,11 @@
     <string name="Descripcion_local">Descripcion</string>
     <string name="telefono_local">Telefono</string>
     <string name="Direccion_local">Direccion</string>
+    <string name="Nombre_producto2">Nombre Producto</string>
+    <string name="modificar_prod">Modificar</string>
+    <string name="Eliminar_prod">Eliminar</string>
+    <string name="Agregar_producto1">Agregar Producto</string>
+    <string name="editar_producto">Editar Producto</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

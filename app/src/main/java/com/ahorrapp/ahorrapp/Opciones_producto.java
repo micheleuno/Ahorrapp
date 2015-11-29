@@ -3,6 +3,7 @@ package com.ahorrapp.ahorrapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,25 +57,20 @@ public class Opciones_producto extends AppCompatActivity {
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Opciones_producto.this);
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf"); //elegir fuente del texto
         unidades = new ArrayList<>();
         datos = new ArrayList<>();
         name = (EditText) findViewById(R.id.Nombre);
         precio = (EditText) findViewById(R.id.Precio);
         id_producto = (EditText) findViewById(R.id.idproducto);
         Bundle bundle = getIntent().getExtras();
+
         id_producto.setText(bundle.getString("id_producto"));
-        id_producto.setTypeface(typeFace);
+        id_producto.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         name.setText(bundle.getString("nombre"));
-        name.setTypeface(typeFace);
+        name.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         precio.setText(bundle.getString("precio"));
-        precio.setTypeface(typeFace);
-        TextView text1 =(TextView) findViewById(R.id.textnombreproducto);
-        text1.setTypeface(typeFace);
-        TextView text2 =(TextView) findViewById(R.id.textprecio);
-        text2.setTypeface(typeFace);
-        TextView text3 =(TextView) findViewById(R.id.textunidad);
-        text3.setTypeface(typeFace);
+        precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
         if(Alertas.Verificar_conexion(Opciones_producto.this))
@@ -282,12 +278,10 @@ public class Opciones_producto extends AppCompatActivity {
                     lista.setAdapter(new Lista_adaptador(Opciones_producto.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
-                            texto.setTypeface(typeFace);
                             texto.setText(((Combobox) entrada).get_texto());
+                            texto.setTextSize(18);
                             TextView texto_id = (TextView) view.findViewById(R.id.id_unidad);
-                            texto_id.setTypeface(typeFace);
                             texto_id.setText(((Combobox) entrada).get_id());
                         }
                     });

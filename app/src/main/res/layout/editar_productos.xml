@@ -16,73 +16,56 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        style="@style/Textview"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/editar_producto"
+        android:id="@+id/txtregistro_es"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:id="@+id/idproducto"
         android:maxLines="1"
-        android:layout_gravity="right" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Nombre Producto:"
-        android:id="@+id/textnombreproducto" />
+        />
 
     <EditText
         style="@style/Edittext"
         android:id="@+id/Nombre"
-        android:maxLines="1" />
+        android:hint="@string/Nombre_producto2"
+        android:maxLines="1"
+        android:inputType="textPersonName" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Precio:"
-        android:id="@+id/textprecio" />
 
     <EditText
         style="@style/Edittext"
         android:inputType="number"
+        android:hint="@string/Precio_product"
         android:ems="10"
         android:id="@+id/Precio" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Unidad de Venta:"
-        android:id="@+id/textunidad" />
-
     <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/Spinner"
         android:id="@+id/Unidades"
-        android:clickable="True" />
+         />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.26" />
 
     <Button
         style="@style/Boton"
         android:id="@+id/btnModificar"
         android:layout_gravity="center_horizontal"
-        android:text="Modificar" />
+        android:text="@string/modificar_prod" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.18"
-        android:layout_gravity="right" />
+
 
     <Button
         style="@style/Boton"
         android:id="@+id/btnEliminar"
         android:layout_gravity="center_horizontal"
-        android:text="Eliminar" />
+        android:text="@string/Eliminar_prod" />
 
 </LinearLayout>

@@ -63,7 +63,6 @@ public class Agregar_producto extends AppCompatActivity {
         precio = (EditText) findViewById(R.id.editprecio_prod);
         precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         lista = (Spinner) findViewById(R.id.Unidades_prod);
-        lista.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         new AttemptUnidad().execute();
 
         lista.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
