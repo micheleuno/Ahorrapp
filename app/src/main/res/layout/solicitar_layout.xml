@@ -7,6 +7,7 @@
     android:id="@+id/solicitar_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_local"
         android:layout_width="match_parent"
@@ -17,10 +18,60 @@
     </android.support.v7.widget.Toolbar>
 
     <TextView
+        style="@style/Textview"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/Texto"
+        android:textSize="18sp"
+        android:text="@string/Solicitud_Establecimiento"
+        android:id="@+id/txtregistro_es"
         android:layout_gravity="center_horizontal" />
+
+    <EditText
+        style="@style/Edittext"
+        android:inputType="textPersonName"
+        android:id="@+id/txtNombrePropietario"
+        android:hint="@string/Nombre_Propietario"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        style="@style/Edittext"
+        android:inputType="phone"
+        android:id="@+id/txtTelefono"
+        android:hint="@string/telefono_local"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        style="@style/Edittext"
+        android:id="@+id/txtDEstableciemiento"
+        android:hint="@string/Direccion_local"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        style="@style/Edittext"
+        android:inputType="textPersonName"
+        android:id="@+id/txtRut"
+        android:hint="@string/Rut_Establecimiento"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        style="@style/Edittext"
+        android:inputType="textPersonName"
+        android:id="@+id/txtemail"
+        android:hint="@string/Mail"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        style="@style/Boton"
+        android:layout_marginBottom="20dp"
+        android:text="@string/Solicitar"
+        android:id="@+id/btnSoliciud" />
+
+
 </LinearLayout>

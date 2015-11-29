@@ -19,7 +19,7 @@
         style="@style/Edittext"
         android:hint="Ingrese la cuenta de correo"
         android:id="@+id/et_to"
-        />
+        android:layout_width="260dp" />
 
     <Button
         android:id="@+id/btn_submit"

@@ -53,6 +53,13 @@
     <string name="Eliminar_prod">Eliminar</string>
     <string name="Agregar_producto1">Agregar Producto</string>
     <string name="editar_producto">Editar Producto</string>
+    <string name="Nombre_Propietario">Nombre Propietario</string>
+    <string name="Rut_Establecimiento">Rut Establecimiento</string>
+    <string name="Solicitud_Establecimiento">Solicitud Adquisicion De Establecimiento</string>
+    <string name="Solicitar">Solicitar</string>
+    <string name="Mail">E-Mail</string>
+
+
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

@@ -1,20 +1,46 @@
 package com.ahorrapp.ahorrapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * Created by Matías Cornejo R on 20-08-2015.
- */
-public class Solicitar extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+
+public class Solicitar extends AppCompatActivity implements View.OnClickListener {
+
+
+     JSONParser jsonParser = new JSONParser();
+    Session session = null;
+    ProgressDialog pdialog = null;
+    EditText reciep,nombre,rut,direccion,telefono;
+    String nom,ru,dire,tele,rec,contrasena="",user,mail;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,18 +49,66 @@ public class Solicitar extends AppCompatActivity {
         myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
-        Alertas.cambiar_status_bar(Solicitar.this);
-        TextView Mensaje ;
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
-        Mensaje = (TextView) findViewById(R.id.Texto);
-        Mensaje.setTypeface(typeFace);
-        Mensaje.setText("Para solicitar permiso para administrar su negocio, favor enviar un correo a ahorrap.tds@gmail.com indicando " +
-                "sus datos y adjuntando documentos que validen la propiedad del negocio, los cuales serán verificados por el equipo de ahorrap" +
-                " gracias");
+        Alertas.cambiar_status_bar(this);
 
+        Button login = (Button) findViewById(R.id.btnSoliciud);
+        reciep = (EditText) findViewById(R.id.txtemail);
+        nombre =(EditText) findViewById(R.id.txtNombrePropietario);
+        telefono = (EditText) findViewById(R.id.txtTelefono);
+        direccion = (EditText) findViewById(R.id.txtDEstableciemiento);
+        rut = (EditText) findViewById(R.id.txtemail);
 
+        login.setOnClickListener(this);
 
     }
+
+
+
+
+
+    @Override
+    public void onClick(View v) {
+        contrasena = "";
+        if(Alertas.Verificar_conexion(Solicitar.this)&&!reciep.getText().toString().equals("")){
+            mail=reciep.getText().toString();
+            nom=nombre.getText().toString();
+            ru=rut.getText().toString();
+            dire=direccion.getText().toString();
+            tele=telefono.getText().toString();
+            new RetreiveFeedTask().execute();
+
+        }else{
+            Alertas.mensaje_error(Solicitar.this,"Debe ingresar un email");
+        }
+    }
+
+    class RetreiveFeedTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try{
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(mail));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(rec));
+                message.setSubject("Solicitud Establecimiento");
+                message.setContent("Yo "+ nom + " solicito el establecimiento cuyo rut y direccion es "+ ru +"   " +dire+ ". Porfavor llamar a la brevedad para confirmar solicitud "+ tele, "text/html; charset=utf-8");
+                Transport.send(message);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pdialog.dismiss();
+            reciep.setText("");
+            Toast.makeText(getApplicationContext(), "Se ha enviado un correo con sus datos", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
     public void onBackPressed() {
         Intent nuevoform = new Intent(Solicitar.this, MapsActivity.class);
         finish();
