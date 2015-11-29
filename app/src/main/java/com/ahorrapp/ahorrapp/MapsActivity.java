@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -74,8 +73,8 @@ public class MapsActivity extends AppCompatActivity  implements
         if (mLastLocation != null) {
            latitud= String.valueOf(mLastLocation.getLatitude());
             longitud= String.valueOf(mLastLocation.getLongitude());
-            final LatLng UPV = new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 14));
+           // final LatLng UPV = new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud));
+            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(UPV));
             Mostrar_locales();
             Log.e("MapsActivity Longitud: ",longitud+" Latitud: "+latitud);
         }
@@ -156,7 +155,7 @@ public class MapsActivity extends AppCompatActivity  implements
             //si se hizo la consulta, pero es vacia
             if(success==0){
                 Producto.setText("");
-                Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto");
+                Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto o establecimiento");
             }
             //Si es dos es un error desde la consulta
             else if (success!=2){
@@ -200,6 +199,7 @@ public class MapsActivity extends AppCompatActivity  implements
                     nombre_producto_flag="0";
                 }else{
                     nombre_producto_flag="1";
+                    nomb_local_flag=rubro_flag="0";
                 }
                 Log.e("nombre_producto_flag: ",nombre_producto_flag);
                 break;
@@ -209,6 +209,7 @@ public class MapsActivity extends AppCompatActivity  implements
                     nomb_local_flag="0";
                 }else{
                     nomb_local_flag="1";
+                    nombre_producto_flag=rubro_flag="0";
                 }
                 Log.e("nomb_local_flag",nomb_local_flag);
                 break;
@@ -216,9 +217,10 @@ public class MapsActivity extends AppCompatActivity  implements
             case R.id.Rubro:
                 item.setChecked(!item.isChecked());
                 if (checked){
-                    rubro_flag="0";
+                    rubro_flag  ="0";
                 }else{
                     rubro_flag="1";
+                    nombre_producto_flag=nomb_local_flag="0";
                 }
                 Log.e("rubro_flag: ",rubro_flag);
                 break;
@@ -230,9 +232,11 @@ public class MapsActivity extends AppCompatActivity  implements
                 }else{
                     distancia_flag="1";
                 }
-                Log.e("rubro_flag: ",distancia_flag);
+                Log.e("distancia_flag: ", distancia_flag);
                 break;
+
         }
+        Mostrar_locales();
     }
 
     @Override
