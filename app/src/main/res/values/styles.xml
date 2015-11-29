@@ -7,6 +7,10 @@
         <item name="colorControlNormal">#ffffff</item>
         <item name="colorControlActivated">#ffffff</item>
         <item name="colorControlHighlight">#ffffff</item>
+        <item name="android:itemBackground">@color/primary</item>
+        <item name="android:divider">#ffffff</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -48,6 +52,19 @@
 
     <style name="Textview" >
         <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="Divider_overflowMenu" parent="android:Theme.Holo.Light">
+        <item name="android:divider">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
+    <style name="MyActionBar.MenuTextStyle"
+        parent="style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

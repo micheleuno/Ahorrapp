@@ -1,6 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -201,7 +202,6 @@ public class MapsActivity extends AppCompatActivity  implements
                     nombre_producto_flag="1";
                     nomb_local_flag=rubro_flag="0";
                 }
-                Log.e("nombre_producto_flag: ",nombre_producto_flag);
                 break;
             case R.id.Nombre_local:
                 item.setChecked(!item.isChecked());
@@ -211,7 +211,6 @@ public class MapsActivity extends AppCompatActivity  implements
                     nomb_local_flag="1";
                     nombre_producto_flag=rubro_flag="0";
                 }
-                Log.e("nomb_local_flag",nomb_local_flag);
                 break;
 
             case R.id.Rubro:
@@ -222,7 +221,6 @@ public class MapsActivity extends AppCompatActivity  implements
                     rubro_flag="1";
                     nombre_producto_flag=nomb_local_flag="0";
                 }
-                Log.e("rubro_flag: ",rubro_flag);
                 break;
 
             case R.id.Distancia:
@@ -288,12 +286,10 @@ public class MapsActivity extends AppCompatActivity  implements
             Producto.setText("");
 
         createMapView();
-        if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
+
             LatLng position=googleMap.getCameraPosition().target;
             latitud=Double.toString(position.latitude);
             longitud=Double.toString(position.longitude);
-           // Mostrar_locales();
-        }
 
 
         Producto.setOnKeyListener(new View.OnKeyListener() {
@@ -302,12 +298,11 @@ public class MapsActivity extends AppCompatActivity  implements
                     switch (keyCode) {
                         case KeyEvent.KEYCODE_DPAD_CENTER:
                         case KeyEvent.KEYCODE_ENTER:
-                            if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                                 session = new SessionManager(getApplicationContext());
                                 session.addDataBusqueda(Producto.getText().toString());
                                 Producto.getText();
                                 Mostrar_locales();
-                            }
+
                             return true;
                         default:
                             break;
@@ -507,8 +502,10 @@ public class MapsActivity extends AppCompatActivity  implements
 
     }
     private void Mostrar_locales() {
-        googleMap.clear();
-        new AttemptLogin().execute();
+        if( Alertas.Verificar_conexion(MapsActivity.this)){ //si hay conexion a internet
+            googleMap.clear();
+            new AttemptLogin().execute();
+        }
     }
     boolean doubleBackToExitPressedOnce = false;
 
@@ -541,12 +538,11 @@ public class MapsActivity extends AppCompatActivity  implements
                 mDrawerLayout.openDrawer(mDrawerList);
                 return true;
             case R.id.buscar_estab:
-                if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                     session = new SessionManager(getApplicationContext());
                     session.addDataBusqueda(Producto.getText().toString());
                     Producto.getText();
                     Mostrar_locales();
-                }
+
                 return true;
             default:
                 return true;
