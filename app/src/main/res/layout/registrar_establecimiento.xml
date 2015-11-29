@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:id="@+id/registrar_establecimiento"
     android:background="@mipmap/men_2"
+    android:baselineAligned="false"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -16,54 +17,49 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
             <TextView
-                android:layout_width="278dp"
+                style="@style/Textview"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="FORMULARIO REGISTRO"
+                 android:textSize="18sp"
+                android:text="@string/formulario_registro"
                 android:id="@+id/txtregistro_es"
                 android:layout_gravity="center_horizontal" />
 
-        </LinearLayout>
-
         <EditText
             style="@style/Edittext"
-            android:layout_width="match_parent"
             android:inputType="textPersonName"
             android:id="@+id/txtNombreEstablecimiento"
-            android:hint="Nombre Establecimiento" />
+            android:hint="@string/Nombre_local" />
 
         <EditText
             style="@style/Edittext"
-            android:layout_width="match_parent"
             android:inputType="textPersonName"
             android:id="@+id/txtDescripcion"
-            android:hint="Descripcion" />
+            android:hint="@string/Descripcion_local" />
 
     <EditText
         style="@style/Edittext"
-        android:layout_width="match_parent"
         android:inputType="phone"
         android:id="@+id/txtContacto"
-        android:hint="Contacto" />
+        android:hint="@string/telefono_local" />
 
     <EditText
         style="@style/Edittext"
-            android:layout_width="match_parent"
             android:id="@+id/txtDireccionEstablecimiento"
-            android:hint="Direccion" />
+            android:hint="@string/Direccion_local" />
+    <EditText
+        style="@style/Edittext"
+        android:inputType="textPersonName"
+        android:id="@+id/txtRubro"
+        android:hint="@string/Rubro" />
+
 
     <Button
             style="@style/Boton"
-        android:layout_height="60dp"
-            android:id="@+id/btnGuardar_es"
-            android:onClick="onClickbtnGuardar"
-            android:background="@mipmap/registro" />
+            android:layout_marginBottom="20dp"
+            android:text="@string/registrar_local"
+            android:id="@+id/btnGuardar_es" />
 
 </LinearLayout>

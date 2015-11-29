@@ -60,7 +60,7 @@ public class MapsActivity extends AppCompatActivity  implements
     private static final String TAG_ID = "idEstablecimiento";
     private GoogleApiClient mGoogleApiClient;
     SessionManager session;
-    private  String producto,id_marker="0",es_dueño="-1",nomb_local_flag="0",rubro_flag="0",nombre_producto_flag="0",distancia_flag="0";
+    private  String producto,id_marker="0",es_dueño="-1",nomb_local_flag="0",rubro_flag="0",nombre_producto_flag="1",distancia_flag="0";
     private int success;
     JSONArray products ;
 
@@ -153,7 +153,7 @@ public class MapsActivity extends AppCompatActivity  implements
             //si se hizo la consulta, pero es vacia
             if(success==0){
                 Producto.setText("");
-                Alertas.mensaje_error(MapsActivity.this, "No se encontro ningun producto o establecimiento");
+                Alertas.mensaje_error(MapsActivity.this, "No se encontró ningún producto o establecimiento");
             }
             //Si es dos es un error desde la consulta
             else if (success!=2){
@@ -356,7 +356,7 @@ public class MapsActivity extends AppCompatActivity  implements
                             .snippet("Presionar para crear establecimiento"));
                     id_marker="1";
                 }else{
-                    Alertas.mensaje_error(MapsActivity.this, "Para agregar establecimientos debe iniciar sesion");
+                    Alertas.mensaje_error(MapsActivity.this, "Para agregar establecimientos debe iniciar sesión");
                 }
             }
 

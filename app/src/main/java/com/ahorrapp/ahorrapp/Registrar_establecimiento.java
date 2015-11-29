@@ -1,7 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -34,8 +33,8 @@ public class Registrar_establecimiento extends AppCompatActivity {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     private int success;
-    private  String nombre_es,direccion_es,descripcion_es,contacto_es,Latitud,Longitud;
-    private EditText descripcion, contacto,nombre,direccion;
+    private  String nombre_es,direccion_es,descripcion_es,contacto_es,Latitud,Longitud,rubro_es;
+    private EditText descripcion, contacto,nombre,direccion,rubro;
 
     class CreateEstablecimiento extends AsyncTask<String, String, String> {
         @Override
@@ -53,7 +52,7 @@ public class Registrar_establecimiento extends AppCompatActivity {
                 params.put("Longitud", Longitud);
                 params.put("Contacto", contacto_es);
                 params.put("Direccion", direccion_es);
-
+                params.put("Rubro", rubro_es);
                 Log.d("Iniciando!", "Peticion");
                 JSONObject json = jsonParser.makeHttpRequest(REGISTER_URL, "POST", params);
                 Log.d("Intentando registrar", json.toString());
@@ -78,6 +77,7 @@ public class Registrar_establecimiento extends AppCompatActivity {
                 Toast.makeText(Registrar_establecimiento.this, file_url, Toast.LENGTH_LONG).show();
             }
             if(success == 1) {
+                Toast.makeText(Registrar_establecimiento.this, "Se ha creado un nuevo establecimiento", Toast.LENGTH_LONG).show();
                 Intent nuevoform = new Intent(Registrar_establecimiento.this, MapsActivity.class);
                 finish();
                 startActivity(nuevoform);
@@ -109,15 +109,17 @@ public class Registrar_establecimiento extends AppCompatActivity {
         Latitud = bundle.getString("latitude");
         Longitud = bundle.getString("longitude");
 
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+
         descripcion = (EditText)findViewById(R.id.txtDescripcion); //nombre de la cuenta
-        descripcion.setTypeface(typeFace);
+        descripcion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         contacto = (EditText)findViewById(R.id.txtContacto);
-        contacto.setTypeface(typeFace);
+        contacto.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre = (EditText)findViewById(R.id.txtNombreEstablecimiento); //nombre de la persona
-        nombre.setTypeface(typeFace);
+        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText)findViewById(R.id.txtDireccionEstablecimiento);
-        direccion.setTypeface(typeFace);
+        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        rubro = (EditText)findViewById(R.id.txtRubro);
+        rubro.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         Geocoder geocoder;
         List<Address> addresses;
@@ -131,10 +133,6 @@ public class Registrar_establecimiento extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-        TextView text1 =(TextView) findViewById(R.id.txtregistro_es);
-        text1.setTypeface(typeFace);
         final Button  mRegister = (Button)findViewById(R.id.btnGuardar_es);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +142,8 @@ public class Registrar_establecimiento extends AppCompatActivity {
                     nombre_es = nombre.getText().toString();
                     descripcion_es = descripcion.getText().toString();
                     direccion_es = direccion.getText().toString();
-                    if (!contacto_es.equals("")&&!nombre_es.equals("")&&!descripcion_es.equals("")&&!direccion_es.equals("")){
+                    rubro_es = rubro.getText().toString();
+                    if (!contacto_es.equals("")&&!nombre_es.equals("")&&!descripcion_es.equals("")&&!direccion_es.equals("")&&!rubro_es.equals("")){
 
                         new CreateEstablecimiento().execute();
                     }else {

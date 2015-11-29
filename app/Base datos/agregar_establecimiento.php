@@ -3,14 +3,15 @@
 	require("config.inc.php");
 		if(!empty($_POST)){
 		
-			$query = "INSERT INTO Establecimiento (Descripcion, Nombre,	Direccion,Latitud,Longitud,Contacto ) VALUES ( :descripcion,:nombre,:direccion,:latitud,:longitud,:contacto ) ";
+			$query = "INSERT INTO Establecimiento (Descripcion, Nombre,	Direccion,Latitud,Longitud,Contacto,Rubro ) VALUES ( :descripcion,:nombre,:direccion,:latitud,:longitud,:contacto,:rubro ) ";
 		 	$query_params = array(
 		    ':descripcion' => ($_POST['Descripcion']),
 		    ':nombre' => ($_POST['Nombre']),
 		    ':direccion' => ($_POST['Direccion']),
 		    ':latitud' => $_POST['Latitud'],
 		    ':longitud' => $_POST['Longitud'],
-		    ':contacto' => $_POST['Contacto']
+		    ':contacto' => $_POST['Contacto'],
+		    ':rubro' => $_POST['Rubro']
 		    );	    
 	    //ejecutamos la query y creamos el usuario
 		    try {
@@ -53,6 +54,9 @@
 				     <br /><br /> 
 				     Contacto:<br /> 
 				     <input type="text" name="Contacto" value="" /> 
+				     <br /><br /> 
+				      Rubro:<br /> 
+				     <input type="text" name="Rubro" value="" /> 
 				     <br /><br /> 
 
 				     <input type="submit" value="Agregar Producto" /> 

@@ -42,6 +42,12 @@
     <string name="nombre_local">Nombre Local</string>
     <string name="filtro">Filtrar locales</string>
     <string name="distancia">Distancia</string>
+    <string name="formulario_registro">Registrar nuevo local</string>
+    <string name="registrar_local">Registrar</string>
+    <string name="Nombre_local">Nombre</string>
+    <string name="Descripcion_local">Descripcion</string>
+    <string name="telefono_local">Telefono</string>
+    <string name="Direccion_local">Direccion</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

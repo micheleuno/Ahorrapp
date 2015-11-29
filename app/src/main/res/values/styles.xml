@@ -12,7 +12,15 @@
         <item name="android:dividerHeight">1dp</item>
         <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item>
         <item name="android:colorForeground">@color/bright_foreground_material_light</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
         <!-- Customize your theme here. -->
+    </style>
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Required for pre-Lollipop. -->
+        <item name="overlapAnchor">false</item>
+
+        <!-- Required for Lollipop. -->
+        <item name="android:overlapAnchor" tools:ignore="NewApi">false</item>
     </style>
 
     <style name="Edittext" parent="Base.V12.Widget.AppCompat.EditText">
@@ -67,5 +75,9 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+
+
+
 
 </resources>
