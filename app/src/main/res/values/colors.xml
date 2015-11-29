@@ -7,4 +7,8 @@
     <color name="ripple">#e6907f</color>
     <color name="accent">#e6907f</color>
     <color name="accent_pressed">#fccc8071</color>
+    <color name="black">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="primary_dark_material_dark">#ffffff</color>
+    <color name="bright_foreground_material_light">#ffffff</color>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -34,6 +35,11 @@ public class SessionManager {
     public static final String TAG_LATITUD = "Latitud";
     public static final String TAG_LONGITUD = "Longitud";
     public static final String TAG_BUSQUEDA = "Busqueda";
+    public static final String TAG_NOMBRE_LOCAL_FLAG = "Nombre_local_flag";
+    public static final String TAG_DISTANCIA_FLAG= "Distancia_flag";
+    public static final String TAG_RUBRO_FLAG = "Rubro_flag";
+    public static final String TAG_NOMBRE_PRODUCTO_FLAG = "Nombre_producto_flag";
+
 
     // Constructor
     public SessionManager(Context context){
@@ -41,6 +47,28 @@ public class SessionManager {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
+    public void addDataFlags(String Nombre_local_flag, String Distancia_flag, String Rubro_flag,String Nombre_producto_flag){
+        editor.putString(TAG_NOMBRE_LOCAL_FLAG, Nombre_local_flag);
+        editor.putString(TAG_DISTANCIA_FLAG, Distancia_flag);
+        editor.putString(TAG_RUBRO_FLAG, Rubro_flag);
+        editor.putString(TAG_NOMBRE_PRODUCTO_FLAG, Nombre_producto_flag);
+        editor.commit();
+    }
+
+    public HashMap<String, String> getDataFlags(){
+        HashMap<String, String> flags = new HashMap<>();
+        // user name
+        flags.put(TAG_NOMBRE_LOCAL_FLAG, pref.getString(TAG_NOMBRE_LOCAL_FLAG, null));
+        // user usuario
+        flags.put(TAG_DISTANCIA_FLAG, pref.getString(TAG_DISTANCIA_FLAG, null));
+        // user Rut TAG_LONGITUD
+        flags.put(TAG_RUBRO_FLAG, pref.getString(TAG_RUBRO_FLAG, null));
+        flags.put(TAG_NOMBRE_PRODUCTO_FLAG, pref.getString(TAG_NOMBRE_PRODUCTO_FLAG, null));
+
+
+        return flags;
+    }
+
         public void addDataLocal(String nombre, String latitud, String longitud){
             editor.putString(TAG_NOMBRE_ESTA, nombre);
             editor.putString(TAG_LATITUD, latitud);

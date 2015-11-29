@@ -1,7 +1,6 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -53,7 +51,6 @@ public class MapsActivity extends AppCompatActivity  implements
     Marker marker;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private CheckBox nombre_local,rubro,nombre_producto,distancia;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_LATITUD = "Latitud";
@@ -177,14 +174,29 @@ public class MapsActivity extends AppCompatActivity  implements
             Alertas.cerrar_mensaje_carga();
         }
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_mapa, menu);
 
-         nombre_producto = (CheckBox) menu.findItem(R.id.nombre_produto).getActionView();
-        nombre_local = (CheckBox) menu.findItem(R.id.Nombre_local).getActionView();
-        rubro = (CheckBox) menu.findItem(R.id.Rubro).getActionView();
-        distancia =  (CheckBox) menu.findItem(R.id.Distancia).getActionView();
+
+        if(distancia_flag.equals("1")){
+            MenuItem item =  menu.findItem(R.id.Distancia);
+            item.setChecked(true);
+        }
+        if(rubro_flag.equals("1")){
+            MenuItem item =  menu.findItem(R.id.Rubro);
+            item.setChecked(true);
+        }
+        if(nomb_local_flag.equals("1")){
+            MenuItem item =  menu.findItem(R.id.Nombre_local);
+            item.setChecked(true);
+        }
+        if(nombre_producto_flag.equals("1")){
+            MenuItem item =  menu.findItem(R.id.nombre_produto);
+            item.setChecked(true);
+        }
 
         return true;
     }
@@ -230,10 +242,12 @@ public class MapsActivity extends AppCompatActivity  implements
                 }else{
                     distancia_flag="1";
                 }
-                Log.e("distancia_flag: ", distancia_flag);
+               Log.e("distancia_flag: ", distancia_flag);
                 break;
 
         }
+       Log.e("Distancia_f checkboxs","asd");
+        session.addDataFlags(nomb_local_flag,distancia_flag,rubro_flag,nombre_producto_flag);
         Mostrar_locales();
     }
 
@@ -284,6 +298,19 @@ public class MapsActivity extends AppCompatActivity  implements
             Producto.setText(busqueda.get("Busqueda"));
         }else
             Producto.setText("");
+
+            HashMap<String, String> busqueda2;
+            busqueda2 = session.getDataFlags();
+            if(busqueda2.get("Nombre_local_flag")!=null){
+                nomb_local_flag = busqueda2.get("Nombre_local_flag");
+                distancia_flag =  busqueda2.get("Distancia_flag");
+                rubro_flag = busqueda2.get("Rubro_flag");
+                nombre_producto_flag = busqueda2.get("Nombre_producto_flag");
+                Log.e("desde con datos ", "asd");
+
+            }
+
+
 
         createMapView();
 
