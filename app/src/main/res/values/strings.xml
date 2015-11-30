@@ -23,7 +23,7 @@
 
     <string name="Iniciar_sesion">Iniciar Sesion</string>
     <string name="Registrarse">Registrarse</string>
-    <string name="Nombre_usuario">Nombre usuario</string>
+    <string name="Nombre_usuario">Nombre</string>
     <string name="contrasena">Contraseña</string>
     <string name="Recuperar_contraseña">Recuperar Contraseña</string>
     <string name="Buscar">Buscar</string>
@@ -53,13 +53,15 @@
     <string name="Eliminar_prod">Eliminar</string>
     <string name="Agregar_producto1">Agregar Producto</string>
     <string name="editar_producto">Editar Producto</string>
-    <string name="Nombre_Propietario">Nombre Propietario</string>
-    <string name="Rut_Establecimiento">Rut Establecimiento</string>
-    <string name="Solicitud_Establecimiento">Solicitud Adquisicion De Establecimiento</string>
-    <string name="Solicitar">Solicitar</string>
-    <string name="Mail">E-Mail</string>
-
-
+    <string name="ing_email">Ingrese su Email</string>
+    <string name="nom_cuenta">Nombre de la cuenta</string>
+    <string name="Email">Email</string>
+    <string name="Pass">Contraseña</string>
+    <string name="rep_pass">Repetir Contraseña</string>
+    <string name="Registrar_Cuenta">Registrar Cuenta</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="rut_local">Rut Establecimiento</string>
+    <string name="solicitar">Solicitar</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>

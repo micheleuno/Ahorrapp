@@ -1,10 +1,8 @@
 package com.ahorrapp.ahorrapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -40,23 +28,28 @@ public class Solicitar extends AppCompatActivity implements View.OnClickListener
     Session session = null;
     ProgressDialog pdialog = null;
     EditText reciep,nombre,rut,direccion,telefono;
-    String nom,ru,dire,tele,rec,contrasena="",user,mail;
+    String nom,ru,dire,tele,rec,contrasena="",mail;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.solicitar_layout);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
-        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Darse de alta como dueño</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(this);
 
         Button login = (Button) findViewById(R.id.btnSoliciud);
         reciep = (EditText) findViewById(R.id.txtemail);
+        reciep.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre =(EditText) findViewById(R.id.txtNombrePropietario);
+        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         telefono = (EditText) findViewById(R.id.txtTelefono);
+        telefono.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText) findViewById(R.id.txtDEstableciemiento);
-        rut = (EditText) findViewById(R.id.txtemail);
+        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        rut = (EditText) findViewById(R.id.txtRut);
+        rut.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         login.setOnClickListener(this);
 

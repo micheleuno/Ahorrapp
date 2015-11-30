@@ -18,7 +18,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:id="@+id/fondo">
 
         <EditText
@@ -34,13 +34,13 @@
             android:hint="@string/Editt_precio" />
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/Spinner"
             android:id="@+id/Unidades"
-            android:clickable="True" />
+            />
 
         <Button
             style="@style/Boton"
+            android:layout_marginTop="10dp"
             android:id="@+id/btnagregar"
             android:text="@string/boton_agregar"/>
 
@@ -52,6 +52,6 @@
         android:layout_height="match_parent"
         android:id="@+id/listProductos"
         android:layout_gravity="center_horizontal"
-        android:clickable="True" />
+         />
 
 </LinearLayout>

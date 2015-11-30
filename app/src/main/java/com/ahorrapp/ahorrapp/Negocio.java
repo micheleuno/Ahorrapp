@@ -1,7 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -64,15 +64,15 @@ public class Negocio extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Negocio.this);
 
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+
         unidades = new ArrayList<>();
         productos = new ArrayList<>();
         datos = new ArrayList<>();
         produc = new ArrayList<>();
         name = (EditText) findViewById(R.id.editnombre);
-        name.setTypeface(typeFace);
+        name.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         precio = (EditText) findViewById(R.id.editprecio);
-        precio.setTypeface(typeFace);
+        precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
         if(Alertas.Verificar_conexion(Negocio.this)){
@@ -179,12 +179,10 @@ public class Negocio extends AppCompatActivity {
                     lista.setAdapter(new Lista_adaptador(Negocio.this, R.layout.combobox, datos) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
                             TextView texto = (TextView) view.findViewById(R.id.unidad);
-                            texto.setTypeface(typeFace);
                             texto.setText(((Combobox) entrada).get_texto());
+                            texto.setTextSize(18);
                             TextView texto_id = (TextView) view.findViewById(R.id.id_unidad);
-                            texto_id.setTypeface(typeFace);
                             texto_id.setText(((Combobox) entrada).get_id());
                         }
                     });
@@ -261,21 +259,16 @@ public class Negocio extends AppCompatActivity {
                     lista_p.setAdapter(new Lista_adaptador(Negocio.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
                             TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
-                            texto_nombre.setTypeface(typeFace);
                             texto_nombre.setText(((Lista_productos) entrada).get_nombre());
 
                             TextView texto_precio = (TextView) view.findViewById(R.id.Precio);
-                            texto_precio.setTypeface(typeFace);
                             texto_precio.setText(((Lista_productos) entrada).get_precio());
 
                             TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
-                            texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_unidad());
 
                             TextView idproducto = (TextView) view.findViewById(R.id.idproducto);
-                            idproducto.setTypeface(typeFace);
                             idproducto.setText(((Lista_productos) entrada).get_id());
                         }
                     });

@@ -3,6 +3,7 @@ package com.ahorrapp.ahorrapp;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,7 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enviar_email);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
-        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Recuperación de Contraseña</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Enviar_email.this);
@@ -55,6 +56,7 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
 
         Button login = (Button) findViewById(R.id.btn_submit);
         reciep = (EditText) findViewById(R.id.et_to);
+        reciep.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         login.setOnClickListener(this);
     }

@@ -2,7 +2,6 @@ package com.ahorrapp.ahorrapp;
 
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -109,18 +108,13 @@ public class Local extends AppCompatActivity {
                 HashMap<String, String> dir;
                 while (cont < establedes.size()) {
                     dir = establedes.get(cont);
-                    Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf"); //Cargar tipo de letra
                     TextView nombre = (TextView) findViewById(R.id.txtNombreLocal);
-                    nombre.setTypeface(typeFace);
                     nombre.setText(Nombre);
                     TextView direccion = (TextView) findViewById(R.id.txtDireccionLocal);
-                    direccion.setTypeface(typeFace);
                     direccion.setText(dir.get(TAG_DIRECCION));
                     TextView descripcion = (TextView) findViewById(R.id.txtdescripcion);
-                    descripcion.setTypeface(typeFace);
                     descripcion.setText(dir.get(TAG_DESCRIPCCION));
                     TextView contacto = (TextView) findViewById(R.id.txtContactoLocal);
-                    contacto.setTypeface(typeFace);
                     contacto.setText(dir.get(TAG_CONTACTO));
                     cont++;
                 }
@@ -202,21 +196,16 @@ public class Local extends AppCompatActivity {
                     lista.setAdapter(new Lista_adaptador(Local.this, R.layout.productos, produc) {
                         @Override
                         public void onEntrada(Object entrada, View view) {
-                            Typeface typeFace = Typeface.createFromAsset(getAssets(), "font/rockwell condensed.ttf");
                             TextView texto_nombre = (TextView) view.findViewById(R.id.Nombre);
-                            texto_nombre.setTypeface(typeFace);
                             texto_nombre.setText(((Lista_productos) entrada).get_nombre());
 
                             TextView texto_precio = (TextView) view.findViewById(R.id.Precio);
-                            texto_precio.setTypeface(typeFace);
                             texto_precio.setText(((Lista_productos) entrada).get_precio());
 
                             TextView texto_unidad = (TextView) view.findViewById(R.id.Unidad);
-                            texto_unidad.setTypeface(typeFace);
                             texto_unidad.setText(((Lista_productos) entrada).get_unidad());
 
                             TextView id_producto = (TextView) view.findViewById(R.id.idproducto);
-                            id_producto.setTypeface(typeFace);
                             id_producto.setText(((Lista_productos) entrada).get_id());
                         }
 
@@ -317,14 +306,6 @@ public class Local extends AppCompatActivity {
         produc = new ArrayList<>();
         if(Alertas.Verificar_conexion(Local.this))
         Mostrar_locales();
-
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
-        TextView text1 =(TextView) findViewById(R.id.txtdireccion);
-        text1.setTypeface(typeFace);
-        TextView text2 =(TextView) findViewById(R.id.textcontacto);
-        text2.setTypeface(typeFace);
-        TextView text3 =(TextView) findViewById(R.id.textproducto);
-        text3.setTypeface(typeFace);
         final Button perfil = (Button) findViewById(R.id.btnComentarios);
         perfil.setOnClickListener(new View.OnClickListener() {
             @Override

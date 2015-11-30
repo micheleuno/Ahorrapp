@@ -436,7 +436,7 @@ public class MapsActivity extends AppCompatActivity  implements
 
             case 1:
 
-                if(Alertas.Verificar_conexion(MapsActivity.this)) {
+                if(Alertas.Verificar_conexion(MapsActivity.this)&&session.isLoggedIn()) {
                     nuevoform = new Intent(MapsActivity.this, Perfil.class);  //esta logeado
                     finish();
                     startActivity(nuevoform);

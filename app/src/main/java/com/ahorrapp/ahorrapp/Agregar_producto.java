@@ -52,7 +52,7 @@ public class Agregar_producto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.agregar_producto);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
-        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Agregar Producto</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Agregar_producto.this);

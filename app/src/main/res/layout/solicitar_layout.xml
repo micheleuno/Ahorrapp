@@ -17,21 +17,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        style="@style/Textview"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="@string/Solicitud_Establecimiento"
-        android:id="@+id/txtregistro_es"
-        android:layout_gravity="center_horizontal" />
-
     <EditText
         style="@style/Edittext"
         android:inputType="textPersonName"
         android:id="@+id/txtNombrePropietario"
-        android:hint="@string/Nombre_Propietario"
+        android:hint="@string/nombre_completo"
         android:layout_width="226dp"
         android:layout_height="wrap_content" />
 
@@ -53,16 +43,16 @@
         style="@style/Edittext"
         android:inputType="textPersonName"
         android:id="@+id/txtRut"
-        android:hint="@string/Rut_Establecimiento"
+        android:hint="@string/rut_local"
         android:layout_width="226dp"
         android:layout_height="wrap_content" />
 
 
     <EditText
         style="@style/Edittext"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:id="@+id/txtemail"
-        android:hint="@string/Mail"
+        android:hint="@string/Email"
         android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
@@ -70,7 +60,7 @@
     <Button
         style="@style/Boton"
         android:layout_marginBottom="20dp"
-        android:text="@string/Solicitar"
+        android:text="@string/solicitar"
         android:id="@+id/btnSoliciud" />
 
 

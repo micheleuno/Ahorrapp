@@ -1,7 +1,7 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -34,27 +33,25 @@ public class Registro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registro);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
-        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Registrar Usuario</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Registro.this);
-        Typeface typeFace=Typeface.createFromAsset(getAssets(),"font/rockwell condensed.ttf");
+
         user = (EditText)findViewById(R.id.txtusername); //nombre de la cuenta
-        user.setTypeface(typeFace);
+        user.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass = (EditText)findViewById(R.id.txtPass); //primer password
-        pass.setTypeface(typeFace);
+        pass.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass2 = (EditText)findViewById(R.id.txtPass2); //segundo password
-        pass2.setTypeface(typeFace);
+        pass2.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         email = (EditText)findViewById(R.id.txtEmail);
-        email.setTypeface(typeFace);
+        email.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre = (EditText)findViewById(R.id.txtNombrePersona); //nombre de la persona
-        nombre.setTypeface(typeFace);
+        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText)findViewById(R.id.txtDireccionPersona);
-        direccion.setTypeface(typeFace);
+        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
 
-        TextView text1 =(TextView) findViewById(R.id.txtregistro);
-        text1.setTypeface(typeFace);
         final Button  mRegister = (Button)findViewById(R.id.btnGuardar);
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override

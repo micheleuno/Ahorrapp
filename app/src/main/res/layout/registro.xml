@@ -20,72 +20,54 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="278dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="FORMULARIO REGISTRO"
-            android:id="@+id/txtregistro"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
 
     <EditText
         style="@style/Edittext"
         android:layout_width="180dp"
         android:inputType="textPersonName"
         android:id="@+id/txtNombrePersona"
-        android:hint="Nombre completo" />
+        android:hint="@string/Nombre_usuario" />
 
     <EditText
         style="@style/Edittext"
         android:layout_width="180dp"
         android:inputType="textPersonName"
         android:id="@+id/txtusername"
-        android:hint="Nombre de usuario Ahorrapp" />
+        android:hint="@string/nom_cuenta" />
 
     <EditText
         style="@style/Edittext"
         android:layout_width="180dp"
         android:inputType="textEmailAddress"
         android:id="@+id/txtEmail"
-        android:hint="E-mail" />
+        android:hint="@string/Email" />
 
     <EditText
         style="@style/Edittext"
         android:layout_width="180dp"
         android:id="@+id/txtDireccionPersona"
-        android:hint="Direccion" />
+        android:hint="@string/Direccion_local" />
 
     <EditText
         style="@style/Edittext"
         android:layout_width="180dp"
         android:inputType="textPassword"
         android:id="@+id/txtPass"
-        android:hint="Contraseña" />
+        android:hint="@string/Pass" />
 
     <EditText
         style="@style/Edittext"
-        android:layout_width="180dp"
+        android:layout_width="210dp"
         android:id="@+id/txtPass2"
         android:inputType="textPassword"
-        android:hint="Repetir Contraseña" />
+        android:hint="@string/rep_pass" />
 
-    <FrameLayout
-        android:layout_width="382dp"
-        android:layout_height="16dp"
-        android:layout_weight="0.83"></FrameLayout>
 
     <Button
         style="@style/Boton"
+        android:layout_width="180dp"
         android:id="@+id/btnGuardar"
-        android:onClick="onClickbtnGuardar"
-        android:text="Guardar Registro" />
+        android:text="@string/Registrar_Cuenta" />
 
 </LinearLayout>

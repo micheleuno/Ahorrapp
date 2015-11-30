@@ -10,12 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:weightSum="1"
-
         >
 
-
         <TextView
-            android:layout_alignParentLeft="true"
             android:layout_width="1dp"
             android:layout_height="1dp"
             android:text="Large Text"
@@ -27,32 +24,29 @@
 
         <TextView
             android:id="@+id/Nombre"
-            android:layout_alignParentLeft="true"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-
+            android:textSize="17sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.35" />
 
         <TextView
-            android:layout_alignParentLeft="true"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="Large Text"
             android:id="@+id/Precio"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:layout_gravity="center_vertical"
             android:maxLines="1" />
 
         <TextView
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Large Text"
             android:id="@+id/Unidad"
-            android:textSize="19sp"
+            android:textSize="17sp"
             android:maxLines="1"
             android:layout_weight="0.35"
             android:layout_gravity="center_vertical" />

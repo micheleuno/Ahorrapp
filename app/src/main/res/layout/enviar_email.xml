@@ -17,14 +17,14 @@
 
     <EditText
         style="@style/Edittext"
-        android:hint="Ingrese la cuenta de correo"
+        android:hint="@string/ing_email"
         android:id="@+id/et_to"
         android:layout_width="260dp" />
 
     <Button
         android:id="@+id/btn_submit"
         style="@style/Boton"
-        android:text="Enviar datos"
+        android:text="@string/Recuperar_contraseña"
         />
 
 </LinearLayout>
