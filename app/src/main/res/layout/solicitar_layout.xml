@@ -22,7 +22,6 @@
         android:inputType="textPersonName"
         android:id="@+id/txtNombrePropietario"
         android:hint="@string/nombre_completo"
-        android:layout_width="226dp"
         android:layout_height="wrap_content" />
 
     <EditText
@@ -30,21 +29,18 @@
         android:inputType="phone"
         android:id="@+id/txtTelefono"
         android:hint="@string/telefono_local"
-        android:layout_width="226dp"
         android:layout_height="wrap_content" />
 
     <EditText
         style="@style/Edittext"
         android:id="@+id/txtDEstableciemiento"
         android:hint="@string/Direccion_local"
-        android:layout_width="226dp"
         android:layout_height="wrap_content" />
     <EditText
         style="@style/Edittext"
         android:inputType="textPersonName"
         android:id="@+id/txtRut"
         android:hint="@string/rut_local"
-        android:layout_width="226dp"
         android:layout_height="wrap_content" />
 
 
@@ -53,8 +49,6 @@
         android:inputType="textEmailAddress"
         android:id="@+id/txtemail"
         android:hint="@string/Email"
-        android:layout_width="227dp"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
     <Button

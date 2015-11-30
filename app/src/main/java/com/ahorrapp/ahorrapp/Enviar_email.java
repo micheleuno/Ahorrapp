@@ -53,11 +53,9 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Enviar_email.this);
         context = this;
-
         Button login = (Button) findViewById(R.id.btn_submit);
         reciep = (EditText) findViewById(R.id.et_to);
         reciep.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
-
         login.setOnClickListener(this);
     }
 
@@ -82,7 +80,7 @@ public class Enviar_email extends AppCompatActivity implements OnClickListener{
                 message.setFrom(new InternetAddress("ahorrapp.tds@gmail.com"));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(rec));
                 message.setSubject("Recuperación de contraseña");
-                message.setContent("Su Contraseña es:  "+contrasena + "Y su Usuario es: "+ user, "text/html; charset=utf-8");
+                message.setContent("Su Contraseña es:  "+contrasena + " Y su Usuario es: "+ user, "text/html; charset=utf-8");
                 Transport.send(message);
             } catch(Exception e) {
                 e.printStackTrace();

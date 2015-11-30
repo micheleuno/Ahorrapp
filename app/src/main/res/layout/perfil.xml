@@ -28,7 +28,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Bienvenido, "
             android:layout_marginTop="20dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:id="@+id/textbienvenido"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.27" />
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Nombre_ usuario"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:id="@+id/txtNombrePersona"
             android:layout_weight="0.69" />
 
