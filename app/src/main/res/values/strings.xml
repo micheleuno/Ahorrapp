@@ -62,6 +62,9 @@
     <string name="nombre_completo">Nombre Completo</string>
     <string name="rut_local">Rut Establecimiento</string>
     <string name="solicitar">Solicitar</string>
+    <string name="Contacto">Contacto</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="prods">Productos</string>
 
     <string-array name="inicio_sesion">
         <item>Iniciar Sesión</item>
