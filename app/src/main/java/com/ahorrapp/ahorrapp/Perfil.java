@@ -1,7 +1,11 @@
 package com.ahorrapp.ahorrapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +15,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +26,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 
@@ -33,6 +42,7 @@ public class Perfil extends AppCompatActivity {
     ImageView img;
     Button btn;
     private Bitmap bitmap;
+    private static final int DIALOG_ALERT = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +75,11 @@ public class Perfil extends AppCompatActivity {
         username.setText(nombre_pila);
 
         img = (ImageView)findViewById(R.id.foto_perfil);
-        btn = (Button)findViewById(R.id.tomar_foto);
+        btn = (Button)findViewById(R.id.foto);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //showDialog(DIALOG_ALERT);
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 01);
             }
@@ -76,21 +87,75 @@ public class Perfil extends AppCompatActivity {
     }
 
     @Override
+    /*protected Dialog onCreateDialog(int id){
+
+        switch (id){
+            case DIALOG_ALERT:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Seleccione opción para su foto de perfil");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Tomar Foto", new PicOnClickListener());
+                builder.setNegativeButton("Subir desde Memoria SD", new SdOnClickListener());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+        }
+        return super.onCreateDialog(id);
+    }
+
+    private final class PicOnClickListener implements DialogInterface.OnClickListener{
+        public void onClick(DialogInterface dialog, int which){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 01);
+        }
+    }
+
+    private final class SdOnClickListener implements DialogInterface.OnClickListener{
+        public void onClick(DialogInterface dialog, int which){
+            //Toast.makeText(getApplicationContext(), "xd", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(intent, 02);
+
+        }
+
+    }*/
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bmp = (Bitmap)data.getExtras().get("data");
-       
-        Bitmap circleBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
+        if(requestCode==01) {
+            Bitmap bmp = (Bitmap) data.getExtras().get("data");
 
-        BitmapShader shader = new BitmapShader(bmp,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        Paint paint = new Paint();
-        paint.setShader(shader);
-        paint.setAntiAlias(true);
-        Canvas c = new Canvas(circleBitmap);
-        c.drawCircle(bmp.getWidth()/2, bmp.getHeight()/2, bmp.getWidth()/2, paint);
+            Bitmap circleBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
 
-        img.setImageBitmap(circleBitmap);
+            BitmapShader shader = new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            Paint paint = new Paint();
+            paint.setShader(shader);
+            paint.setAntiAlias(true);
+            Canvas c = new Canvas(circleBitmap);
+            c.drawCircle(bmp.getWidth() / 2, bmp.getHeight() / 2, bmp.getWidth() / 2, paint);
 
+            img.setImageBitmap(circleBitmap);
+        }
+        /*if(requestCode==02){
+            Uri selectedImage = data.getData();
+            InputStream is;
+            try {
+                is = getContentResolver().openInputStream(selectedImage);
+                BufferedInputStream bis = new BufferedInputStream(is);
+                Bitmap bmp = BitmapFactory.decodeStream(bis);
+                Bitmap circleBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
+
+                BitmapShader shader = new BitmapShader(bmp, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                Paint paint = new Paint();
+                paint.setShader(shader);
+                paint.setAntiAlias(true);
+                Canvas c = new Canvas(circleBitmap);
+                c.drawCircle(bmp.getWidth() / 2, bmp.getHeight() / 2, bmp.getWidth() / 2, paint);
+
+                img.setImageBitmap(circleBitmap);
+            } catch (FileNotFoundException e) {}
+        }
+        if(resultCode==RESULT_CANCELED){
+            Toast.makeText(getApplicationContext(), "xd", Toast.LENGTH_SHORT).show();
+        }*/
     }
 
 

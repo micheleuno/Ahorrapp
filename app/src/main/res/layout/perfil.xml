@@ -16,22 +16,33 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-    <TableRow
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_gravity="center_horizontal"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/foto_perfil"
+            android:background="@drawable/btn_redondo"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/perfil_usuario"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="62dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Bienvenido, "
-            android:layout_marginTop="20dp"
             android:textSize="30sp"
             android:id="@+id/textbienvenido"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.27" />
+            android:layout_weight="0.27"
+            android:layout_below="@+id/foto_perfil"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,9 +51,22 @@
             android:text="Nombre_ usuario"
             android:textSize="30sp"
             android:id="@+id/txtNombrePersona"
-            android:layout_weight="0.69" />
+            android:layout_weight="0.69"
+            android:layout_below="@+id/foto_perfil"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    </TableRow>
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tomar foto"
+            android:id="@+id/foto"
+            android:layout_alignBottom="@+id/foto_perfil"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
     <GridLayout
         android:layout_width="match_parent"
