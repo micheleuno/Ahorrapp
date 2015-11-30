@@ -7,7 +7,7 @@ if (!empty($_POST)) {
     //obteneos los usuarios respecto a la usuario que llega por parametro
     $query = " 
             SELECT 
-                id, 
+                id,
                 username, 
                 password,
                 Nombre_usuario,
@@ -30,7 +30,7 @@ if (!empty($_POST)) {
     }
     catch (PDOException $ex) {
         //para testear pueden utilizar lo de abajo
-        //die("la consulta murio " . $ex->getMessage());
+        die("la consulta murio " . $ex->getMessage());
         
         $response["success"] = 0;
         $response["message"] = "Problema con la base de datos, vuelve a intetarlo";
@@ -59,12 +59,11 @@ if (!empty($_POST)) {
     // Otherwise, we display a login failed message and show the login form again 
     if ($login_ok) {
         $response["success"] = 1;
-        $response["message"] = "Se ha iniciado sesión";
-        $response["Usuario"] = array();
-        $usuario = array();
-                   
-                   
-        $usuario["Nombre_usuario"] = $row['Nombre_usuario'];
+        $response["message"] = "Se ha iniciado sesion";
+         $response["Usuario"] = array();
+        $usuario = array(); 
+         $usuario["Id_usuario"] = $row['id'];
+         $usuario["Nombre_usuario"] = $row['Nombre_usuario'];
         $usuario["Username"] = $row['username'];
         $usuario["Rut_usuario"] = $row['Rut_usuario'];
         $usuario["Id_establecimiento"] = $row['Id_establecimiento'];
@@ -93,4 +92,4 @@ if (!empty($_POST)) {
  <?php
 }
 
-?>
+?>	

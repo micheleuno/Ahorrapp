@@ -68,10 +68,6 @@ public class Solicitar extends AppCompatActivity implements View.OnClickListener
 
     }
 
-
-
-
-
     @Override
     public void onClick(View v) {
         contrasena = "";
@@ -115,8 +111,16 @@ public class Solicitar extends AppCompatActivity implements View.OnClickListener
                 message.setFrom(new InternetAddress(mail));
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("ahorrapp.tds@gmail.com"));
                 message.setSubject("Solicitud Establecimiento");
-                message.setContent("Yo "+ nom + " solicito el establecimiento cuyo rut y direccion es "+ ru +"   " +dire+ ". Porfavor llamar a la brevedad para confirmar solicitud "+ tele, "text/html; charset=utf-8");
+                message.setContent("Yo " + nom + " solicito el establecimiento rut"+ru+ " direccion " + dire + ". Porfavor llamar a la brevedad para confirmar solicitud " + tele, "text/html; charset=utf-8");
                 Transport.send(message);
+
+                Message message2 = new MimeMessage(session);
+                message2.setFrom(new InternetAddress(mail));
+                message2.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
+                message2.setSubject("Equipo de ahorrap.");
+                message2.setContent("Se ha enviado una solicitud para darse de alta como dueño de local, nos pondremos en contacto contigo pronto. \n Equipo de Ahorrapp.", "text/html; charset=utf-8");
+                Transport.send(message2);
+
             } catch(Exception e) {
                 e.printStackTrace();
             }

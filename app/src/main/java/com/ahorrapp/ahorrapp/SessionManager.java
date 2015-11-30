@@ -108,13 +108,13 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String username, String Rut,String Id,String email, String direccion){
+    public void createLoginSession(String id_usuario,String name, String username, String Rut,String Id,String email, String direccion){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(TAG_NOMBRE, name);
-
+        editor.putString("Id_usuario", id_usuario);
         // Storing username in pref
         editor.putString(TAG_N_USUARIO, username);
         // Storing Rut in pref
@@ -141,6 +141,8 @@ public class SessionManager {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<>();
         // user name
+
+        user.put("Id_usuario", pref.getString("Id_usuario", null));
         user.put(TAG_NOMBRE, pref.getString(TAG_NOMBRE, null));
         // user usuario
         user.put(TAG_N_USUARIO, pref.getString(TAG_N_USUARIO, null));
