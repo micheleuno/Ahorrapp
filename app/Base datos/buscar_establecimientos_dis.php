@@ -30,7 +30,7 @@
 					and(d.Nombre like ('%".$nombre."%') or ('".$nombre_local_flag."')=0  )
 					and (d.Rubro like ('%".$nombre."%') or ('".$rubro."')=0 )
 					having distance_in_km<2 or ('".$distancia."')  = 0
-					order by Ubicacion.Precio ASC
+					order by Ubicacio+n.Precio ASC
 
 
 			"; 

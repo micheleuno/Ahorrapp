@@ -92,7 +92,7 @@ public class Menu_a extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Alertas.abrir_mensaje_carga(Menu_a.this, "Ininiciando sesion");
+            Alertas.abrir_mensaje_carga(Menu_a.this, "Iniciando sesion");
             username = user.getText().toString();
             password = pass.getText().toString();
         }
@@ -115,7 +115,8 @@ public class Menu_a extends AppCompatActivity {
                     products = json.getJSONArray(TAG_USUARIO);
                     JSONObject c = products.getJSONObject(0);
                     // Storing each json item in variable
-                    session.createLoginSession(c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT), c.getString(TAG_ID), c.getString(TAG_EMAIL), c.getString(TAG_DIRECCION));
+                    session.createLoginSession(c.getString("Id_usuario"),c.getString(TAG_N_USUARIO), c.getString(TAG_NOMBRE), c.getString(TAG_RUT), c.getString(TAG_ID), c.getString(TAG_EMAIL), c.getString(TAG_DIRECCION));
+
                     Intent i = new Intent(Menu_a.this, MapsActivity.class);
                     finish();
                     startActivity(i);
