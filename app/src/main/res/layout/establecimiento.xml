@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Direccion"
+                android:text="@string/Direccion_local"
                 android:id="@+id/txtdireccion"
                 android:layout_weight="0.07" />
 
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Contacto"
+                android:text="@string/Contacto"
                 android:id="@+id/textcontacto"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.07" />
@@ -109,7 +109,7 @@
         <Button
             style="@style/Boton"
             android:id="@+id/btnComentarios"
-            android:text="Comentarios"
+            android:text="@string/comentarios"
 
            />
 
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Productos "
+            android:text="@string/prods"
             android:id="@+id/textproducto"
             android:layout_gravity="center_horizontal"
              />

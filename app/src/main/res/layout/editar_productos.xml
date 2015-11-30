@@ -16,16 +16,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        style="@style/Textview"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="@string/editar_producto"
-        android:id="@+id/txtregistro_es"
-        android:layout_gravity="center_horizontal" />
-
     <EditText
         android:layout_width="1dp"
         android:layout_height="1dp"

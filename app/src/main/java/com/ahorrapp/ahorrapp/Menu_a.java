@@ -45,7 +45,7 @@ public class Menu_a extends AppCompatActivity {
         setContentView(R.layout.menu);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar_local);
-        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Ahorrapp</font>"));
+        myToolbar.setTitle(Html.fromHtml("<font color='#FFFFFF'>Iniciar Sesión</font>"));
         myToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_36dp);
         setSupportActionBar(myToolbar);
         Alertas.cambiar_status_bar(Menu_a.this);
