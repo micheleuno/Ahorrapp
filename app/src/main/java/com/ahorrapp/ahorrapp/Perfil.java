@@ -1,19 +1,39 @@
 package com.ahorrapp.ahorrapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
 
 public class Perfil extends AppCompatActivity {
-
+    private static int TAKE_PICTURE = 1;
+    private static int SELECT_PICTURE = 2;
+    private String name = "";
     SessionManager session;
+    ImageView img;
+    Button btn;
+    private Bitmap bitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +63,40 @@ public class Perfil extends AppCompatActivity {
 
         TextView username = (TextView) findViewById(R.id.txtEmail);
         username.setText(nombre_pila);
+
+        img = (ImageView)findViewById(R.id.foto_perfil);
+        btn = (Button)findViewById(R.id.tomar_foto);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 01);
+            }
+        });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bmp = (Bitmap)data.getExtras().get("data");
+       
+        Bitmap circleBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), Bitmap.Config.ARGB_8888);
+
+        BitmapShader shader = new BitmapShader(bmp,  Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        Paint paint = new Paint();
+        paint.setShader(shader);
+        paint.setAntiAlias(true);
+        Canvas c = new Canvas(circleBitmap);
+        c.drawCircle(bmp.getWidth()/2, bmp.getHeight()/2, bmp.getWidth()/2, paint);
+
+        img.setImageBitmap(circleBitmap);
+
+    }
+
+
+
+
+
     @Override
     public void onBackPressed() {
         Intent nuevoform = new Intent(Perfil.this, MapsActivity.class);
