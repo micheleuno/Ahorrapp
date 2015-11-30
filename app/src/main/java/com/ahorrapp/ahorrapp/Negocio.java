@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -70,9 +71,9 @@ public class Negocio extends AppCompatActivity {
         datos = new ArrayList<>();
         produc = new ArrayList<>();
         name = (EditText) findViewById(R.id.editnombre);
-        name.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        name.getBackground().setColorFilter(ContextCompat.getColor(Negocio.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         precio = (EditText) findViewById(R.id.editprecio);
-        precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        precio.getBackground().setColorFilter(ContextCompat.getColor(Negocio.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
         if(Alertas.Verificar_conexion(Negocio.this)){

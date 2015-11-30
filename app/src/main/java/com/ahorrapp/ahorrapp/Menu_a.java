@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -53,9 +54,9 @@ public class Menu_a extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
        // session.checkLogin();
         user = (EditText) findViewById(R.id.txtUsuario);
-        user.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        user.getBackground().setColorFilter(ContextCompat.getColor(Menu_a.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass = (EditText) findViewById(R.id.txtPass);
-        pass.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        pass.getBackground().setColorFilter(ContextCompat.getColor(Menu_a.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         final Button iniciar = (Button) findViewById(R.id.btnIniciarSesion);
         iniciar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -111,15 +112,15 @@ public class Registrar_establecimiento extends AppCompatActivity {
 
 
         descripcion = (EditText)findViewById(R.id.txtDescripcion); //nombre de la cuenta
-        descripcion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        descripcion.getBackground().setColorFilter(ContextCompat.getColor(Registrar_establecimiento.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         contacto = (EditText)findViewById(R.id.txtContacto);
-        contacto.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        contacto.getBackground().setColorFilter(ContextCompat.getColor(Registrar_establecimiento.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre = (EditText)findViewById(R.id.txtNombreEstablecimiento); //nombre de la persona
-        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        nombre.getBackground().setColorFilter(ContextCompat.getColor(Registrar_establecimiento.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText)findViewById(R.id.txtDireccionEstablecimiento);
-        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        direccion.getBackground().setColorFilter(ContextCompat.getColor(Registrar_establecimiento.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         rubro = (EditText)findViewById(R.id.txtRubro);
-        rubro.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        rubro.getBackground().setColorFilter(ContextCompat.getColor(Registrar_establecimiento.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         Geocoder geocoder;
         List<Address> addresses;

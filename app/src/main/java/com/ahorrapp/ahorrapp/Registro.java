@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -39,18 +40,17 @@ public class Registro extends AppCompatActivity {
         Alertas.cambiar_status_bar(Registro.this);
 
         user = (EditText)findViewById(R.id.txtusername); //nombre de la cuenta
-        user.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        user.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass = (EditText)findViewById(R.id.txtPass); //primer password
-        pass.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        pass.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         pass2 = (EditText)findViewById(R.id.txtPass2); //segundo password
-        pass2.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        pass2.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         email = (EditText)findViewById(R.id.txtEmail);
-        email.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        email.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre = (EditText)findViewById(R.id.txtNombrePersona); //nombre de la persona
-        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        nombre.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText)findViewById(R.id.txtDireccionPersona);
-        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
-
+        direccion.getBackground().setColorFilter(ContextCompat.getColor(Registro.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         final Button  mRegister = (Button)findViewById(R.id.btnGuardar);
         mRegister.setOnClickListener(new View.OnClickListener() {

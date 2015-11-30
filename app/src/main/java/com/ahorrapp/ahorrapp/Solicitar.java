@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -51,18 +52,18 @@ public class Solicitar extends AppCompatActivity implements View.OnClickListener
         Button login = (Button) findViewById(R.id.btnSoliciud);
         HashMap<String, String> user = sessions.getUserDetails();
         reciep = (EditText) findViewById(R.id.txtemail);
-        reciep.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        reciep.getBackground().setColorFilter(ContextCompat.getColor(Solicitar.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         reciep.setText(user.get("Email"));
         nombre =(EditText) findViewById(R.id.txtNombrePropietario);
-        nombre.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        nombre.getBackground().setColorFilter(ContextCompat.getColor(Solicitar.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         nombre.setText(user.get("Username"));
         telefono = (EditText) findViewById(R.id.txtTelefono);
-        telefono.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        telefono.getBackground().setColorFilter(ContextCompat.getColor(Solicitar.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion = (EditText) findViewById(R.id.txtDEstableciemiento);
-        direccion.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        direccion.getBackground().setColorFilter(ContextCompat.getColor(Solicitar.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         direccion.setText(user.get("Direccion"));
         rut = (EditText) findViewById(R.id.txtRut);
-        rut.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        rut.getBackground().setColorFilter(ContextCompat.getColor(Solicitar.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         login.setOnClickListener(this);
 

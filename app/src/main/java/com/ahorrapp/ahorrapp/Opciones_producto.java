@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -64,11 +65,11 @@ public class Opciones_producto extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         id_producto.setText(bundle.getString("id_producto"));
-        id_producto.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        id_producto.getBackground().setColorFilter(ContextCompat.getColor(Opciones_producto.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         name.setText(bundle.getString("nombre"));
-        name.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        name.getBackground().setColorFilter(ContextCompat.getColor(Opciones_producto.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
         precio.setText(bundle.getString("precio"));
-        precio.getBackground().setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+        precio.getBackground().setColorFilter(ContextCompat.getColor(Opciones_producto.this, R.color.primary), PorterDuff.Mode.SRC_ATOP);
 
         lista = (Spinner) findViewById(R.id.Unidades);
         lista_p = (ListView)findViewById(R.id.listProductos);
