@@ -481,7 +481,7 @@ public class MapsActivity extends AppCompatActivity  implements
                     //Seteamos el tipo de mapa
 
                     googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 10));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
                     //Activamos la capa o layer MyLocation
                     googleMap.setMyLocationEnabled(true);
                 }

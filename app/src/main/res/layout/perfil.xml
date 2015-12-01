@@ -25,7 +25,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/foto_perfil"
-            android:background="@drawable/btn_redondo"
             android:scaleType="centerCrop"
             android:src="@mipmap/perfil_usuario"
             android:layout_alignParentTop="true"
@@ -64,7 +63,9 @@
             android:id="@+id/foto"
             android:layout_alignBottom="@+id/foto_perfil"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+
+            android:layout_alignParentEnd="true"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
