@@ -45,7 +45,7 @@ public class MapsActivity extends AppCompatActivity  implements
     private GoogleMap googleMap;
     ArrayList<HashMap<Double,Double>> establepos;
     ArrayList<HashMap<String,String>> establedes;
-    String latitud,longitud;
+    String latitud,longitud,altura_camara;
     EditText Producto;
     JSONParser jsonParser = new JSONParser();
     Marker marker;
@@ -55,6 +55,8 @@ public class MapsActivity extends AppCompatActivity  implements
     private static final String TAG_PRODUCTS = "Establecimiento";
     private static final String TAG_LATITUD = "Latitud";
     private static final String TAG_LONGITUD = "Longitud";
+    private static final String TAG_LATITUD_CAMARA = "Latitud_camara";
+    private static final String TAG_LONGITUD_CAMARA = "Longitud_camara";
     private static final String TAG_DIRECCION = "Direccion";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_ID = "idEstablecimiento";
@@ -368,6 +370,8 @@ public class MapsActivity extends AppCompatActivity  implements
             public void onInfoWindowClick(Marker marker) {
                 if( Alertas.Verificar_conexion(MapsActivity.this)){ //Si hay conexion a la red
                     if(marker.getTitle().equals("Nuevo Establecimiento")){
+                        session.addDataPosCamara(Double.toString(marker.getPosition().latitude),Double.toString(marker.getPosition().longitude),altura_camara);
+                        Log.e("mapsactivity",altura_camara);
                         Intent nuevoform = new Intent(MapsActivity.this, Registrar_establecimiento.class);
                         Double latitud = marker.getPosition().latitude;
                         Double longitud = marker.getPosition().longitude;
@@ -378,10 +382,12 @@ public class MapsActivity extends AppCompatActivity  implements
                     }
                     else{
                         Intent nuevoform = new Intent(MapsActivity.this, Local.class);
+                        session.addDataPosCamara(Double.toString(marker.getPosition().latitude),Double.toString(marker.getPosition().longitude),Float.toString(googleMap.getCameraPosition().zoom  ));
                         Double latitud = marker.getPosition().latitude;
                         Double longitud = marker.getPosition().longitude;
                         nuevoform.putExtra("latitude", Double.toString(latitud));
                         nuevoform.putExtra("longitude",  Double.toString(longitud));
+                        Log.e("mapsactivity", Float.toString(googleMap.getCameraPosition().zoom  ));
                         nuevoform.putExtra("nombre", marker.getTitle());
                         startActivity(nuevoform);
                     }
@@ -471,7 +477,17 @@ public class MapsActivity extends AppCompatActivity  implements
 
 
     private void createMapView(){
-        final LatLng UPV = new LatLng(-33.044662, -71.612465);
+        LatLng UPV = new LatLng(-33.044662, -71.612465);
+        float altura = 15;
+        HashMap<String, String> posicion_camara;
+        posicion_camara = session.getDataPosCamara();
+        if(posicion_camara.get("Altura_camara")!=null){
+            UPV = new LatLng(Double.parseDouble(posicion_camara.get("Latitud_camara")),Double.parseDouble(posicion_camara.get("Longitud_camara")));
+            altura=Float.parseFloat(posicion_camara.get("Altura_camara"));
+            altura_camara=Float.toString(altura);
+        }else
+            altura_camara=Float.toString(altura);
+
         try {
             if(null == googleMap){
                 googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -481,7 +497,7 @@ public class MapsActivity extends AppCompatActivity  implements
                     //Seteamos el tipo de mapa
 
                     googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, 15));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, altura));
                     //Activamos la capa o layer MyLocation
                     googleMap.setMyLocationEnabled(true);
                 }

@@ -94,8 +94,8 @@ public class Menu_a extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             Alertas.abrir_mensaje_carga(Menu_a.this, "Iniciando sesion");
-            username = user.getText().toString();
-            password = pass.getText().toString();
+            username = user.getText().toString().trim();
+            password = pass.getText().toString().trim();
         }
 
         @Override

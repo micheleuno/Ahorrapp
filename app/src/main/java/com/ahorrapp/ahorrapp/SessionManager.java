@@ -67,6 +67,20 @@ public class SessionManager {
 
         return flags;
     }
+    public void addDataPosCamara(String latitud, String longitud, String altura){
+        editor.putString("Altura_camara", altura);
+        editor.putString("Latitud_camara", latitud);
+        editor.putString("Longitud_camara", longitud);
+        editor.commit();
+    }
+    public HashMap<String, String> getDataPosCamara(){
+        HashMap<String, String> posCamara = new HashMap<>();
+
+        posCamara.put("Altura_camara", pref.getString("Altura_camara", null));
+        posCamara.put("Latitud_camara", pref.getString("Latitud_camara", null));
+        posCamara.put("Longitud_camara", pref.getString("Longitud_camara", null));
+        return posCamara;
+    }
 
         public void addDataLocal(String nombre, String latitud, String longitud){
             editor.putString(TAG_NOMBRE_ESTA, nombre);
