@@ -1,4 +1,4 @@
-	<?php
+		<?php
 		$response = array();
 		require_once __DIR__ . '/db_config.php';
 		if(!empty($_POST)){

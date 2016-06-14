@@ -1,10 +1,14 @@
 package com.ahorrapp.ahorrapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -495,11 +499,21 @@ public class MapsActivity extends AppCompatActivity  implements
                     // El objeto GoogleMap ha sido referenciado correctamente
                     //ahora podemos manipular sus propiedades
                     //Seteamos el tipo de mapa
+                    if (ContextCompat.checkSelfPermission(MapsActivity.this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(MapsActivity.this,
+                                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                                1);
 
-                    googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, altura));
-                    //Activamos la capa o layer MyLocation
-                    googleMap.setMyLocationEnabled(true);
+                    }else{
+                        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UPV, altura));
+                        //Activamos la capa o layer MyLocation
+                        googleMap.setMyLocationEnabled(true);
+                    }
+
+
                 }
                 if(null == googleMap) {
                     Toast.makeText(getApplicationContext(),
